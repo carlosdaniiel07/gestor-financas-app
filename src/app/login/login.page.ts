@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +7,21 @@ import { NavController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private navCtrl: NavController) { }
+  constructor(private navController: NavController, private menuController: MenuController) { }
 
   ngOnInit() {
+    
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(false)
+  }
+
+  ionViewDidLeave() {
+    this.menuController.enable(true)
   }
 
   login(): void {
-    this.navCtrl.navigateForward('/home')
+    this.navController.navigateForward('/home')
   }
 }
