@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Gestor de Finanças</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Login</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- inputs -->
+      <ion-item>
+        <ion-label position="stacked">E-mail</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Senha</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+      <br/>
+
+      <ion-item lines="none">
+        <ion-label>Lembrar minha senha</ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item>
+      <!-- /.inputs -->
+
+      <br/>
+
+      <ion-button color="primary" size="default" expand="block" (click)="login()">Entrar</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
