@@ -40,8 +40,8 @@ export class LoginPage implements OnInit {
 
   private initForm(): void {
     this.loginForm = this.fb.group({
-      loginOuEmail: ['', Validators.required],
-      senha: ['', Validators.required]
+      loginOuEmail: ['carlos.almeida', Validators.required],
+      senha: ['123mudar', Validators.required]
     })
   }
 
