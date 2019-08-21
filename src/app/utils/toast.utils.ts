@@ -9,7 +9,7 @@ export class ToastUtils {
     public showToast(message: string, duration: number = 2000): void {
         this.toastController.create({
             message: message,
-            duration: duration,
+            duration: duration
         }).then((toast) => toast.present())
     }
 }

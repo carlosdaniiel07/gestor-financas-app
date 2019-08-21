@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouteGuard } from './route.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'home', loadChildren: './home/home.module#HomePageModule', canLoad: [ RouteGuard ] },
+  { path: 'categorias', loadChildren: './categorias/categorias.module#CategoriasPageModule', canLoad: [ RouteGuard ] }
 ];
 
 @NgModule({
