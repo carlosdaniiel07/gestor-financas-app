@@ -1,31 +1,39 @@
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <!-- inputs -->
-      <ion-item>
-        <ion-label position="stacked">E-mail</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Login</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- form -->
+            <form [formGroup]="loginForm">
+              <ion-item>
+                <ion-label position="stacked">E-mail</ion-label>
+                <ion-input type="text" formControlName="loginOuEmail"></ion-input>
+              </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked">Senha</ion-label>
-        <ion-input type="password"></ion-input>
-      </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Senha</ion-label>
+                <ion-input type="password" formControlName="senha"></ion-input>
+              </ion-item>
 
-      <br />
+              <br />
 
-      <ion-item lines="none">
-        <ion-label>Lembrar minha senha</ion-label>
-        <ion-checkbox></ion-checkbox>
-      </ion-item>
-      <!-- /.inputs -->
+              <ion-item lines="none">
+                <ion-label>Lembrar minha senha</ion-label>
+                <ion-checkbox></ion-checkbox>
+              </ion-item>
+              <br />
+            </form>
+            <!-- /.form -->
 
-      <br />
-
-      <ion-button color="primary" size="default" expand="block" (click)="login()">Entrar</ion-button>
-    </ion-card-content>
-  </ion-card>
+            <ion-button color="primary" size="default" expand="block" (click)="login()" [disabled]="!loginForm.valid">
+              Entrar</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
