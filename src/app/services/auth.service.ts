@@ -27,7 +27,7 @@ export class AuthService {
             this.token = res.headers.get('Authorization').substr(7)
             this.usuarioLogado = res.body
             
-            this.toast.showToast(`Bem vindo(a), ${this.usuarioLogado.nome.split(' ')[0]}!`, 3000)
+            this.toast.showToast(`Bem vindo(a), ${this.usuarioLogado.nome.split(' ')[0]}!`, 2000)
             this.navController.navigateForward('/home')
         }, (err: HttpErrorResponse) => {
             let httpStatus = err.status

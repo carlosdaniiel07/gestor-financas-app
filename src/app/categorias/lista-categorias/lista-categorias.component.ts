@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ActionSheetController, AlertController } from '@ionic/angular';
+
 import { Categoria } from 'src/app/models/categoria.model';
-import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-lista-categorias',
@@ -11,7 +12,11 @@ export class ListaCategoriasComponent implements OnInit {
   @Input() categorias: Categoria[] = []
   @Input() header: string = ''
 
-  constructor(private actionSheet: ActionSheetController) { }
+  @Output() detalhesEventEmitter = new EventEmitter<Categoria>()
+  @Output() editarEventEmitter = new EventEmitter<Categoria>()
+  @Output() removerEventEmitter = new EventEmitter<Categoria>()
+
+  constructor(private actionSheet: ActionSheetController, private alertController: AlertController) { }
 
   ngOnInit() { }
 
@@ -19,13 +24,22 @@ export class ListaCategoriasComponent implements OnInit {
     return Categoria.isCredito(categoria)
   }
 
-  openActionDialog(categoria: Categoria): void {
+  openOptionsDialog(categoria: Categoria): void {
     this.actionSheet.create({
       header: 'Escolha uma opção',
       buttons: [
-        {text: 'Detalhes', handler: () => console.log(categoria) },
-        {text: 'Editar'},
-        {text: 'Remover'}
+        {text: 'Detalhes', handler: () => this.detalhesEventEmitter.emit(categoria) },
+        {text: 'Editar', handler: () => this.editarEventEmitter.emit(categoria)},
+        {text: 'Remover', handler: () => {
+          this.alertController.create({
+            header: 'Confirmar',
+            message: `Deseja realmente excluir a categoria ${categoria.nome}?`,
+            buttons: [
+              {text: 'Não'},
+              {text: 'Sim', handler: () => this.removerEventEmitter.emit(categoria)}
+            ]
+          }).then(alert => alert.present())
+        }}
       ]
     }).then((actionSheet) => actionSheet.present())
   }

@@ -1,0 +1,25 @@
+<app-page-header headerName="Editar categoria"></app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="editForm">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tipo</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="tipo">
+          <ion-select-option value="C">Crédito</ion-select-option>
+          <ion-select-option value="D">Débito</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!editForm.valid" (click)="atualizar()">
+    Atualizar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>

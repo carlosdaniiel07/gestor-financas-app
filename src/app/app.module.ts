@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './core.module';
 
 import { RequestInterceptor } from './request.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,8 @@ import { RequestInterceptor } from './request.interceptor';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,18 @@
+<ion-list>
+  <form [formGroup]="detailsForm">
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input formControlName="nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Tipo</ion-label>
+      <ion-input formControlName="tipo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Editável</ion-label>
+      <ion-toggle formControlName="editavel"></ion-toggle>
+    </ion-item>
+  </form>
+</ion-list>

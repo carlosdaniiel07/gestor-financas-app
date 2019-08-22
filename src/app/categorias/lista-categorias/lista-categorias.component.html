@@ -2,7 +2,7 @@
   <ion-list-header>{{header}}</ion-list-header>
 
   <ion-item *ngFor="let categoria of categorias">
-    <ion-label (click)="openActionDialog(categoria)">
+    <ion-label (click)="openOptionsDialog(categoria)">
       <h3>{{categoria.nome}}</h3>
       <p *ngIf="categoria.editavel">Editável: <strong>Sim</strong></p>
       <p *ngIf="!categoria.editavel">Editável: <strong>Não</strong></p>
