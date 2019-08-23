@@ -5,15 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DetalhesCategoriaPage } from './detalhes-categoria.page';
+import { InserirSubcategoriaPage } from './inserir-subcategoria.page';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RouteGuard } from 'src/app/route.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: DetalhesCategoriaPage,
-    canActivate: [ RouteGuard ]
+    component: InserirSubcategoriaPage
   }
 ];
 
@@ -25,6 +23,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  declarations: [DetalhesCategoriaPage]
+  declarations: [InserirSubcategoriaPage]
 })
-export class DetalhesCategoriaPageModule {}
+export class InserirSubcategoriaPageModule {}

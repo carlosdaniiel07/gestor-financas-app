@@ -3,7 +3,7 @@
 
   <ion-item *ngFor="let categoria of categorias">
     <ion-label (click)="openOptionsDialog(categoria)">
-      <h3>{{categoria.nome}}</h3>
+      <h2>{{categoria.nome}}</h2>
       <p *ngIf="categoria.editavel">Editável: <strong>Sim</strong></p>
       <p *ngIf="!categoria.editavel">Editável: <strong>Não</strong></p>
     </ion-label>

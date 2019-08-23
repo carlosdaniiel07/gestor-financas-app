@@ -1,0 +1,15 @@
+<ion-list>
+  <ion-list-header>
+    <ion-label>{{header}}</ion-label>
+  </ion-list-header>
+
+  <ion-item *ngFor="let subcategoria of subcategorias">
+    <ion-label (click)="openOptionsDialog(subcategoria)">
+      <h2>{{subcategoria.nome}}</h2>
+      <p>Categoria: <strong>{{subcategoria.categoria.nome}}</strong></p>
+    </ion-label>
+
+    <ion-badge *ngIf="isCredito(subcategoria.categoria)" color="success">{{subcategoria.categoria.tipo}}</ion-badge>
+    <ion-badge *ngIf="!isCredito(subcategoria.categoria)" color="danger">{{subcategoria.categoria.tipo}}</ion-badge>
+  </ion-item>
+</ion-list>

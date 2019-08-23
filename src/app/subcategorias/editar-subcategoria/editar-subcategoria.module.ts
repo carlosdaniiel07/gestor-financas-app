@@ -5,14 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DetalhesCategoriaPage } from './detalhes-categoria.page';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { EditarSubcategoriaPage } from './editar-subcategoria.page';
 import { RouteGuard } from 'src/app/route.guard';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: DetalhesCategoriaPage,
+    component: EditarSubcategoriaPage,
     canActivate: [ RouteGuard ]
   }
 ];
@@ -25,6 +25,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  declarations: [DetalhesCategoriaPage]
+  declarations: [EditarSubcategoriaPage]
 })
-export class DetalhesCategoriaPageModule {}
+export class EditarSubcategoriaPageModule {}

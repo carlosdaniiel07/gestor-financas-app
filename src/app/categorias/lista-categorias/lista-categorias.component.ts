@@ -28,9 +28,9 @@ export class ListaCategoriasComponent implements OnInit {
     this.actionSheet.create({
       header: 'Escolha uma opção',
       buttons: [
-        {text: 'Detalhes', handler: () => this.detalhesEventEmitter.emit(categoria) },
-        {text: 'Editar', handler: () => this.editarEventEmitter.emit(categoria)},
-        {text: 'Remover', handler: () => {
+        {text: 'Detalhes', icon: 'eye', handler: () => this.detalhesEventEmitter.emit(categoria) },
+        {text: 'Editar', icon: 'create', handler: () => this.editarEventEmitter.emit(categoria)},
+        {text: 'Remover', icon: 'trash', handler: () => {
           this.alertController.create({
             header: 'Confirmar',
             message: `Deseja realmente excluir a categoria ${categoria.nome}?`,

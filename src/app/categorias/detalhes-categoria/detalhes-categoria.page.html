@@ -1,19 +1,65 @@
-<app-page-header headerName="Detalhes da categoria"></app-page-header>
+<app-page-header headerName=""></app-page-header>
 
 <ion-content>
-    <ion-tabs>
-        <!-- tabs-menu -->
-        <ion-tab-bar slot="bottom">
-            <ion-tab-button tab="geral">
-                <ion-icon name="document"></ion-icon>
-                <ion-label>Detalhes</ion-label>
-            </ion-tab-button>
+    <!-- category-details -->
+    <ion-list>
+        <ion-list-header>
+            <ion-label>Detalhes da categoria</ion-label>
+        </ion-list-header>
 
-            <ion-tab-button tab="movimentos">
-                <ion-icon name="list"></ion-icon>
-                <ion-label>Movimentos</ion-label>
-            </ion-tab-button>
-        </ion-tab-bar>
-        <!-- /.tabs-menu -->
-    </ion-tabs>
+        <form [formGroup]="detailsForm">
+            <ion-item>
+                <ion-label position="stacked">Nome</ion-label>
+                <ion-input formControlName="nome"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Tipo</ion-label>
+                <ion-input formControlName="tipo"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Editável</ion-label>
+                <ion-toggle formControlName="editavel"></ion-toggle>
+            </ion-item>
+        </form>
+    </ion-list>
+    <!-- /.category-details-->
+
+    <!-- subcategories -->
+    <ion-list *ngIf="hasSubcategorias()" class="item-borderless">
+        <ion-list-header>
+            <ion-label>Subcategorias</ion-label>
+        </ion-list-header>
+
+        <ion-item-sliding *ngFor="let subcategoria of subcategorias">
+            <!-- item-options -->
+            <ion-item-options side="start">
+                <ion-item-option color="danger" (click)="removerSubcategoria(subcategoria)">
+                    Remover <ion-icon name="trash"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+            <!-- /.item-options -->
+
+            <ion-item [routerLink]="['/subcategorias/detalhes', subcategoria.id]">
+                <ion-label>
+                    <h2>{{subcategoria.nome}}</h2>
+                    <p>
+                        Editável:
+                        <strong *ngIf="subcategoria.editavel">Sim</strong>
+                        <strong *ngIf="!subcategoria.editavel">Não</strong>
+                    </p>
+                </ion-label>
+            </ion-item>
+
+            <!-- item-options -->
+            <ion-item-options side="end">
+                <ion-item-option color="warning" (click)="editarSubcategoria(subcategoria)">
+                    Editar <ion-icon name="create"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+            <!-- /.item-options -->
+        </ion-item-sliding>
+    </ion-list>
+    <!-- /.subcategories -->
 </ion-content>

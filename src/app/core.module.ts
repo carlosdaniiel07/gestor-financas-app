@@ -4,6 +4,7 @@ import { AuthService } from './services/auth.service';
 import { ToastUtils } from './utils/toast.utils';
 import { RouteGuard } from './route.guard';
 import { CategoriaService } from './services/categoria.service';
+import { SubcategoriaService } from './services/subcategoria.service';
 
 @NgModule({
   declarations: [],
@@ -13,6 +14,7 @@ import { CategoriaService } from './services/categoria.service';
   providers: [
     AuthService,
     CategoriaService,
+    SubcategoriaService,
     ToastUtils,
     RouteGuard
   ]

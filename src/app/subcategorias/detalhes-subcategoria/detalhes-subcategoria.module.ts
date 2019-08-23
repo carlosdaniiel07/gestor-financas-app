@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DetalhesCategoriaPage } from './detalhes-categoria.page';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { DetalhesSubcategoriaPage } from './detalhes-subcategoria.page';
 import { RouteGuard } from 'src/app/route.guard';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: DetalhesCategoriaPage,
+    component: DetalhesSubcategoriaPage,
     canActivate: [ RouteGuard ]
   }
 ];
@@ -25,6 +25,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  declarations: [DetalhesCategoriaPage]
+  declarations: [DetalhesSubcategoriaPage]
 })
-export class DetalhesCategoriaPageModule {}
+export class DetalhesSubcategoriaPageModule {}

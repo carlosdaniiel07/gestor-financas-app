@@ -17,6 +17,10 @@ export class CategoriasPage implements OnInit {
   constructor(private navController: NavController, private categoriaService: CategoriaService, private toast: ToastUtils) { }
 
   ngOnInit() {
+    
+  }
+
+  ionViewWillEnter() {
     this.categoriaService.getAll().subscribe((dados: Categoria[]) => this.categorias = dados)
   }
 

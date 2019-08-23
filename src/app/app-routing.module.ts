@@ -10,7 +10,8 @@ const routes: Routes = [
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule', canLoad: [ RouteGuard ] },
-  { path: 'categorias', loadChildren: './categorias/categorias.module#CategoriasPageModule', canLoad: [ RouteGuard ] }
+  { path: 'categorias', loadChildren: './categorias/categorias.module#CategoriasPageModule', canLoad: [ RouteGuard ] },
+  { path: 'subcategorias', loadChildren: './subcategorias/subcategorias.module#SubcategoriasPageModule', canLoad: [ RouteGuard ] }
 ];
 
 @NgModule({
