@@ -10,7 +10,7 @@
             <!-- form -->
             <form [formGroup]="loginForm">
               <ion-item>
-                <ion-label position="stacked">E-mail</ion-label>
+                <ion-label position="stacked">Login ou e-mail</ion-label>
                 <ion-input type="text" formControlName="loginOuEmail"></ion-input>
               </ion-item>
 
@@ -23,7 +23,7 @@
 
               <ion-item lines="none">
                 <ion-label>Lembrar minha senha</ion-label>
-                <ion-checkbox></ion-checkbox>
+                <ion-checkbox formControlName="lembrarSenha"></ion-checkbox>
               </ion-item>
               <br />
             </form>

@@ -21,7 +21,7 @@ export class RouteGuard implements CanLoad, CanActivate {
         if(this.authService.isLogado()) {
             return true
         } else {
-            this.toast.showToast('Você não está logado!')
+            this.toast.showToast('Você não está logado')
             this.navController.navigateRoot('/login')
             
             return false

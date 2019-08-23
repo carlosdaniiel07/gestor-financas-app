@@ -8,36 +8,36 @@ import { ToastUtils } from '../utils/toast.utils';
 
 import { AutenticacaoDTO } from '../models/autenticacao.dto';
 import { Usuario } from '../models/usuario.model';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
 
     private logado: boolean = false
     private token: string = ''
-    private usuarioLogado: Usuario = null
     
-    constructor(private http: HttpClient, private navController: NavController, private toast: ToastUtils) {}
+    constructor(private http: HttpClient) {}
 
-    login(credenciais: AutenticacaoDTO): void {
+    login(credenciais: AutenticacaoDTO): Observable<HttpResponse<Usuario>> {
         let requestBody = JSON.stringify(credenciais)
         let headers = new HttpHeaders().append('Content-Type', 'application/json')
 
-        this.http.post(`${APP_CONFIG.apiUrl}/login`, requestBody, {headers: headers, observe: 'response'}).subscribe((res: HttpResponse<Usuario>) => {
-            this.logado = true
-            this.token = res.headers.get('Authorization').substr(7)
-            this.usuarioLogado = res.body
-            
-            this.toast.showToast(`Bem vindo(a), ${this.usuarioLogado.nome.split(' ')[0]}!`, 2000)
-            this.navController.navigateForward('/home')
-        }, (err: HttpErrorResponse) => {
-            let httpStatus = err.status
+        return this.http.post<Usuario>(`${APP_CONFIG.apiUrl}/login`, requestBody, {headers: headers, observe: 'response'})
+    }
 
-            if(httpStatus === 403) {
-                this.toast.showToast('Usuário ou senha incorretos!')
-            } else {
-                this.toast.showToast('Falha ao se comunicar com o servidor.')
-            }
-        })
+    successfulLogin(response: HttpResponse<Usuario>): void {
+        this.logado = true
+        this.token = response.headers.get('Authorization').substr(7)
+
+        localStorage.setItem('usuarioLogado', JSON.stringify(response.body))
+    }
+
+    salvaCredenciais(credenciais: AutenticacaoDTO): void {
+        localStorage.setItem('credenciais', JSON.stringify(credenciais))
+    }
+
+    getCredenciais(): AutenticacaoDTO {
+        return JSON.parse(localStorage.getItem('credenciais'))
     }
 
     isLogado(): boolean {
@@ -49,6 +49,14 @@ export class AuthService {
     }
 
     getUsuarioLogado(): Usuario {
-        return this.usuarioLogado
+        return JSON.parse(localStorage.getItem('usuarioLogado'))
+    }
+
+    logout(): void {
+        this.logado = false
+        this.token = ''
+
+        localStorage.removeItem('usuarioLogado')
+        localStorage.removeItem('credenciais')
     }
 }
