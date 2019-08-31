@@ -1,0 +1,13 @@
+<ion-list>
+  <ion-item *ngFor="let tipoConta of tiposConta">
+    <ion-label>
+      <h2>{{tipoConta.nome}}</h2>
+    </ion-label>
+
+    <ion-chip color="primary" outline>
+      <ion-icon name="create" (click)="editar(tipoConta)"></ion-icon>
+      <ion-label>Ações</ion-label>
+      <ion-icon name="trash" (click)="remover(tipoConta)"></ion-icon>
+    </ion-chip>
+  </ion-item>
+</ion-list>

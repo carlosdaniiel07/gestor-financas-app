@@ -13,10 +13,14 @@ import { CoreModule } from './core.module';
 
 import { RequestInterceptor } from './request.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { MenuOtherOptionsComponent } from './menu-other-options/menu-other-options.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent,
+    MenuOtherOptionsComponent
+  ],
+  entryComponents: [ MenuOtherOptionsComponent ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

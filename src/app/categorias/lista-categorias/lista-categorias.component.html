@@ -8,7 +8,14 @@
       <p *ngIf="!categoria.editavel">Editável: <strong>Não</strong></p>
     </ion-label>
 
-    <ion-badge *ngIf="isCredito(categoria)" color="success">{{categoria.tipo}}</ion-badge>
-    <ion-badge *ngIf="!isCredito(categoria)" color="danger">{{categoria.tipo}}</ion-badge>
+    <ion-chip *ngIf="isCredito(categoria); else categoriaDebito" color="success">
+      <ion-label>{{categoria.tipo}}</ion-label>
+    </ion-chip>
+
+    <ng-template #categoriaDebito>
+      <ion-chip color="danger">
+        <ion-label>{{categoria.tipo}}</ion-label>
+      </ion-chip>
+    </ng-template>
   </ion-item>
 </ion-list>

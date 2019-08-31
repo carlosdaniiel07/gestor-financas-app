@@ -5,6 +5,7 @@ import { ToastUtils } from 'src/app/utils/toast.utils';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Subcategoria } from 'src/app/models/subcategoria.model';
 import { SubcategoriaDTO } from 'src/app/models/subcategoria.dto';
+import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
   selector: 'app-inserir-subcategoria',
@@ -15,7 +16,7 @@ export class InserirSubcategoriaPage implements OnInit {
   subcategoriaForm: FormGroup
   categoriasDisponiveis: Categoria[] = []
 
-  constructor(private fb: FormBuilder, private subcategoriaService: SubcategoriaService, private toast: ToastUtils) {
+  constructor(private fb: FormBuilder, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private toast: ToastUtils) {
     this.initForm()
   }
 
@@ -24,7 +25,7 @@ export class InserirSubcategoriaPage implements OnInit {
 
   onTipoChanges(): void {
     if(this.tipo.value !== null){
-      this.subcategoriaService.getCategoriasByTipo(this.tipo.value).subscribe((dados: Categoria[]) => {
+      this.categoriaService.getAllByTipo(this.tipo.value).subscribe((dados: Categoria[]) => {
         this.categoriasDisponiveis = dados
         this.categoria.enable()
       })

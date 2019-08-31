@@ -1,0 +1,24 @@
+<ion-list>
+  <ion-item *ngFor="let conta of contas">
+    <ion-label (click)="openOptionsDialog(conta)">
+      <h2>{{conta.nome}}</h2>
+      <p><strong>{{conta.tipo.nome}}</strong></p>
+      <p>Agência: <strong>{{conta.agencia}}</strong> | Conta: <strong>{{conta.conta}}</strong></p>
+      <p>Saldo inicial: <strong>{{conta.saldoInicial | number: '1.2-2'}}</strong></p>
+    </ion-label>
+
+    <!--saldo-positivo -->
+    <ion-chip *ngIf="isSaldoPositivo(conta); else saldoNegativo" color="success">
+      <ion-label>{{conta.saldo | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+    <!--/.saldo-positivo -->
+
+    <!-- saldo-negativo -->
+    <ng-template #saldoNegativo>
+      <ion-chip color="danger">
+        <ion-label>{{conta.saldo | number: '1.2-2'}}</ion-label>
+      </ion-chip>
+    </ng-template>
+    <!-- /.saldo-negativo -->
+  </ion-item>
+</ion-list>

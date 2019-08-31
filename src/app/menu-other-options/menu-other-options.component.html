@@ -1,0 +1,23 @@
+<ion-content padding>
+  <ion-list>
+    <ion-item-divider>
+      <ion-label>Outros</ion-label>
+    </ion-item-divider>
+
+    <ion-item *ngFor="let page of appPagesOutros" [routerDirection]="'forward'" [routerLink]="[page.link]"
+      (click)="closeMenu()" lines="none">
+      <ion-icon slot="end" [name]="page.icon"></ion-icon>
+      <ion-label>{{page.title}}</ion-label>
+    </ion-item>
+
+    <ion-item-divider>
+      <ion-label>Cadastros</ion-label>
+    </ion-item-divider>
+
+    <ion-item *ngFor="let page of appPagesCadastros" [routerDirection]="'forward'" [routerLink]="[page.link]"
+      (click)="closeMenu()" lines="none">
+      <ion-icon slot="end" [name]="page.icon"></ion-icon>
+      <ion-label>{{page.title}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

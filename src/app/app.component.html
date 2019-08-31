@@ -1,29 +1,17 @@
 <ion-app>
-  <ion-split-pane>
-    <ion-menu type="overlay">
-      <ion-header>
-        <ion-toolbar color="dark">
-          <ion-title>Gestor de finanças</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <!-- logout-button -->
-          <ion-item (click)="logout()">
-            <ion-icon slot="start" name="exit"></ion-icon>
-            <ion-label>Sair</ion-label>
-          </ion-item>
-          <!-- /.logout-button -->
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button *ngFor="let page of appPages" [tab]="page.url">
+        <ion-icon [name]="page.icon"></ion-icon>
+        <ion-label>{{page.title}}</ion-label>
+      </ion-tab-button>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'forward'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>{{p.title}}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
-  </ion-split-pane>
+      <!-- outros-button -->
+      <ion-tab-button (click)="showOtherOptions($event)">
+        <ion-icon name="share-alt"></ion-icon>
+        <ion-label>Outros</ion-label>
+      </ion-tab-button>
+      <!-- /.outros-button -->
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-app>

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastUtils } from 'src/app/utils/toast.utils';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Subcategoria } from 'src/app/models/subcategoria.model';
+import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
   selector: 'app-editar-subcategoria',
@@ -17,7 +18,7 @@ export class EditarSubcategoriaPage implements OnInit {
   subcategoria: Subcategoria
   categoriasDisponiveis: Categoria[] = []
 
-  constructor(private fb: FormBuilder, private subcategoriaService: SubcategoriaService, private activatedRoute: ActivatedRoute, private toast: ToastUtils) {
+  constructor(private fb: FormBuilder, private categoriaService: CategoriaService, private subcategoriaService: SubcategoriaService, private activatedRoute: ActivatedRoute, private toast: ToastUtils) {
     this.initForm()
   }
 
@@ -43,7 +44,7 @@ export class EditarSubcategoriaPage implements OnInit {
 
   onTipoChanges(): void {
     if(this.tipo.value !== null){
-      this.subcategoriaService.getCategoriasByTipo(this.tipo.value).subscribe((dados: Categoria[]) => {
+      this.categoriaService.getAllByTipo(this.tipo.value).subscribe((dados: Categoria[]) => {
         this.categoriasDisponiveis = dados
         this.categoria.enable()
       })

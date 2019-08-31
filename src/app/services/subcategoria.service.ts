@@ -18,10 +18,6 @@ export class SubcategoriaService {
         return this.http.get<Subcategoria[]>(`${APP_CONFIG.apiUrl}/subcategorias`)
     }
 
-    getCategoriasByTipo(tipo: string): Observable<Categoria[]> {
-        return this.categoriaService.getAllByTipo(tipo)
-    }
-
     getById(subcategoriaId: number): Observable<Subcategoria> {
         return this.http.get<Subcategoria>(`${APP_CONFIG.apiUrl}/subcategorias/${subcategoriaId}`) 
     }

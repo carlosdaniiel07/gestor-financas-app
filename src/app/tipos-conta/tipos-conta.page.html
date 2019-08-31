@@ -1,0 +1,19 @@
+<app-page-header headerName="Tipos de conta"></app-page-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-lista-tipos-conta 
+    [tiposConta]="tiposConta" 
+    (editarTipoContaEvent)="showEditarTipoContaModal($event)"
+    (removerTipoContaEvent)="removerTipoConta($event)">
+  </app-lista-tipos-conta>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showInserirTipoContaModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

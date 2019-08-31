@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
       }
 
       this.navController.navigateRoot('/home')
-      this.toast.showToast(`Bem vindo(a), ${this.authService.getUsuarioLogado().nome.split(' ')[0]}!`, 2000)
+      //this.toast.showToast(`Bem vindo(a), ${this.authService.getUsuarioLogado().nome.split(' ')[0]}!`, 2000)
     }, 
     (err: HttpErrorResponse) => {
       if(err.status === 403){

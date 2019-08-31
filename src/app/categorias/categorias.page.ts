@@ -21,7 +21,17 @@ export class CategoriasPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.categoriaService.getAll().subscribe((dados: Categoria[]) => this.categorias = dados)
+    this.loadData()
+  }
+
+  private loadData(event: any = null): void {
+    this.categoriaService.getAll().subscribe((dados: Categoria[]) => {
+      this.categorias = dados
+
+      if(event !== null){
+        event.target.complete()
+      }
+    })
   }
 
   getCategoriasCredito(): Categoria[] {
@@ -48,9 +58,6 @@ export class CategoriasPage implements OnInit {
   }
 
   doRefresh(event: any): void {
-    this.categoriaService.getAll().subscribe((dados: Categoria[]) => {
-      this.categorias = dados
-      event.target.complete()
-    })
+    this.loadData(event)
   }
 }

@@ -1,0 +1,49 @@
+<app-page-header headerName="Editar conta"></app-page-header>
+
+<ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <form [formGroup]="contaForm">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="tipo">
+          <ion-select-option *ngFor="let tipo of tiposConta" [value]="tipo.id">{{tipo.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Banco</ion-label>
+        <ion-input formControlName="banco"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Agência</ion-label>
+        <ion-input formControlName="agencia"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Conta</ion-label>
+        <ion-input formControlName="conta"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">Saldo</ion-label>
+          <ion-input formControlName="saldo"></ion-input>
+        </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Saldo inicial</ion-label>
+        <ion-input type="number" formControlName="saldoInicial"></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!contaForm.valid" (click)="atualizar()" class="ion-float-right">
+    Atualizar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>

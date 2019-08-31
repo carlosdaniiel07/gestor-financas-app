@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { IonicModule } from '@ionic/angular';
-import { MovimentsComponent } from './moviments/moviments.component';
+import { ListaMovimentosComponent } from './lista-movimentos/lista-movimentos.component';
 
 @NgModule({
   declarations: [
     PageHeaderComponent,
-    MovimentsComponent
+    ListaMovimentosComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +15,7 @@ import { MovimentsComponent } from './moviments/moviments.component';
   ],
   exports: [
     PageHeaderComponent,
-    MovimentsComponent
+    ListaMovimentosComponent
   ]
 })
 export class SharedModule { }

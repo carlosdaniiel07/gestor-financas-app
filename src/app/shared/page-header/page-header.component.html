@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons *ngIf="showMenuButton" slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>{{headerName}}</ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button *ngIf="showCloseButton" (click)="close()">Fechar</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>

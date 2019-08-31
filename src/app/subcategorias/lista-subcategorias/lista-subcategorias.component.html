@@ -9,7 +9,14 @@
       <p>Categoria: <strong>{{subcategoria.categoria.nome}}</strong></p>
     </ion-label>
 
-    <ion-badge *ngIf="isCredito(subcategoria.categoria)" color="success">{{subcategoria.categoria.tipo}}</ion-badge>
-    <ion-badge *ngIf="!isCredito(subcategoria.categoria)" color="danger">{{subcategoria.categoria.tipo}}</ion-badge>
+    <ion-chip *ngIf="isCredito(subcategoria.categoria); else subcategoriaDebito" color="success">
+      <ion-label>{{subcategoria.categoria.tipo}}</ion-label>
+    </ion-chip>
+
+    <ng-template #subcategoriaDebito>
+      <ion-chip color="danger">
+        <ion-label>{{subcategoria.categoria.tipo}}</ion-label>
+      </ion-chip>
+    </ng-template>
   </ion-item>
 </ion-list>

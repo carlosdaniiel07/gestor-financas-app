@@ -1,27 +1,28 @@
 import { Component } from '@angular/core';
 
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, PopoverController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
+import { MenuOtherOptionsComponent } from './menu-other-options/menu-other-options.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'Categorias', url: '/categorias', icon: 'build' },
-    { title: 'Subcategorias', url: '/subcategorias', icon: 'build' }
+  private appPages = [
+    { title: 'Contas', url: 'contas', icon: 'bookmarks' },
+    { title: 'Movimentos', url: 'movimentos', icon: 'list' },
+    { title: 'Cartões', url: 'cartoes', icon: 'card' }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private navController: NavController,
-    private authService: AuthService
+    private authService: AuthService,
+    private popoverController: PopoverController
   ) {
     this.initializeApp();
   }
@@ -33,8 +34,18 @@ export class AppComponent {
     });
   }
 
-  logout(): void {
-    this.authService.logout()
-    this.navController.navigateRoot('/login')
+  getAppPages(): any[] {
+    if(this.authService.isLogado()){
+      return this.appPages
+    } else {
+      return []
+    }
+  }
+
+  showOtherOptions(ev: any): void {
+    this.popoverController.create({
+      component: MenuOtherOptionsComponent,
+      event: ev
+    }).then((popover) => popover.present())
   }
 }

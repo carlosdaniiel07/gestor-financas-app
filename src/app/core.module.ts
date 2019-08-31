@@ -5,6 +5,9 @@ import { ToastUtils } from './utils/toast.utils';
 import { RouteGuard } from './route.guard';
 import { CategoriaService } from './services/categoria.service';
 import { SubcategoriaService } from './services/subcategoria.service';
+import { ContaService } from './services/conta.service';
+import { TipoContaService } from './services/tipo-conta.service';
+import { MovimentoService } from './services/movimento.service';
 
 @NgModule({
   declarations: [],
@@ -15,6 +18,9 @@ import { SubcategoriaService } from './services/subcategoria.service';
     AuthService,
     CategoriaService,
     SubcategoriaService,
+    ContaService,
+    TipoContaService,
+    MovimentoService,
     ToastUtils,
     RouteGuard
   ]

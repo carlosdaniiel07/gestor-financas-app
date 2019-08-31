@@ -1,0 +1,22 @@
+<app-page-header 
+  (closeEventEmitter)="closeModal()" 
+  headerName="Inserir tipo de conta"
+  showCloseButton="true"
+>
+</app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="tipoContaForm">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!tipoContaForm.valid" (click)="inserir()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>
