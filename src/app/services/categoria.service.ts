@@ -7,6 +7,7 @@ import { APP_CONFIG } from '../app.config';
 import { Categoria } from '../models/categoria.model';
 import { CategoriaDTO } from '../models/categoria.dto';
 import { Subcategoria } from '../models/subcategoria.model';
+import { Movimento } from '../models/movimento.model';
 
 @Injectable()
 export class CategoriaService {
@@ -27,6 +28,10 @@ export class CategoriaService {
 
     getSubcategorias(categoriaId: number): Observable<Subcategoria[]> {
         return this.http.get<Subcategoria[]>(`${APP_CONFIG.apiUrl}/categorias/${categoriaId}/subcategorias`)
+    }
+
+    getMovimentos(categoriaId: number): Observable<Movimento[]> {
+        return this.http.get<Movimento[]>(`${APP_CONFIG.apiUrl}/categorias/${categoriaId}/movimentos`)
     }
 
     insert(categoria: CategoriaDTO): Observable<Categoria> {

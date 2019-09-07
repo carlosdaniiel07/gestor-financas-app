@@ -9,6 +9,7 @@ import { CategoriasPage } from './categorias.page';
 import { ListaCategoriasComponent } from './lista-categorias/lista-categorias.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouteGuard } from '../route.guard';
+import { ListaMovimentosComponent } from '../shared/lista-movimentos/lista-movimentos.component';
 
 const routes: Routes = [
   { path: '', component: CategoriasPage, canActivate: [ RouteGuard ] },
@@ -18,6 +19,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    ListaMovimentosComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

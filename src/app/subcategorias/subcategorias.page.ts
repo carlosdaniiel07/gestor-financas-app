@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { SubcategoriaService } from '../services/subcategoria.service';
 
 import { Subcategoria } from '../models/subcategoria.model';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { ToastUtils } from '../utils/toast.utils';
 import { Categoria } from '../models/categoria.model';
+import { Movimento } from '../models/movimento.model';
+import { ListaMovimentosComponent } from '../shared/lista-movimentos/lista-movimentos.component';
 
 @Component({
   selector: 'app-subcategorias',
@@ -15,7 +17,7 @@ export class SubcategoriasPage implements OnInit {
   
   subcategorias: Subcategoria[] = []
 
-  constructor(private subcategoriaService: SubcategoriaService, private navController: NavController, private toast: ToastUtils) { }
+  constructor(private subcategoriaService: SubcategoriaService, private navController: NavController, private toast: ToastUtils, private modalController: ModalController) { }
 
   ngOnInit() {
   }
@@ -36,6 +38,19 @@ export class SubcategoriasPage implements OnInit {
     this.subcategoriaService.delete(subcategoria.id).subscribe(() => {
       this.toast.showToast(`Subcategoria ${subcategoria.nome} removida`)
       this.subcategorias.splice(this.subcategorias.indexOf(subcategoria), 1)
+    })
+  }
+
+  showMovimentosModal(subcategoria: Subcategoria): void {
+    this.subcategoriaService.getMovimentos(subcategoria.id).subscribe((dados: Movimento[]) => {
+      this.modalController.create({
+        component: ListaMovimentosComponent,
+        componentProps: {
+          'modal': true,
+          'movimentos': dados,
+          'emptyMovimentosMessage': 'Não há nenhum movimento nesta subcategoria'
+        }
+      }).then((modal) => modal.present())
     })
   }
 

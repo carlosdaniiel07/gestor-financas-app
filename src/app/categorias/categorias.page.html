@@ -7,13 +7,13 @@
 
   <!-- credit-categories -->
   <app-lista-categorias header="Crédito" [categorias]="getCategoriasCredito()" (detalhesEventEmitter)="detalhes($event)"
-    (editarEventEmitter)="editar($event)" (removerEventEmitter)="remover($event)">
+    (editarEventEmitter)="editar($event)" (removerEventEmitter)="remover($event)" (showMovimentosModalEventEmitter)="showMovimentosModal($event)">
   </app-lista-categorias>
   <!-- /.credit-categories -->
 
   <!-- debit-categories -->
   <app-lista-categorias header="Débito" [categorias]="getCategoriasDebito()" (detalhesEventEmitter)="detalhes($event)"
-    (editarEventEmitter)="editar($event)" (removerEventEmitter)="remover($event)">
+    (editarEventEmitter)="editar($event)" (removerEventEmitter)="remover($event)" (showMovimentosModalEventEmitter)="showMovimentosModal($event)">
   </app-lista-categorias>
   <!-- /.debit-categories -->
 

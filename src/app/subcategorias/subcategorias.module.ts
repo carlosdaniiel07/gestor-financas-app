@@ -9,6 +9,7 @@ import { SubcategoriasPage } from './subcategorias.page';
 import { SharedModule } from '../shared/shared.module';
 import { ListaSubcategoriasComponent } from './lista-subcategorias/lista-subcategorias.component';
 import { RouteGuard } from '../route.guard';
+import { ListaMovimentosComponent } from '../shared/lista-movimentos/lista-movimentos.component';
 
 const routes: Routes = [
   { path: '', component: SubcategoriasPage, canActivate: [ RouteGuard ] },
@@ -18,6 +19,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    ListaMovimentosComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

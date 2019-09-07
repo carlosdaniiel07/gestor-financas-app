@@ -15,6 +15,7 @@ export class ListaCategoriasComponent implements OnInit {
   @Output() detalhesEventEmitter = new EventEmitter<Categoria>()
   @Output() editarEventEmitter = new EventEmitter<Categoria>()
   @Output() removerEventEmitter = new EventEmitter<Categoria>()
+  @Output() showMovimentosModalEventEmitter = new EventEmitter<Categoria>()
 
   constructor(private actionSheet: ActionSheetController, private alertController: AlertController) { }
 
@@ -39,7 +40,8 @@ export class ListaCategoriasComponent implements OnInit {
               {text: 'Sim', handler: () => this.removerEventEmitter.emit(categoria)}
             ]
           }).then(alert => alert.present())
-        }}
+        }},
+        {text: 'Movimentos', icon: 'list', handler: () => this.showMovimentosModalEventEmitter.emit(categoria)}
       ]
     }).then((actionSheet) => actionSheet.present())
   }

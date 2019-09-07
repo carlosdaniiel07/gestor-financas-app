@@ -16,6 +16,7 @@ export class ListaSubcategoriasComponent implements OnInit {
   @Output() detalhesEventEmitter = new EventEmitter<Subcategoria>()
   @Output() editarEventEmitter = new EventEmitter<Subcategoria>()
   @Output() removerEventEmitter = new EventEmitter<Subcategoria>()
+  @Output() showMovimentosEventEmitter = new EventEmitter<Subcategoria>()
 
   constructor(private actionSheet: ActionSheetController, private alertController: AlertController) { }
 
@@ -38,7 +39,8 @@ export class ListaSubcategoriasComponent implements OnInit {
               ]
             }).then(alert => alert.present())
           }
-        }
+        },
+        {text: 'Movimentos', icon: 'list', handler: () => this.showMovimentosEventEmitter.emit(subcategoria) }
       ]
     }).then((actionSheet) => actionSheet.present())
   }
