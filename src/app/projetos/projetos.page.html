@@ -1,0 +1,21 @@
+<app-page-header headerName="Projetos"></app-page-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-lista-projetos
+    (detalhesEvent)="detalhes($event)"
+    (editarEvent)="editar($event)"
+    (removerEvent)="remover($event)"
+    (showMovimentosEvent)="showMovimentosModal($event)" 
+    [projetos]="projetos"
+  ></app-lista-projetos>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/projetos/inserir']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

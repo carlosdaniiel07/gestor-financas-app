@@ -8,6 +8,7 @@ import { SubcategoriaService } from './services/subcategoria.service';
 import { ContaService } from './services/conta.service';
 import { TipoContaService } from './services/tipo-conta.service';
 import { MovimentoService } from './services/movimento.service';
+import { ProjetoService } from './services/projeto.service';
 
 @NgModule({
   declarations: [],
@@ -21,6 +22,7 @@ import { MovimentoService } from './services/movimento.service';
     ContaService,
     TipoContaService,
     MovimentoService,
+    ProjetoService,
     ToastUtils,
     RouteGuard
   ]

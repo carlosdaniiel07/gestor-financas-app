@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'categorias', loadChildren: './categorias/categorias.module#CategoriasPageModule', canLoad: [ RouteGuard ] },
   { path: 'subcategorias', loadChildren: './subcategorias/subcategorias.module#SubcategoriasPageModule', canLoad: [ RouteGuard ] },
   { path: 'contas', loadChildren: './contas/contas.module#ContasPageModule', canLoad: [ RouteGuard ] },
-  { path: 'tipos-conta', loadChildren: './tipos-conta/tipos-conta.module#TiposContaPageModule', canLoad: [ RouteGuard ] }
+  { path: 'tipos-conta', loadChildren: './tipos-conta/tipos-conta.module#TiposContaPageModule', canLoad: [ RouteGuard ] },
+  { path: 'projetos', loadChildren: './projetos/projetos.module#ProjetosPageModule', canLoad: [ RouteGuard ] },
 ];
 
 @NgModule({

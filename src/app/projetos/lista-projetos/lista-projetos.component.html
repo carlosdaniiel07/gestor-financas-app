@@ -1,0 +1,16 @@
+<ion-list>
+  <ion-item *ngFor="let projeto of projetos">
+    <ion-label (click)="openOptionsDialog(projeto)">
+      <h2>{{projeto.nome}}</h2>
+      <p>
+        <ion-icon name="calendar"></ion-icon>&nbsp;
+        {{projeto.dataInicial | date: 'dd/MM/yyyy'}} &bull;
+        <span *ngIf="hasDataFinal(projeto); else semDataFinal">{{projeto.dataFinal | date: 'dd/MM/yyyy'}}</span>
+        <ng-template #semDataFinal>
+          <i>Sem data final</i>
+        </ng-template>
+      </p>
+      <p><strong>{{transformStatus(projeto.status)}}</strong></p>
+    </ion-label>
+  </ion-item>
+</ion-list>

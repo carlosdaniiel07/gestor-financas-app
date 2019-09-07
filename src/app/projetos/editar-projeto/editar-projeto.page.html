@@ -1,0 +1,44 @@
+<app-page-header headerName="Novo projeto"></app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="projetoForm">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Status</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="status">
+          <ion-select-option *ngFor="let status of statusOptions" [value]="status.value">{{status.label}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data inicial</ion-label>
+        <ion-input formControlName="dataInicial"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data final</ion-label>
+        <ion-datetime displayFormat="DD MMMM YYYY" formControlName="dataFinal"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Orçamento</ion-label>
+        <ion-input type="number" formControlName="orcamento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-textarea formControlName="descricao"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!projetoForm.valid" (click)="atualizar()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>

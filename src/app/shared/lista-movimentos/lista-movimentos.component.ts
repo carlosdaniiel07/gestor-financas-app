@@ -11,6 +11,7 @@ export class ListaMovimentosComponent implements OnInit {
 
   @Input() modal: boolean = false
   @Input() movimentos: Movimento[] = []
+  @Input() emptyMovimentosMessage: string = 'Não há movimentação nesta conta'
 
   @Output() detalhesEventEmitter = new EventEmitter<Movimento>()
   @Output() editarEventEmitter = new EventEmitter<Movimento>()

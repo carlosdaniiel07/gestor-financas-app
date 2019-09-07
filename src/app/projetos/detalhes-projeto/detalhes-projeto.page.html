@@ -1,0 +1,43 @@
+<app-page-header headerName=""></app-page-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    <ion-label>Detalhes do projeto</ion-label>
+  </ion-list-header>
+
+  <form [formGroup]="projetoForm">
+    <ion-item lines="none">
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input formControlName="nome"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Status</ion-label>
+      <ion-input formControlName="status"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Data inicial</ion-label>
+      <ion-input formControlName="dataInicial"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Data final</ion-label>
+      <ion-input formControlName="dataFinal"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Orçamento</ion-label>
+      <ion-input formControlName="orcamento"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Descrição</ion-label>
+      <ion-textarea formControlName="descricao"></ion-textarea>
+    </ion-item>
+  </form>
+</ion-content>

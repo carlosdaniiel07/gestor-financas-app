@@ -1,0 +1,32 @@
+<app-page-header headerName="Novo projeto"></app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="projetoForm">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data final</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY" min="2019" max="2030-12-31" formControlName="dataFinal"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Orçamento</ion-label>
+        <ion-input type="number" formControlName="orcamento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-textarea formControlName="descricao"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!projetoForm.valid" (click)="inserir()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>
