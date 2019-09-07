@@ -10,7 +10,7 @@
 
       <ion-item>
         <ion-label position="stacked">Data final</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY" min="2019" max="2030-12-31" formControlName="dataFinal"></ion-datetime>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY" [min]="getMinDate()" [max]="getMaxDate()" formControlName="dataFinal"></ion-datetime>
       </ion-item>
 
       <ion-item>

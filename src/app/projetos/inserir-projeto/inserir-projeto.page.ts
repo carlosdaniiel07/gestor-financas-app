@@ -19,6 +19,7 @@ export class InserirProjetoPage implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   inserir(): void {
@@ -33,6 +34,14 @@ export class InserirProjetoPage implements OnInit {
       this.projetoForm.reset()
       this.toast.showToast(`Projeto ${projeto.nome} criado`)
     })
+  }
+
+  getMinDate(): string {
+    return DateUtils.getDatePickerMinDate()
+  }
+
+  getMaxDate(): string {
+    return DateUtils.getDatePickerMaxDate()
   }
 
   private initForm(): void {
