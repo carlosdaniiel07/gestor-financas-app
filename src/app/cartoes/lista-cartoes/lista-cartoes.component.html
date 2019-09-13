@@ -1,0 +1,19 @@
+<ion-list>
+  <ion-item *ngFor="let cartao of cartoes">
+    <ion-label (click)="openOptionsDialog(cartao)">
+      <h2>{{cartao.nome}}</h2>
+      <p>
+        <ion-icon name="flag"></ion-icon>
+        {{cartao.bandeira}}
+      </p>
+      <p>
+        <ion-icon name="calendar"></ion-icon>
+        Fechamento: <strong>{{cartao.diaFechamento | creditCardDay}}</strong> &bull;
+        Pagamento: <strong>{{cartao.diaPagamento | creditCardDay}}</strong>
+      </p>
+      <p>
+        Limite: <strong>{{cartao.limite | number: '1.2-2'}}</strong>
+      </p>
+    </ion-label>
+  </ion-item>
+</ion-list>

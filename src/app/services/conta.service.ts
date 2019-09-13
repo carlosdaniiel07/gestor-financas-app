@@ -36,4 +36,8 @@ export class ContaService {
 
         return this.http.put(`${APP_CONFIG.apiUrl}/contas`, requestBody, { headers: headers })
     }
+
+    delete(contaId: number): Observable<any> {
+        return this.http.put(`${APP_CONFIG.apiUrl}/contas/remover/${contaId}`, null)
+    }
 }

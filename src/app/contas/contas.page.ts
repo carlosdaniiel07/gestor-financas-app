@@ -39,6 +39,10 @@ export class ContasPage implements OnInit {
     this.navController.navigateForward(`contas/editar/${conta.id}`)
   }
 
+  remover(conta: Conta): void {
+    this.contaService.delete(conta.id).subscribe(() => this.contas.splice(this.contas.indexOf(conta), 1))
+  }
+
   showMovimentosModal(conta: Conta): void {
     this.contaService.getMovimentos(conta.id).subscribe((dados: Movimento[]) => {
       this.modalController.create({

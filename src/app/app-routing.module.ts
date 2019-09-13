@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'contas', loadChildren: './contas/contas.module#ContasPageModule', canLoad: [ RouteGuard ] },
   { path: 'tipos-conta', loadChildren: './tipos-conta/tipos-conta.module#TiposContaPageModule', canLoad: [ RouteGuard ] },
   { path: 'projetos', loadChildren: './projetos/projetos.module#ProjetosPageModule', canLoad: [ RouteGuard ] },
+  { path: 'cartoes', loadChildren: './cartoes/cartoes.module#CartoesPageModule', canLoad: [ RouteGuard ] }
 ];
 
 @NgModule({

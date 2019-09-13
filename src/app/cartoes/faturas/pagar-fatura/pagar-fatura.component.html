@@ -1,0 +1,43 @@
+<app-page-header (closeEventEmitter)="closeModal()" headerName="Pagamento fatura" showCloseButton="true">
+</app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="pagamentoForm">
+      <ion-item>
+        <ion-label position="stacked">Cartão de crédito</ion-label>
+        <ion-input formControlName="cartaoCredito"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Fatura</ion-label>
+        <ion-input formControlName="referenciaFatura"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Conta</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="conta">
+          <ion-select-option *ngFor="let conta of contas" [value]="conta.id">
+            {{conta.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data de pagamento</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY" [min]="getMinDate()" [max]="getMaxDate()"
+          formControlName="dataPagamento"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Valor</ion-label>
+        <ion-input type="number" formControlName="valorPago"></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!pagamentoForm.valid" (click)="inserir()" class="ion-float-right">
+    Confirmar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>

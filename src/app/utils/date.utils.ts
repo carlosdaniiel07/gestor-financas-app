@@ -12,6 +12,18 @@ export class DateUtils {
         }
     }
 
+    // Converte uma data JSON para o formato de referência do cartão de crédito (MMM/yyyy)
+    public static getReference(jsonDate: string): string {
+        if (jsonDate !== null && jsonDate.length >= 10){
+            let ano: string = jsonDate.substring(0, 4)
+            let mes: string = jsonDate.substring(5, 7)
+            
+            return this.getMonthShortNames()[Number.parseInt(mes) - 1] + '/' + ano
+        } else {
+            return ''
+        }
+    }
+
     /*
         Retorna uma data futura (data atual + 10 anos) no formato yyyy-mm-dd. Esse valor de retorno deve ser usado 
         na propriedade 'max' do componente ion-datetime
@@ -26,5 +38,15 @@ export class DateUtils {
     */
     public static getDatePickerMinDate(): string {
         return momentjs().format('YYYY-MM-DD')
+    }
+
+    /*
+        Retorna a representação abreviativa dos meses no formato pt-br. Esse valor de retorno deve ser usado 
+        na propriedade 'monthShortNames' do componente ion-datetime
+    */
+    public static getMonthShortNames(): string[] {
+        return [
+            'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez' 
+        ]
     }
 }

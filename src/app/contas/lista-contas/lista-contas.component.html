@@ -3,7 +3,7 @@
     <ion-label (click)="openOptionsDialog(conta)">
       <h2>{{conta.nome}}</h2>
       <p><strong>{{conta.tipo.nome}}</strong></p>
-      <p>Agência: <strong>{{conta.agencia}}</strong> | Conta: <strong>{{conta.conta}}</strong></p>
+      <p>Agência: <strong>{{conta.agencia}}</strong> &bull; Conta: <strong>{{conta.conta}}</strong></p>
       <p>Saldo inicial: <strong>{{conta.saldoInicial | number: '1.2-2'}}</strong></p>
     </ion-label>
 

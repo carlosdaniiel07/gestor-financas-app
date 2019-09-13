@@ -1,0 +1,37 @@
+<app-page-header headerName="Editar cartão"></app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="cartaoForm">
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Bandeira</ion-label>
+        <ion-input formControlName="bandeira"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Dia de fechamento</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="diaFechamento">
+          <ion-select-option *ngFor="let dia of dias" [value]="dia.value">{{dia.label}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Dia de pagamento</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="diaPagamento">
+          <ion-select-option *ngFor="let dia of dias" [value]="dia.value">{{dia.label}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Limite</ion-label>
+        <ion-input type="number" formControlName="limite"></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!cartaoForm.valid" (click)="atualizar()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>

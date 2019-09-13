@@ -1,0 +1,24 @@
+<app-page-header (closeEventEmitter)="closeModal()" headerName="Inserir fatura" showCloseButton="true">
+</app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="faturaForm">
+      <ion-item>
+        <ion-label position="stacked">Cartão de crédito</ion-label>
+        <ion-input formControlName="cartaoCredito"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Mês de referência</ion-label>
+        <ion-datetime displayFormat="MMM/YYYY" pickerFormat="MMM YYYY" [max]="maxDate" [monthShortNames]="monthShortNames" 
+          formControlName="referencia"></ion-datetime>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!faturaForm.valid" (click)="inserir()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>

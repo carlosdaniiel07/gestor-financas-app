@@ -1,0 +1,37 @@
+<app-page-header [headerName]="headerName"></app-page-header>
+
+<ion-content *ngIf="!hasFaturas()" padding>
+  <div class="ion-text-center">
+    <ion-icon name="warning"></ion-icon>&nbsp;
+    Este cartão de crédito ainda não tem faturas
+  </div>
+</ion-content>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-item *ngIf="hasFaturas()" lines="none">
+    <ion-label position="stacked">Saldo restante (%)</ion-label>
+    <ion-progress-bar [value]="saldoRestantePercentual" (click)="showSaldoRestante()"></ion-progress-bar>
+  </ion-item>
+
+  <br />
+
+  <!-- faturas -->
+  <app-lista-faturas *ngIf="hasFaturas()" 
+    [faturas]="faturas"
+    (showMovimentosEvent)="showMovimentosModal($event)"
+    (abrirFaturaEvent)="abrirFatura($event)"
+    (fecharFaturaEvent)="fecharFatura($event)"
+    (pagarFaturaEvent)="pagarFatura($event)"
+  >
+  </app-lista-faturas>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showInserirFaturaModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

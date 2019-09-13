@@ -17,13 +17,13 @@
       </ion-item>
 
       <ion-item>
-          <ion-label position="stacked">Categoria</ion-label>
-          <ion-select placeholder="(Selecione)" formControlName="categoria">
-            <ion-select-option *ngFor="let categoria of categoriasDisponiveis" [value]="categoria.id">
-              {{categoria.nome}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
+        <ion-label position="stacked">Categoria</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="categoria">
+          <ion-select-option *ngFor="let categoria of categoriasDisponiveis" [value]="categoria.id">
+            {{categoria.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
     </form>
   </ion-list>
 

@@ -9,6 +9,8 @@ import { ContaService } from './services/conta.service';
 import { TipoContaService } from './services/tipo-conta.service';
 import { MovimentoService } from './services/movimento.service';
 import { ProjetoService } from './services/projeto.service';
+import { CartaoService } from './services/cartao.service';
+import { FaturaService } from './services/fatura.service';
 
 @NgModule({
   declarations: [],
@@ -23,6 +25,8 @@ import { ProjetoService } from './services/projeto.service';
     TipoContaService,
     MovimentoService,
     ProjetoService,
+    CartaoService,
+    FaturaService,
     ToastUtils,
     RouteGuard
   ]
