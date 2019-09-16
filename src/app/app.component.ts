@@ -11,8 +11,8 @@ import { MenuOtherOptionsComponent } from './menu-other-options/menu-other-optio
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  private appPages = [
-    { title: 'Contas', url: 'contas', icon: 'bookmarks' },
+  appPages: {title: string, url: string, icon: string}[] = [
+    { title: 'Home', url: 'home', icon: 'home' },
     { title: 'Movimentos', url: 'movimentos', icon: 'list' },
     { title: 'Cartões', url: 'cartoes', icon: 'card' }
   ];
@@ -34,12 +34,8 @@ export class AppComponent {
     });
   }
 
-  getAppPages(): any[] {
-    if(this.authService.isLogado()){
-      return this.appPages
-    } else {
-      return []
-    }
+  isLogado(): boolean {
+    return this.authService.isLogado()
   }
 
   showOtherOptions(ev: any): void {

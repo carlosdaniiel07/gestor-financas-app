@@ -1,6 +1,6 @@
 <ion-app>
   <ion-tabs>
-    <ion-tab-bar slot="bottom">
+    <ion-tab-bar *ngIf="isLogado()" slot="bottom">
       <ion-tab-button *ngFor="let page of appPages" [tab]="page.url">
         <ion-icon [name]="page.icon"></ion-icon>
         <ion-label>{{page.title}}</ion-label>

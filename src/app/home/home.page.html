@@ -1,5 +1,22 @@
 <app-page-header headerName="Dashboard"></app-page-header>
 
 <ion-content>
-  
+    <ion-fab vertical="center" horizontal="center" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="finger-print"></ion-icon>
+        </ion-fab-button>
+
+        <!-- buttons -->
+        <ion-fab-list side="top">
+            <ion-fab-button>
+                <ion-icon name="contact"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+        <ion-fab-list side="end">
+            <ion-fab-button (click)="logout()">
+                <ion-icon name="exit"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+        <!-- /.buttons -->
+    </ion-fab>
 </ion-content>
