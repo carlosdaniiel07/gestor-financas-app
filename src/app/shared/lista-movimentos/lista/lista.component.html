@@ -1,0 +1,34 @@
+<ion-list>
+  <ion-item *ngFor="let movto of movimentos">
+    <ion-label (click)="openOptionsDialog(movto)">
+      <h2>{{movto.descricao}}</h2>
+      <p *ngIf="hasConta(movto)">
+        <ion-icon name="bookmarks"></ion-icon>&nbsp;
+        <strong>{{movto.conta.nome}}</strong>
+      </p>
+      <p>
+        <ion-icon name="calendar"></ion-icon>&nbsp;
+        {{movto.dataContabilizacao}}
+      </p>
+      <p *ngIf="hasCategoria(movto)">
+        <ion-icon name="pricetag"></ion-icon>&nbsp;
+        {{movto.subcategoria.categoria.nome}}
+      </p>
+
+      <p *ngIf="hasCartaoCredito(movto)">
+        <ion-icon name="card"></ion-icon>&nbsp;
+        {{movto.fatura.cartao.nome}}
+      </p>
+    </ion-label>
+
+    <ion-chip *ngIf="isCredito(movto); else movtoDebito" [outline]="!isEfetivado(movto)" color="success">
+      <ion-label>{{movto.valorTotal | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+
+    <ng-template #movtoDebito>
+      <ion-chip color="danger" [outline]="!isEfetivado(movto)">
+        <ion-label>{{movto.valorTotal | number: '1.2-2'}}</ion-label>
+      </ion-chip>
+    </ng-template>
+  </ion-item>
+</ion-list>

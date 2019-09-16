@@ -1,46 +1,24 @@
-<app-page-header (closeEventEmitter)="closeModal()" headerName="Movimentos" showCloseButton="true">
+<app-page-header *ngIf="modal" (closeEventEmitter)="closeModal()" headerName="Movimentos" showCloseButton="true">
 </app-page-header>
 
-<ion-content *ngIf="!hasMovimentos()" padding>
-  <div class="ion-text-center">
-    <ion-icon name="warning"></ion-icon>&nbsp;
-    {{emptyMovimentosMessage}}
-  </div>
+<!-- only-in-modal -->
+<ion-content *ngIf="modal && !hasMovimentos()" padding>
+  <app-alerta [emptyMovimentosMessage]="emptyMovimentosMessage"></app-alerta>
 </ion-content>
+<!-- /.only-in-modal -->
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let movto of movimentos">
-      <ion-label (click)="openOptionsDialog(movto)">
-        <h2>{{movto.descricao}}</h2>
-        <p>
-          <ion-icon name="bookmarks"></ion-icon>&nbsp;
-          <strong>{{movto.conta.nome}}</strong>
-        </p>
-        <p>
-          <ion-icon name="calendar"></ion-icon>&nbsp;
-          {{movto.dataContabilizacao | date: 'dd/MM/yyyy'}}
-        </p>
-        <p *ngIf="hasCategoria(movto)">
-          <ion-icon name="pricetag"></ion-icon>&nbsp;
-          {{movto.categoria.nome}}
-        </p>
+<app-alerta *ngIf="!modal && !hasMovimentos()" [emptyMovimentosMessage]="emptyMovimentosMessage"></app-alerta>
 
-        <p *ngIf="hasCartaoCredito(movto)">
-          <ion-icon name="card"></ion-icon>
-          movto.fatura.
-        </p>
-      </ion-label>
-
-      <ion-chip *ngIf="isCredito(movto); else movtoDebito" [outline]="!isEfetivado(movto)" color="success">
-        <ion-label>{{movto.valorTotal | number: '1.2-2'}}</ion-label>
-      </ion-chip>
-
-      <ng-template #movtoDebito>
-        <ion-chip color="danger" [outline]="!isEfetivado(movto)">
-          <ion-label>{{movto.valorTotal | number: '1.2-2'}}</ion-label>
-        </ion-chip>
-      </ng-template>
-    </ion-item>
-  </ion-list>
+<!-- only-in-modal -->
+<ion-content *ngIf="modal; else noModalCase">
+  <app-lista [movimentos]="movimentos" (detalhesEventEmitter)="detalhes($event)" (editarEventEmitter)="editar($event)"
+    (removerEventEmitter)="remover($event)">
+  </app-lista>
 </ion-content>
+<!-- /.only-in-modal -->
+
+<ng-template #noModalCase>
+  <app-lista [movimentos]="movimentos" (detalhesEventEmitter)="detalhes($event)" (editarEventEmitter)="editar($event)"
+    (removerEventEmitter)="remover($event)">
+  </app-lista>
+</ng-template>

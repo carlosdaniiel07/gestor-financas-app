@@ -4,12 +4,16 @@ import { PageHeaderComponent } from './page-header/page-header.component';
 import { IonicModule } from '@ionic/angular';
 import { ListaMovimentosComponent } from './lista-movimentos/lista-movimentos.component';
 import { CreditCardDayPipe } from '../pipes/credit-card-day.pipe';
+import { ListaComponent } from './lista-movimentos/lista/lista.component';
+import { AlertaComponent } from './lista-movimentos/alerta/alerta.component';
 
 @NgModule({
   declarations: [
     PageHeaderComponent,
     ListaMovimentosComponent,
-    CreditCardDayPipe
+    CreditCardDayPipe,
+    ListaComponent,
+    AlertaComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +22,9 @@ import { CreditCardDayPipe } from '../pipes/credit-card-day.pipe';
   exports: [
     PageHeaderComponent,
     ListaMovimentosComponent,
-    CreditCardDayPipe
+    CreditCardDayPipe,
+    ListaComponent,
+    AlertaComponent
   ]
 })
 export class SharedModule { }

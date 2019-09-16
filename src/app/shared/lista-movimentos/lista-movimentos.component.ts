@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController, NavController } from '@ionic/angular';
 import { Movimento } from 'src/app/models/movimento.model';
+import { MovimentoService } from 'src/app/services/movimento.service';
+import { ToastUtils } from 'src/app/utils/toast.utils';
 
 @Component({
   selector: 'app-lista-movimentos',
@@ -13,11 +15,7 @@ export class ListaMovimentosComponent implements OnInit {
   @Input() movimentos: Movimento[] = []
   @Input() emptyMovimentosMessage: string = 'Não há movimentação nesta conta'
 
-  @Output() detalhesEventEmitter = new EventEmitter<Movimento>()
-  @Output() editarEventEmitter = new EventEmitter<Movimento>()
-  @Output() removerEventEmitter = new EventEmitter<Movimento>()
-
-  constructor(private actionSheet: ActionSheetController, private alertController: AlertController, private modalController: ModalController) { }
+  constructor(private modalController: ModalController, private navController: NavController, private movimentoService: MovimentoService, private toast: ToastUtils) { }
 
   ngOnInit() { }
 
@@ -26,46 +24,23 @@ export class ListaMovimentosComponent implements OnInit {
       this.modalController.dismiss()
     }
   }
-
-  isCredito(movto: Movimento): boolean {
-    return Movimento.isCredito(movto)
-  }
-
-  isEfetivado(movto: Movimento): boolean {
-    return Movimento.isEfetivado(movto)
-  }
-
-  hasCartaoCredito(movto: Movimento): boolean {
-    return Movimento.hasCartaoCredito(movto)
-  }
-
-  hasCategoria(movto: Movimento): boolean {
-    return Movimento.hasCategoria(movto)
-  }
-
+  
   hasMovimentos(): boolean {
     return this.movimentos.length !== 0
   }
 
-  openOptionsDialog(movto: Movimento): void {
-    this.actionSheet.create({
-      header: 'Escolha uma opção',
-      buttons: [
-        { text: 'Detalhes', icon: 'eye', handler: () => this.detalhesEventEmitter.emit(movto) },
-        { text: 'Editar', icon: 'create', handler: () => this.editarEventEmitter.emit(movto) },
-        {
-          text: 'Remover', icon: 'trash', handler: () => {
-            this.alertController.create({
-              header: 'Confirmar',
-              message: 'Deseja realmente excluir este movimento?',
-              buttons: [
-                { text: 'Não' },
-                { text: 'Sim', handler: () => this.removerEventEmitter.emit(movto) }
-              ]
-            }).then(alert => alert.present())
-          }
-        }
-      ]
-    }).then((actionSheet) => actionSheet.present())
+  detalhes(movto: Movimento): void {
+    this.navController.navigateForward(`/movimentos/detalhes/${movto.id}`)
+  }
+
+  editar(movto: Movimento): void {
+    this.navController.navigateForward(`/movimentos/editar/${movto.id}`)
+  }
+
+  remover(movto: Movimento): void {
+    this.movimentoService.delete(movto.id).subscribe(() => {
+      this.movimentos.splice(this.movimentos.indexOf(movto))
+      this.toast.showToast('Movimento removido')
+    })
   }
 }

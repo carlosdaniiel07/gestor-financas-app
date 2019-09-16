@@ -1,0 +1,98 @@
+<app-page-header headerName=""></app-page-header>
+
+<!-- content -->
+<ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <form [formGroup]="movimentoForm">
+      <ion-item lines="none">
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-input formControlName="descricao"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Crédito</ion-label>
+        <ion-toggle formControlName="credito"></ion-toggle>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Data de inclusão</ion-label>
+        <ion-input formControlName="dataInclusao"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Data contabilização</ion-label>
+        <ion-input formControlName="dataContabilizacao"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Valor</ion-label>
+        <ion-input type="number" formControlName="valor"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Status</ion-label>
+        <ion-input formControlName="status"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Conta</ion-label>
+        <ion-input formControlName="conta"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Categoria</ion-label>
+        <ion-input formControlName="categoria"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Subcategoria</ion-label>
+        <ion-input formControlName="subcategoria"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="hasCartaoCredito()" lines="none">
+        <ion-label position="stacked">Cartão de crédito</ion-label>
+        <ion-input formControlName="cartao"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="hasCartaoCredito()" lines="none">
+        <ion-label position="stacked">Fatura</ion-label>
+        <ion-input formControlName="fatura"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Projeto</ion-label>
+        <ion-input formControlName="projeto"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Observação</ion-label>
+        <ion-textarea formControlName="obs"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <!-- fab-button -->
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="options"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="start">
+      <ion-fab-button (click)="editar()">
+        <ion-icon name="create"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+
+    <ion-fab-list side="end">
+      <ion-fab-button color="danger" (click)="remover()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <!-- /.fab-button -->
+</ion-content>
+<!-- /.content -->

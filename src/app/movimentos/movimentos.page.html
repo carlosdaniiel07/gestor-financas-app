@@ -1,0 +1,28 @@
+<app-page-header headerName="Movimentos"></app-page-header>
+
+<!-- search-bar -->
+<ion-toolbar>
+  <ion-searchbar placeholder="Descrição, valor, data" (ionChange)="onSearch($event)" (ionCancel)="resetFiltro()"
+    (ionClear)="resetFiltro"></ion-searchbar>
+</ion-toolbar>
+<!-- /.search-bar -->
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-lista-movimentos [modal]="false" [movimentos]="movimentosFiltrados"
+    emptyMovimentosMessage="Nenhum movimento encontrado"></app-lista-movimentos>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreData($event)">
+    <ion-infinite-scroll-content loadingSpinner="dots" loadingText="Carregando..">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/movimentos/inserir']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

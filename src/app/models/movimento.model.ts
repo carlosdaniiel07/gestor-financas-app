@@ -1,5 +1,4 @@
 import { Conta } from './conta.model';
-import { Categoria } from './categoria.model';
 import { Subcategoria } from './subcategoria.model';
 import { Projeto } from './projeto.model';
 import { Fatura } from './fatura.model';
@@ -17,7 +16,6 @@ export class Movimento {
         public status: string,
         public observacao: string,
         public conta: Conta,
-        public categoria: Categoria,
         public subcategoria: Subcategoria,
         public projeto: Projeto,
         public fatura: Fatura
@@ -36,6 +34,29 @@ export class Movimento {
     }
 
     public static hasCategoria(movto: Movimento): boolean {
-        return movto.categoria !== null
+        return movto.subcategoria !== null
+    }
+
+    public static hasConta(movto: Movimento): boolean {
+        return movto.conta !== null
+    }
+
+    public static transformStatus(status: string): string {
+        switch(status) {
+            case 'EFETIVADO':
+                return 'Efetivado'
+            case 'PENDENTE':
+                return 'Pendente'
+            case 'AGENDADO':
+                return 'Agendado'
+            default:
+                return ''
+        }
     }
 }
+
+export const STATUS: {label: string, value: any}[] = [
+    { label: Movimento.transformStatus('EFETIVADO'), value: 'EFETIVADO' },
+    { label: Movimento.transformStatus('PENDENTE'), value: 'PENDENTE' },
+    { label: Movimento.transformStatus('AGENDADO'), value: 'AGENDADO' },
+]
