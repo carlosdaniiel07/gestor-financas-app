@@ -14,6 +14,7 @@ import { CoreModule } from './core.module';
 import { RequestInterceptor } from './request.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { MenuOtherOptionsComponent } from './menu-other-options/menu-other-options.component';
+import { ErrorInterceptor } from './error.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MenuOtherOptionsComponent } from './menu-other-options/menu-other-optio
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -54,11 +54,11 @@ export class LoginPage implements OnInit {
       //this.toast.showToast(`Bem vindo(a), ${this.authService.getUsuarioLogado().nome.split(' ')[0]}!`, 2000)
     }, 
     (err: HttpErrorResponse) => {
-      if(err.status === 403){
-        this.toast.showToast('Usuário ou senha incorretos')
-      } else {
-        this.toast.showToast('Falha ao se comunicar com o servidor')
-      }
+      // if(err.status === 403){
+      //   this.toast.showToast('Usuário ou senha incorretos')
+      // } else {
+      //   this.toast.showToast('Falha ao se comunicar com o servidor')
+      // }
 
       this.loginForm.reset()
     })
