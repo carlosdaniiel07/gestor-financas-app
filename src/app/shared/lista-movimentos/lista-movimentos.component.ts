@@ -39,7 +39,7 @@ export class ListaMovimentosComponent implements OnInit {
 
   remover(movto: Movimento): void {
     this.movimentoService.delete(movto.id).subscribe(() => {
-      this.movimentos.splice(this.movimentos.indexOf(movto))
+      this.movimentos.splice(this.movimentos.indexOf(movto), 1)
       this.toast.showToast('Movimento removido')
     })
   }

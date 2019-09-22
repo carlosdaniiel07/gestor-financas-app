@@ -34,8 +34,8 @@ export class ListaCartoesComponent implements OnInit {
             ]
           }).then((alert) => alert.present())
         }},
-        {text: 'Faturas', icon: 'document', handler: () => this.showFaturasEvent.emit(cartao)},
-        {text: 'Movimentos', icon: 'list', handler: () => this.showMovimentosEvent.emit(cartao)}
+        {text: 'Faturas', icon: 'document', handler: () => this.showFaturasEvent.emit(cartao)}
+        //{text: 'Movimentos', icon: 'list', handler: () => this.showMovimentosEvent.emit(cartao)}
       ]
     }).then((actionSheet) => actionSheet.present())
   }

@@ -12,13 +12,21 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <br/>
+
   <app-lista-movimentos [modal]="false" [movimentos]="movimentosFiltrados"
     emptyMovimentosMessage="Nenhum movimento encontrado"></app-lista-movimentos>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreData($event)">
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreData($event)">
     <ion-infinite-scroll-content loadingSpinner="dots" loadingText="Carregando..">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
+
+  <ion-button *ngIf="hasMovimentos()" color="primary" size="default" expand="full" (click)="carregarMais()">
+    Carregar mais
+  </ion-button>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['/movimentos/inserir']">

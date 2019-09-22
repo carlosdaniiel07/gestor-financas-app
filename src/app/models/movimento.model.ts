@@ -2,6 +2,7 @@ import { Conta } from './conta.model';
 import { Subcategoria } from './subcategoria.model';
 import { Projeto } from './projeto.model';
 import { Fatura } from './fatura.model';
+import { Categoria } from './categoria.model';
 
 export class Movimento {
     constructor(
@@ -16,6 +17,7 @@ export class Movimento {
         public status: string,
         public observacao: string,
         public conta: Conta,
+        public categoria: Categoria,
         public subcategoria: Subcategoria,
         public projeto: Projeto,
         public fatura: Fatura

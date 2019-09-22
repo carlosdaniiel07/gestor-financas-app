@@ -10,8 +10,8 @@ export class MovimentoService {
 
     constructor(private http: HttpClient) {}
 
-    getAll(): Observable<Movimento[]> {
-        return this.http.get<Movimento[]>(`${APP_CONFIG.apiUrl}/movimentos`)
+    getAll(page: number = 0): Observable<Movimento[]> {
+        return this.http.get<Movimento[]>(`${APP_CONFIG.apiUrl}/movimentos?page=${page}`)
     }
 
     getById(movimentoId: number): Observable<Movimento> {

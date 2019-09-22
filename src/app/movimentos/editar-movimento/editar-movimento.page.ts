@@ -73,6 +73,7 @@ export class EditarMovimentoPage implements OnInit {
     this.movimento.status = this.status.value
     this.movimento.observacao = this.obs.value
     this.movimento.conta = this.hasCartaoCredito() ? null : this.contas.find((c: Conta) => c.id === this.conta.value),
+    this.movimento.categoria = this.categorias.find((c: Categoria) => c.id === this.categoria.value)
     this.movimento.subcategoria = this.subcategorias.find((s: Subcategoria) => s.id === this.subcategoria.value),
     this.movimento.projeto = this.projetos.find((p: Projeto) => p.id === this.projeto.value),
     this.movimento.fatura =  this.hasCartaoCredito() ? this.faturas.find((f: Fatura) => f.id === this.fatura.value) : null
@@ -85,6 +86,47 @@ export class EditarMovimentoPage implements OnInit {
    */
   isCreditoMovimento(): boolean {
     return this.credito.value
+  }
+
+  /**
+   * Evento disparado quando o tipo de movimento (campo Crédito) é alterado
+   * @param event 
+   */
+  onCreditoChange(event: any): void {
+    let tipo: string = this.isCreditoMovimento() ? 'C' : 'D'
+
+    this.categoria.setValue('')
+    this.subcategoria.setValue('')
+    this.subcategoria.disable()
+
+    this.categoriaService.getAllByTipo(tipo).subscribe((dados: Categoria[]) => {
+      this.categorias = dados
+
+      if(dados.length === 0){
+        this.toast.showToast('Nenhuma categoria cadastrada para este tipo de movimento')
+      }
+    })
+  }
+
+  /**
+   * Evento disparado quando o valor do campo Categoria é alterado
+   * @param event 
+   */
+  onCategoriaChange(event: any): void {
+    if(this.categoria.value !== ''){
+      let categoriaId: number = this.categoria.value
+
+      this.categoriaService.getSubcategorias(categoriaId).subscribe((dados: Subcategoria[]) => {
+        this.subcategorias = dados
+        
+        if(dados.length === 0){
+          this.toast.showToast('Não há nenhuma subcategoria para esta categoria')
+          this.subcategoria.disable()
+        } else {
+          this.subcategoria.enable()
+        }
+      })
+    }
   }
 
   /**

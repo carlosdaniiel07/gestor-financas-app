@@ -15,7 +15,7 @@
 
       <ion-item>
         <ion-label position="stacked">Crédito</ion-label>
-        <ion-toggle formControlName="credito"></ion-toggle>
+        <ion-toggle formControlName="credito" (ionChange)="onCreditoChange($event)"></ion-toggle>
       </ion-item>
 
       <ion-item>
@@ -49,7 +49,7 @@
 
       <ion-item>
         <ion-label position="stacked">Categoria</ion-label>
-        <ion-select placeholder="(Selecione)" formControlName="categoria">
+        <ion-select (ionChange)="onCategoriaChange($event)" placeholder="(Selecione)" formControlName="categoria">
           <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
             {{categoria.nome}}
           </ion-select-option>

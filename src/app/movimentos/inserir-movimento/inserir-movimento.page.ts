@@ -87,6 +87,47 @@ export class InserirMovimentoPage implements OnInit {
   }
 
   /**
+   * Evento disparado quando o tipo de movimento (campo Crédito) é alterado
+   * @param event 
+   */
+  onCreditoChange(event: any): void {
+    let tipo: string = this.isCreditoMovimento() ? 'C' : 'D'
+
+    this.categoria.setValue('')
+    this.subcategoria.setValue('')
+    this.subcategoria.disable()
+
+    this.categoriaService.getAllByTipo(tipo).subscribe((dados: Categoria[]) => {
+      this.categorias = dados
+
+      if(dados.length === 0){
+        this.toast.showToast('Nenhuma categoria cadastrada para este tipo de movimento')
+      }
+    })
+  }
+
+  /**
+   * Evento disparado quando o valor do campo Categoria é alterado
+   * @param event 
+   */
+  onCategoriaChange(event: any): void {
+    if(this.categoria.value !== null && this.categoria.value !== ''){
+      let categoriaId: number = this.categoria.value
+
+      this.categoriaService.getSubcategorias(categoriaId).subscribe((dados: Subcategoria[]) => {
+        this.subcategorias = dados
+        
+        if(dados.length === 0){
+          this.toast.showToast('Não há nenhuma subcategoria para esta categoria')
+          this.subcategoria.disable()
+        } else {
+          this.subcategoria.enable()
+        }
+      })
+    }
+  }
+
+  /**
    * Evento disparado quando o valor do campo 'Cartão de crédito' é alterado
    */
   onCartaoChange(event: any): void {
@@ -134,8 +175,8 @@ export class InserirMovimentoPage implements OnInit {
    */
   private loadData(event: any = null): void {
     this.contaService.getAll().subscribe((dados: Conta[]) => this.contas = dados)
-    this.categoriaService.getAll().subscribe((dados: Categoria[]) => this.categorias = dados)
-    this.subcategoriaService.getAll().subscribe((dados: Subcategoria[]) => this.subcategorias = dados)
+    this.categoriaService.getAllByTipo('D').subscribe((dados: Categoria[]) => this.categorias = dados)
+    //this.subcategoriaService.getAll().subscribe((dados: Subcategoria[]) => this.subcategorias = dados)
     this.cartaoCreditoService.getAll().subscribe((dados: Cartao[]) => this.cartoes = dados)
     this.projetoService.getAll().subscribe((dados: Projeto[]) => {
       this.projetos = dados
@@ -155,7 +196,7 @@ export class InserirMovimentoPage implements OnInit {
       status: ['', Validators.required],
       conta: [''],
       categoria: [''],
-      subcategoria: [''],
+      subcategoria: [{value: '', disabled: true}],
       cartao: [''],
       fatura: [''],
       projeto: [''],

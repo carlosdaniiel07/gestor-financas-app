@@ -1,3 +1,3 @@
 export const APP_CONFIG  = {
-    apiUrl: 'http://localhost:8080'
+    apiUrl: 'https://api-gestor-financas.herokuapp.com'
 }

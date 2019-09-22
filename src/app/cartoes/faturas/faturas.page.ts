@@ -34,22 +34,22 @@ export class FaturasPage implements OnInit {
 
   private loadData(event: any = null): void {
     let cartaoId: number = this.activatedRoute.snapshot.params['id']
-    
+
     this.cartaoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => {
       this.faturas = dados
-    
-      if(this.hasFaturas()){
+
+      if (this.hasFaturas()) {
         this.headerName = dados[0].cartao.nome
         this.saldoRestantePercentual = this.calculaPercentualSaldoRestante(dados[0].cartao, dados)
         this.saldoRestante = this.calculaSaldoRestante(dados[0].cartao, dados)
       }
 
-      if(event !== null){
+      if (event !== null) {
         event.target.complete()
       }
     })
   }
-  
+
   doRefresh(event: any): void {
     this.loadData(event)
   }
@@ -61,7 +61,7 @@ export class FaturasPage implements OnInit {
   private calculaPercentualSaldoRestante(cartao: Cartao, faturas: Fatura[]): number {
     let limiteRestante: number = cartao.limite
     faturas.forEach((f: Fatura) => limiteRestante -= (f.valor - f.valorPago))
-  
+
     return limiteRestante / cartao.limite
   }
 
@@ -85,7 +85,7 @@ export class FaturasPage implements OnInit {
     }).then((modal) => {
       modal.present()
       modal.onDidDismiss().then((modal) => {
-        if(modal.data !== null){
+        if (modal.data !== null) {
           this.faturas.push(modal.data)
         }
       })
@@ -108,13 +108,15 @@ export class FaturasPage implements OnInit {
   abrirFatura(fatura: Fatura): void {
     this.faturaService.open(fatura.id).subscribe(() => {
       fatura.status = 'NAO_FECHADA'
-      this.toast.showToast(`Fatura ${fatura.referencia}aberta`)
+      this.toast.showToast(`Fatura ${fatura.referencia} aberta`)
     })
   }
 
   fecharFatura(fatura: Fatura): void {
-    this.faturaService.close(fatura.id).subscribe(() => fatura.status = 'PENDENTE')
-    this.toast.showToast(`Fatura ${fatura.referencia} fechada`)
+    this.faturaService.close(fatura.id).subscribe(() => {
+      fatura.status = 'PENDENTE'
+      this.toast.showToast(`Fatura ${fatura.referencia} fechada`)
+    })
   }
 
   pagarFatura(fatura: Fatura): void {
