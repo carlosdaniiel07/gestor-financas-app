@@ -40,7 +40,7 @@ export class EditarContaPage implements OnInit {
     this.contaService.update(this.contaObj).subscribe(() => this.toast.showToast('Conta atualizada'))
   }
 
-  private loadData(): void {
+  private loadData(event: any = null): void {
     let contaId: number = this.activatedRoute.snapshot.params['id']
 
     this.contaService.getById(contaId).subscribe((dados: Conta) => {
@@ -48,7 +48,17 @@ export class EditarContaPage implements OnInit {
       this.contaObj = dados
     })
 
-    this.tipoContaService.getAll().subscribe((dados: TipoConta[]) => this.tiposConta = dados)
+    this.tipoContaService.getAll().subscribe((dados: TipoConta[]) => {
+      this.tiposConta = dados
+
+      if(event !== null){
+        event.target.complete()
+      }
+    })
+  }
+
+  doRefresh(event: any): void {
+    this.loadData(event)
   }
 
   private initForm(): void {

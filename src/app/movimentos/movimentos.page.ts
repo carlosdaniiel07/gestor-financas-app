@@ -12,7 +12,7 @@ export class MovimentosPage implements OnInit {
   movimentosFiltrados: Movimento[] = []
  
   private paginaAtual: number = 0
-  private isLoading: boolean = true
+  isLoading: boolean = true
 
   constructor(private movimentoService: MovimentoService) {}
 
