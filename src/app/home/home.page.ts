@@ -13,6 +13,5 @@ export class HomePage {
 
   logout(): void {
     this.authService.logout()
-    this.navController.navigateRoot('/login')
   }
 }
