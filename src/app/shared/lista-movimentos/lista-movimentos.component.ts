@@ -19,6 +19,11 @@ export class ListaMovimentosComponent implements OnInit {
 
   ngOnInit() { }
 
+  ionViewWillEnter() {
+    // Ordena os movimentos por data de contabilização (do mais recente para o mais antigo)
+    this.movimentos = this.movimentos.sort(Movimento.sortByDataContabilizacaoDesc)
+  }
+
   closeModal(): void {
     if(this.modal){
       this.modalController.dismiss()
