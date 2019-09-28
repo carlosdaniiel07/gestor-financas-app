@@ -22,7 +22,7 @@
   <br />
 
   <!-- filtro -->
-  <ion-segment (ionChange)="onFiltroChange($event)">
+  <ion-segment *ngIf="hasFaturas()" (ionChange)="onFiltroChange($event)">
     <ion-segment-button value="nao-fechado">
       <ion-label>Não fechada</ion-label>
     </ion-segment-button>
