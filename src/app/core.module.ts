@@ -11,6 +11,7 @@ import { MovimentoService } from './services/movimento.service';
 import { ProjetoService } from './services/projeto.service';
 import { CartaoService } from './services/cartao.service';
 import { FaturaService } from './services/fatura.service';
+import { LoadingUtils } from './utils/loading.utils';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import { FaturaService } from './services/fatura.service';
     CartaoService,
     FaturaService,
     ToastUtils,
+    LoadingUtils,
     RouteGuard
   ]
 })
