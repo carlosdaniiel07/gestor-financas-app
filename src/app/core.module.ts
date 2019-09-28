@@ -12,6 +12,7 @@ import { ProjetoService } from './services/projeto.service';
 import { CartaoService } from './services/cartao.service';
 import { FaturaService } from './services/fatura.service';
 import { LoadingUtils } from './utils/loading.utils';
+import { BeneficiarioService } from './services/beneficiario.service';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import { LoadingUtils } from './utils/loading.utils';
     ProjetoService,
     CartaoService,
     FaturaService,
+    BeneficiarioService,
     ToastUtils,
     LoadingUtils,
     RouteGuard

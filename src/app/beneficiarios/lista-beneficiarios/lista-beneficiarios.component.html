@@ -1,0 +1,10 @@
+<ion-list>
+  <ion-item *ngFor="let beneficiario of beneficiarios">
+    <ion-label (click)="openOptionsDialog(beneficiario)">
+      <h2>{{beneficiario.nome}}</h2>
+      <p *ngIf="hasBanco(beneficiario)">Banco: <strong>{{beneficiario.banco}}</strong></p>
+      <p *ngIf="hasAgencia(beneficiario) && hasConta(beneficiario)">Agência: <strong>{{beneficiario.agencia}}</strong> &bull; Conta: <strong>{{beneficiario.conta}}</strong></p>
+      <p>Limite: <strong>{{beneficiario.limite | number: '1.2-2'}}</strong></p>
+    </ion-label>
+  </ion-item>
+</ion-list>
