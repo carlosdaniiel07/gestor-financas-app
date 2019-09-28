@@ -12,21 +12,37 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <!-- saldo-restante -->
   <ion-item *ngIf="hasFaturas()" lines="none">
     <ion-label position="stacked">Saldo restante (%)</ion-label>
     <ion-progress-bar [value]="saldoRestantePercentual" (click)="showSaldoRestante()"></ion-progress-bar>
   </ion-item>
-
+  <!-- /.saldo-restante -->
+  
   <br />
 
+  <!-- filtro -->
+  <ion-segment (ionChange)="onFiltroChange($event)">
+    <ion-segment-button value="nao-fechado">
+      <ion-label>Não fechada</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="a-pagar">
+      <ion-label>A pagar</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="pago">
+      <ion-label>Pago</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <!-- /.filtro -->
+
+  <br/>
+
   <!-- faturas -->
-  <app-lista-faturas *ngIf="hasFaturas()" 
-    [faturas]="faturas"
-    (showMovimentosEvent)="showMovimentosModal($event)"
-    (abrirFaturaEvent)="abrirFatura($event)"
-    (fecharFaturaEvent)="fecharFatura($event)"
-    (pagarFaturaEvent)="pagarFatura($event)"
-  >
+  <app-lista-faturas *ngIf="hasFaturas()" [faturas]="faturasFiltradas" (showMovimentosEvent)="showMovimentosModal($event)"
+    (abrirFaturaEvent)="abrirFatura($event)" (fecharFaturaEvent)="fecharFatura($event)"
+    (pagarFaturaEvent)="pagarFatura($event)">
   </app-lista-faturas>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

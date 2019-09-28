@@ -18,10 +18,12 @@ import { PagarFaturaComponent } from './pagar-fatura/pagar-fatura.component';
 export class FaturasPage implements OnInit {
 
   faturas: Fatura[] = []
+  faturasFiltradas: Fatura[] = []
 
   headerName: string = 'Faturas'
   saldoRestantePercentual: number = 0.0
   saldoRestante: number = 0.0
+  firstLoading: boolean = true
 
   constructor(private activatedRoute: ActivatedRoute, private cartaoService: CartaoService, private faturaService: FaturaService, private toast: ToastUtils, private modalController: ModalController) { }
 
@@ -37,6 +39,7 @@ export class FaturasPage implements OnInit {
 
     this.cartaoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => {
       this.faturas = dados
+      this.faturasFiltradas = this.firstLoading ? dados : this.faturasFiltradas
 
       if (this.hasFaturas()) {
         this.headerName = dados[0].cartao.nome
@@ -47,6 +50,8 @@ export class FaturasPage implements OnInit {
       if (event !== null) {
         event.target.complete()
       }
+
+      this.firstLoading = false
     })
   }
 
@@ -56,6 +61,25 @@ export class FaturasPage implements OnInit {
 
   showSaldoRestante(): void {
     this.toast.showToast(`Saldo restante: ${this.saldoRestante.toFixed(2)}`)
+  }
+
+  /**
+   * Evento responsável por aplicar o filtro escolhido pelo usuário
+   * @param event 
+   */
+  onFiltroChange(event: any): void {
+    let filtro: string = event.detail.value
+
+    switch (filtro) {
+      case 'nao-fechado':
+        this.faturasFiltradas = this.faturas.filter((f: Fatura) => f.status === 'NAO_FECHADA')
+        break
+      case 'a-pagar':
+        this.faturasFiltradas = this.faturas.filter((f: Fatura) => f.status === 'PENDENTE' || f.status === 'PAGO_PARCIAL')
+        break
+      case 'pago':
+        this.faturasFiltradas = this.faturas.filter((f: Fatura) => f.status === 'PAGO')
+    }
   }
 
   private calculaPercentualSaldoRestante(cartao: Cartao, faturas: Fatura[]): number {
