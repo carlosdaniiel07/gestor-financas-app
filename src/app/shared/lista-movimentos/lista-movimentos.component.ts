@@ -30,10 +30,12 @@ export class ListaMovimentosComponent implements OnInit {
   }
 
   detalhes(movto: Movimento): void {
+    this.closeModal()
     this.navController.navigateForward(`/movimentos/detalhes/${movto.id}`)
   }
 
   editar(movto: Movimento): void {
+    this.closeModal()
     this.navController.navigateForward(`/movimentos/editar/${movto.id}`)
   }
 
