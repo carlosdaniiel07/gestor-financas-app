@@ -16,7 +16,9 @@ const routes: Routes = [
   { path: 'tipos-conta', loadChildren: './tipos-conta/tipos-conta.module#TiposContaPageModule', canLoad: [ RouteGuard ] },
   { path: 'projetos', loadChildren: './projetos/projetos.module#ProjetosPageModule', canLoad: [ RouteGuard ] },
   { path: 'cartoes', loadChildren: './cartoes/cartoes.module#CartoesPageModule', canLoad: [ RouteGuard ] },
-  { path: 'movimentos', loadChildren: './movimentos/movimentos.module#MovimentosPageModule', canLoad: [ RouteGuard ] }
+  { path: 'movimentos', loadChildren: './movimentos/movimentos.module#MovimentosPageModule', canLoad: [ RouteGuard ] },
+  { path: 'beneficiarios', loadChildren: './beneficiarios/beneficiarios.module#BeneficiariosPageModule', canLoad: [ RouteGuard ] },
+  { path: 'cobrancas', loadChildren: './cobrancas/cobrancas.module#CobrancasPageModule', canLoad: [ RouteGuard ] },
 ];
 
 @NgModule({

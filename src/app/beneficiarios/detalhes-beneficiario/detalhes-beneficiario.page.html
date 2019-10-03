@@ -1,0 +1,36 @@
+<app-page-header headerName=""></app-page-header>
+
+<ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <form [formGroup]="beneficiarioForm">
+      <ion-item lines="none">
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Banco</ion-label>
+        <ion-input formControlName="banco"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Agência</ion-label>
+        <ion-input formControlName="agencia"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Conta</ion-label>
+        <ion-input formControlName="conta"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Limite</ion-label>
+        <ion-input type="number" formControlName="limite"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Observação</ion-label>
+        <ion-textarea formControlName="obs"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-list>
+</ion-content>

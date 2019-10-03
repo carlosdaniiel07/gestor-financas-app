@@ -4,6 +4,7 @@ import { APP_CONFIG } from '../app.config';
 import { AutenticacaoDTO } from '../models/autenticacao.dto';
 import { Usuario } from '../models/usuario.model';
 import { Observable } from 'rxjs';
+import { NavController } from '@ionic/angular';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
     private logado: boolean = false
     private token: string = ''
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private navController: NavController) { }
 
     login(credenciais: AutenticacaoDTO): Observable<HttpResponse<Usuario>> {
         let requestBody = JSON.stringify(credenciais)
@@ -55,5 +56,7 @@ export class AuthService {
             localStorage.removeItem('usuarioLogado')
             localStorage.removeItem('credenciais')
         }
+
+        this.navController.navigateRoot('/login')
     }
 }

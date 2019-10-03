@@ -4,6 +4,7 @@ import { Conta } from '../models/conta.model';
 import { NavController, ModalController } from '@ionic/angular';
 import { ListaMovimentosComponent } from '../shared/lista-movimentos/lista-movimentos.component';
 import { Movimento } from '../models/movimento.model';
+import { LoadingUtils } from '../utils/loading.utils';
 
 @Component({
   selector: 'app-contas',
@@ -13,7 +14,7 @@ export class ContasPage implements OnInit {
 
   contas: Conta[] = []
 
-  constructor(private contaService: ContaService, private navController: NavController, private modalController: ModalController) { }
+  constructor(private contaService: ContaService, private navController: NavController, private modalController: ModalController, private loading: LoadingUtils) { }
 
   ngOnInit() {
   }
@@ -44,7 +45,11 @@ export class ContasPage implements OnInit {
   }
 
   showMovimentosModal(conta: Conta): void {
+    this.loading.showLoading('loadingMovimentosConta', 'Carregando..')
+
     this.contaService.getMovimentos(conta.id).subscribe((dados: Movimento[]) => {
+      this.loading.dismissLoading('loadingMovimentosConta')
+
       this.modalController.create({
         component: ListaMovimentosComponent,
         componentProps: {

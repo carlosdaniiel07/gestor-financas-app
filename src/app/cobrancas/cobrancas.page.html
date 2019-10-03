@@ -1,0 +1,35 @@
+<app-page-header headerName="Cobranças"></app-page-header>
+
+<ion-toolbar>
+  <!-- filtro -->
+  <ion-segment (ionChange)="onFiltroChange($event)">
+    <ion-segment-button value="pendente">
+      <ion-label>Pendente</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="agendado">
+      <ion-label>Agendado</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="pago">
+      <ion-label>Pago</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <!-- /.filtro -->
+</ion-toolbar>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-lista-cobrancas [cobrancas]="cobrancasFiltradas" (detalhesEvent)="detalhes($event)" (editarEvent)="editar($event)"
+    (removerEvent)="remover($event)" (verOperacoesEvent)="showOperacoesModal($event)" (pagarEvent)="pagar($event)">
+  </app-lista-cobrancas>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/cobrancas/inserir']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

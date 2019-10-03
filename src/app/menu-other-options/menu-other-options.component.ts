@@ -13,11 +13,11 @@ export class MenuOtherOptionsComponent implements OnInit {
     {title: 'Subcategorias', icon: 'pricetags', link: '/subcategorias'},
     {title: 'Tipos de conta', icon: 'document', link: '/tipos-conta'},
     {title: 'Projetos', icon: 'briefcase', link: '/projetos'},
-    //{title: 'Beneficiários', icon: 'contacts', link: '/beneficiarios'},
+    {title: 'Beneficiários', icon: 'contacts', link: '/beneficiarios'}
   ]
 
   appPagesOutros: any[] = [
-    //{title: 'Cobranças', icon: 'clipboard', link: '/cobrancas'},
+    {title: 'Cobranças', icon: 'clipboard', link: '/cobrancas'},
     //{title: 'Transferências', icon: 'repeat', link: '/transferencias'}
   ]
 

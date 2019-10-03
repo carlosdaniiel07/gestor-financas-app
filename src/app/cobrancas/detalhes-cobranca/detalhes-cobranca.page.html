@@ -1,0 +1,71 @@
+<app-page-header headerName=""></app-page-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list>
+    <form [formGroup]="cobrancaForm">
+      <ion-item lines="none">
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-input formControlName="descricao"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Parcela</ion-label>
+        <ion-input formControlName="parcela"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Data de vencimento</ion-label>
+        <ion-input formControlName="dataVencimento"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Data de agendamento</ion-label>
+        <ion-input formControlName="dataAgendamento"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Data de pagamento</ion-label>
+        <ion-input formControlName="dataPagamento"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Valor</ion-label>
+        <ion-input type="number" formControlName="valor"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Saldo</ion-label>
+        <ion-input type="number" formControlName="saldo"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Juros</ion-label>
+        <ion-input type="number" formControlName="juros"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Desconto</ion-label>
+        <ion-input type="number" formControlName="desconto"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Beneficiário</ion-label>
+        <ion-input formControlName="beneficiario"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Status</ion-label>
+        <ion-input formControlName="status"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Observação</ion-label>
+        <ion-textarea formControlName="obs"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-list>
+</ion-content>

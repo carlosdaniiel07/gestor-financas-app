@@ -4,6 +4,8 @@ import { Projeto } from './projeto.model';
 import { Fatura } from './fatura.model';
 import { Categoria } from './categoria.model';
 
+import * as moment from 'moment'
+
 export class Movimento {
     constructor(
         public id: number,
@@ -54,6 +56,18 @@ export class Movimento {
             default:
                 return ''
         }
+    }
+
+    /**
+     * Compara dois objetos do tipo 'Movimento' e retorna o mais recente (se baseia na data de contabilização)
+     * @param a 
+     * @param b 
+     */
+    public static sortByDataContabilizacaoDesc(a: Movimento, b: Movimento): number {
+        let aData = moment(a.dataContabilizacao, "DD/MM/YYYY")
+        let bData = moment(b.dataContabilizacao, "DD/MM/YYYY")
+
+        return aData.isAfter(bData) ? -1 : 1
     }
 }
 

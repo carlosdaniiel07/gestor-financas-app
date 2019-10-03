@@ -1,0 +1,21 @@
+<app-page-header headerName="Beneficiários"></app-page-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-lista-beneficiarios
+    [beneficiarios]="beneficiarios"
+    (detalhesEventEmitter)="detalhes($event)"
+    (editarEventEmitter)="editar($event)"
+    (removerEventEmitter)="remover($event)"
+    (visualizarCobrancas)="openCobrancasModal($event)"
+  ></app-lista-beneficiarios>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/beneficiarios/inserir']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
