@@ -1,0 +1,61 @@
+<app-page-header headerName="Nova cobrança"></app-page-header>
+
+<ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <form [formGroup]="cobrancaForm">
+      <ion-item>
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-input formControlName="descricao"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Parcela</ion-label>
+        <ion-input formControlName="parcela"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data de vencimento</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" [max]="getMaxDate()"
+          formControlName="dataVencimento"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Valor</ion-label>
+        <ion-input type="number" formControlName="valor"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Juros</ion-label>
+        <ion-input type="number" formControlName="juros"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Desconto</ion-label>
+        <ion-input type="number" formControlName="desconto"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Beneficiário</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="beneficiario">
+          <ion-select-option *ngFor="let beneficiario of beneficiarios" [value]="beneficiario.id">
+            {{beneficiario.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Observação</ion-label>
+        <ion-textarea formControlName="obs"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!cobrancaForm.valid" (click)="inserir()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>

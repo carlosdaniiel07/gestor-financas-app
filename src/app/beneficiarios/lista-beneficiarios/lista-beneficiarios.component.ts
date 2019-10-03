@@ -49,7 +49,7 @@ export class ListaBeneficiariosComponent implements OnInit {
             }).then(alert => alert.present())
           }
         },
-        { text: 'Cobranças', icon: 'list', handler: () => this.visualizarCobrancas.emit(beneficario) },
+        //{ text: 'Cobranças', icon: 'list', handler: () => this.visualizarCobrancas.emit(beneficario) },
       ]
     }).then((actionSheet) => actionSheet.present())
   }

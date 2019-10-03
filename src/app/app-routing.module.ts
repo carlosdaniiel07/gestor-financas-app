@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'cartoes', loadChildren: './cartoes/cartoes.module#CartoesPageModule', canLoad: [ RouteGuard ] },
   { path: 'movimentos', loadChildren: './movimentos/movimentos.module#MovimentosPageModule', canLoad: [ RouteGuard ] },
   { path: 'beneficiarios', loadChildren: './beneficiarios/beneficiarios.module#BeneficiariosPageModule', canLoad: [ RouteGuard ] },
-  { path: 'detalhes-beneficiario', loadChildren: './beneficiarios/detalhes-beneficiario/detalhes-beneficiario.module#DetalhesBeneficiarioPageModule' }
+  { path: 'cobrancas', loadChildren: './cobrancas/cobrancas.module#CobrancasPageModule', canLoad: [ RouteGuard ] },
 ];
 
 @NgModule({

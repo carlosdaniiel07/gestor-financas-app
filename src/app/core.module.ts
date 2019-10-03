@@ -13,6 +13,7 @@ import { CartaoService } from './services/cartao.service';
 import { FaturaService } from './services/fatura.service';
 import { LoadingUtils } from './utils/loading.utils';
 import { BeneficiarioService } from './services/beneficiario.service';
+import { CobrancaService } from './services/cobranca.service';
 
 @NgModule({
   declarations: [],
@@ -30,6 +31,7 @@ import { BeneficiarioService } from './services/beneficiario.service';
     CartaoService,
     FaturaService,
     BeneficiarioService,
+    CobrancaService,
     ToastUtils,
     LoadingUtils,
     RouteGuard

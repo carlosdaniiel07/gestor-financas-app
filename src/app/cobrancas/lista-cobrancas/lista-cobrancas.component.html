@@ -1,0 +1,30 @@
+<ion-list>
+  <ion-item *ngFor="let cobranca of cobrancas">
+    <ion-label (click)="openOptionsDialog(cobranca)">
+      <h2>{{cobranca.descricao}}</h2>
+      <p>
+        <ion-icon name="calendar"></ion-icon>&nbsp;
+        {{cobranca.dataVencimento}}
+      </p>
+      <p>
+        <ion-icon name="person"></ion-icon>&nbsp;
+        {{cobranca.beneficiario.nome}}
+      </p>
+      <p>
+        <ion-icon name="pricetag"></ion-icon>&nbsp;
+        {{transformStatus(cobranca)}}
+      </p>
+    </ion-label>
+
+    <ion-chip color="danger" *ngIf="!isPago(cobranca); else cobrancaPagaTemplate">
+      <ion-label>{{cobranca.saldo | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+
+    <ng-template #cobrancaPagaTemplate>
+      <ion-chip color="success">
+        <ion-icon name="checkmark"></ion-icon>
+        <ion-label>{{getValorTotal(cobranca) | number: '1.2-2'}}</ion-label>
+      </ion-chip>
+    </ng-template>
+  </ion-item>
+</ion-list>

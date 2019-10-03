@@ -1,6 +1,6 @@
 {
     "name": "gestor-financas-app",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": "Carlos Almeida",
     "homepage": "http://github.com/carlosdaniiel07/",
     "scripts": {
@@ -9,7 +9,8 @@
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "build-android": "ionic cordova build android --release --prod"
     },
     "private": true,
     "dependencies": {
@@ -74,6 +75,9 @@
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-ionic-keyboard": {}
-        }
+        },
+        "platforms": [
+            "android"
+        ]
     }
 }

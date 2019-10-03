@@ -45,4 +45,8 @@ export class BeneficiariosPage implements OnInit {
   remover(beneficiario: Beneficiario): void {
     this.beneficiarioService.delete(beneficiario.id).subscribe(() => this.beneficiarios.splice(this.beneficiarios.indexOf(beneficiario), 1))
   }
+
+  openCobrancasModal(beneficiario: Beneficiario): void {
+    
+  }
 }

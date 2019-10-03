@@ -1,0 +1,62 @@
+<app-page-header headerName="Remover cobrança"></app-page-header>
+
+<ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <form [formGroup]="cobrancaForm">
+      <ion-item>
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-input formControlName="descricao"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Conta</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="conta">
+          <ion-select-option *ngFor="let conta of contas" [value]="conta.id">
+            {{conta.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Saldo a estornar</ion-label>
+        <ion-input type="number" formControlName="saldo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Categoria</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="categoria" (ionChange)="onCategoriaChange($event)">
+          <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
+            {{categoria.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Subcategoria</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="subcategoria">
+          <ion-select-option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">
+            {{subcategoria.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Projeto</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="projeto">
+          <ion-select-option *ngFor="let projeto of projetos" [value]="projeto.id">
+            {{projeto.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!cobrancaForm.valid" (click)="removerCobranca()" class="ion-float-right">
+    Confirmar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>
