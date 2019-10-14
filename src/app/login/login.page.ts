@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, MenuController } from '@ionic/angular';
+import { NavController, MenuController, ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
@@ -8,6 +8,7 @@ import { AutenticacaoDTO } from '../models/autenticacao.dto';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Usuario } from '../models/usuario.model';
 import { ToastUtils } from '../utils/toast.utils';
+import { RecuperarSenhaComponent } from './recuperar-senha/recuperar-senha.component';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
               private menuController: MenuController, 
               private authService: AuthService,
               private fb: FormBuilder,
-              private toast: ToastUtils) {
+              private toast: ToastUtils,
+              private modalController: ModalController) {
     this.initForm()
   }
 
@@ -62,6 +64,15 @@ export class LoginPage implements OnInit {
 
       this.loginForm.reset()
     })
+  }
+
+  recuperarSenhaModal(): void {
+    this.modalController.create({
+      component: RecuperarSenhaComponent,
+      componentProps: {
+        'loginOuEmail': this.loginOuEmail.value
+      }
+    }).then((modal) => modal.present())
   }
 
   private initForm(): void {

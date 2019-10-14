@@ -1,0 +1,25 @@
+<app-page-header *ngIf="modal" (closeEventEmitter)="closeModal()" headerName="Recuperação de senha"
+  showCloseButton="true">
+</app-page-header>
+
+<ion-content padding>
+  <div class="ion-text-justify">
+    <ion-text>A sua nova senha será gerada e enviada no e-mail cadastrado nos próximos minutos</ion-text>
+  </div>
+
+  <br />
+
+  <form [formGroup]="recuperarSenhaForm">
+    <ion-item>
+      <ion-label position="stacked">Usuário / e-mail</ion-label>
+      <ion-input formControlName="loginOuEmail"></ion-input>
+    </ion-item>
+  </form>
+
+  <br />
+
+  <ion-button [disabled]="!recuperarSenhaForm.valid" (click)="enviar()" class="ion-float-right">
+    Confirmar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>
