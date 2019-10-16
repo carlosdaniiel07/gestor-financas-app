@@ -1,0 +1,42 @@
+<app-page-header *ngIf="modal" (closeEventEmitter)="closeModal()" headerName="Meu perfil" showCloseButton="true">
+</app-page-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>{{usuario?.nome}}</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>{{usuario?.login}}</ion-label>
+    <ion-icon name="contact"></ion-icon>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>{{usuario?.email}}</ion-label>
+    <ion-icon name="mail"></ion-icon>
+  </ion-item>
+
+  <ion-item button="true" (click)="setShowCampoNovaSenha()">
+    <ion-label><strong>*********</strong></ion-label>
+    <ion-icon name="key"></ion-icon>
+  </ion-item>
+
+  <form [formGroup]="atualizarUsuarioForm">
+    <ion-item *ngIf="showCampoNovaSenha">
+      <ion-label position="stacked">Nova senha</ion-label>
+      <ion-input formControlName="novaSenha"></ion-input>
+    </ion-item>
+  </form>
+
+  <ion-item>
+    <ion-label>{{usuario?.tipo}}</ion-label>
+    <ion-icon name="pricetag"></ion-icon>
+  </ion-item>
+
+  <br/>
+
+  <ion-button *ngIf="showCampoNovaSenha" [disabled]="!atualizarUsuarioForm.valid" (click)="atualizar()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>
