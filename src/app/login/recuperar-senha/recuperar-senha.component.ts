@@ -12,6 +12,7 @@ import { ToastUtils } from 'src/app/utils/toast.utils';
 export class RecuperarSenhaComponent implements OnInit {
 
   recuperarSenhaForm: FormGroup
+  modal: boolean = true
 
   @Input() loginOuEmail: string = '' 
 

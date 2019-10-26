@@ -10,6 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class MeuPerfilComponent implements OnInit {
 
+  modal: boolean = true
+  
   constructor(private fb: FormBuilder, private authService: AuthService, private modalController: ModalController) {
     this.initForm()
   }
