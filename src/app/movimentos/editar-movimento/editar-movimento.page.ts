@@ -64,7 +64,7 @@ export class EditarMovimentoPage implements OnInit {
    * Atualiza os dados de um movimento
    */
   atualizar(): void {
-    this.movimento.decrescimo = this.descricao.value
+    this.movimento.descricao = this.descricao.value
     this.movimento.tipo = this.isCreditoMovimento() ? 'C' : 'D'
     this.movimento.dataContabilizacao = DateUtils.toApiPattern(this.dataContabilizacao.value)
     this.movimento.valor = this.valor.value

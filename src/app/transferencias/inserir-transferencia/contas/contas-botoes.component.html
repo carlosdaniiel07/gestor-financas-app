@@ -1,0 +1,10 @@
+<ion-list>
+  <ion-list-header>{{textoInformativo}}</ion-list-header>
+
+  <ion-item *ngFor="let conta of contas" lines="none">
+    <ion-chip (click)="selecionarConta(conta)" [color]="getBotaoColor(conta)">
+      <ion-label>{{conta.nome}}</ion-label>
+      <ion-icon (click)="detalhesConta(conta)" name="information-circle"></ion-icon>
+    </ion-chip>
+  </ion-item>
+</ion-list>

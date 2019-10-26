@@ -1,0 +1,61 @@
+<app-page-header (closeEventEmitter)="closeModal()" headerName="Nova transferência" showCloseButton="true">
+</app-page-header>
+
+<ion-content padding>
+  <app-contas-botoes *ngIf="!contaOrigemSelecionada || !contaDestinoSelecionada" [contas]="contas"
+    (contaSelecionadaEvent)="onSelecionarConta($event)"></app-contas-botoes>
+
+  <form *ngIf="contaOrigemSelecionada && contaDestinoSelecionada" [formGroup]="transfForm">
+    <ion-item>
+      <ion-label position="stacked">Descrição</ion-label>
+      <ion-input formControlName="descricao"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Valor</ion-label>
+      <ion-input type="number" formControlName="valor"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Taxa</ion-label>
+      <ion-input type="number" formControlName="taxa"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Data contabilização</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" [max]="getMaxDate()"
+        formControlName="dataContabilizacao"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Status</ion-label>
+      <ion-select placeholder="(Selecione)" formControlName="status">
+        <ion-select-option *ngFor="let status of statusList" [value]="status.value">
+          {{status.label}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Observação</ion-label>
+      <ion-textarea formControlName="obs"></ion-textarea>
+    </ion-item>
+
+    <br/>
+
+    <ion-button [disabled]="!transfForm.valid" (click)="inserir()" class="ion-float-right">
+      Salvar
+      <ion-icon slot="end" name="checkmark"></ion-icon>
+    </ion-button>
+  </form>
+</ion-content>
+
+<!-- footer -->
+<ion-footer>
+  <ion-toolbar (click)="voltarParaSelecao()" slot="start" color="light" mode="md">
+    <div class="ion-text-center">
+      Transferindo de <strong>{{getOrigemNome()}}</strong> para <strong>{{getDestinoNome()}}</strong>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+<!-- /.footer -->

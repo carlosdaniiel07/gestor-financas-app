@@ -5,6 +5,7 @@ import { AutenticacaoDTO } from '../models/autenticacao.dto';
 import { Usuario } from '../models/usuario.model';
 import { Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
+import { RecuperarSenhaDTO } from '../models/recuperar-senha.dto';
 
 @Injectable()
 export class AuthService {
@@ -58,5 +59,12 @@ export class AuthService {
         }
 
         this.navController.navigateRoot('/login')
+    }
+
+    recuperaSenha(recuperarSenhaDTO: RecuperarSenhaDTO): Observable<any> {
+        let requestBody = JSON.stringify(recuperarSenhaDTO)
+        let headers = new HttpHeaders().append('Content-Type', 'application/json')
+        
+        return this.http.post(`${APP_CONFIG.apiUrl}/auth/esqueci-minha-senha`, requestBody, { headers: headers })
     }
 }
