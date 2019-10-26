@@ -1,0 +1,31 @@
+<ion-list>
+  <ion-item *ngFor="let transferencia of transferencias">
+    <ion-label (click)="openOptionsDialog(transferencia)">
+      <h2>{{transferencia.descricao}}</h2>
+      <p>
+        <ion-icon name="calendar"></ion-icon>&nbsp;
+        {{transferencia.dataContabilizacao}}
+      </p>
+      <p>
+        <ion-icon name="information-circle"></ion-icon>
+        {{transferencia.contaOrigem.nome}} 
+        <ion-icon name="arrow-round-forward"></ion-icon>&nbsp;
+        <strong>{{transferencia.contaDestino.nome}}</strong>
+      </p>
+      <p>
+        <ion-icon name="pricetag"></ion-icon>
+        {{transformStatus(transferencia)}}
+      </p>
+    </ion-label>
+
+    <ion-chip color="success" *ngIf="isEfetivado(transferencia)" (click)="showTarifa(transferencia)">
+      <ion-label>{{getValorTotal(transferencia) | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+    <ion-chip color="warning" *ngIf="isEstornado(transferencia)" (click)="showTarifa(transferencia)">
+      <ion-label>{{getValorTotal(transferencia) | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+    <ion-chip color="success" *ngIf="isAgendado(transferencia)" outline="true" (click)="showTarifa(transferencia)">
+      <ion-label>{{getValorTotal(transferencia) | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+  </ion-item>
+</ion-list>
