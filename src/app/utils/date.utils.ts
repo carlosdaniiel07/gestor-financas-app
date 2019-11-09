@@ -54,4 +54,11 @@ export class DateUtils {
             'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez' 
         ]
     }
+
+    /**
+     * Retorna a data atual no formato JSON
+     */
+    public static getNowAsJson(): string {
+        return new Date().toJSON()
+    }
 }

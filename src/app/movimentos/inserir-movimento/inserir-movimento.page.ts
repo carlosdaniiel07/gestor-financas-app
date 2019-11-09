@@ -148,7 +148,8 @@ export class InserirMovimentoPage implements OnInit {
    */
   resetForm(): void {
     this.movimentoForm.reset({
-      credito: false
+      credito: false,
+      dataContabilizacao: DateUtils.getNowAsJson()
     })
   }
 
@@ -189,7 +190,7 @@ export class InserirMovimentoPage implements OnInit {
     this.movimentoForm = this.fb.group({
       descricao: ['', Validators.required],
       credito: [false, Validators.required],
-      dataContabilizacao: ['', Validators.required],
+      dataContabilizacao: [DateUtils.getNowAsJson(), Validators.required],
       valor: ['', Validators.required],
       status: ['', Validators.required],
       conta: [''],
