@@ -3,6 +3,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { Movimento } from 'src/app/models/movimento.model';
 import { MovimentoService } from 'src/app/services/movimento.service';
 import { ToastUtils } from 'src/app/utils/toast.utils';
+import { DateUtils } from 'src/app/utils/date.utils';
 
 @Component({
   selector: 'app-lista-movimentos',
@@ -49,5 +50,16 @@ export class ListaMovimentosComponent implements OnInit {
       this.movimentos.splice(this.movimentos.indexOf(movto), 1)
       this.toast.showToast('Movimento removido')
     })
+  }
+
+  clonar(movto: Movimento): void {
+    let novoMovimento = Object.assign({}, movto)
+
+    novoMovimento.id = null
+    novoMovimento.dataContabilizacao = DateUtils.toApiPattern(DateUtils.getNowAsJson())
+
+    this.movimentoService.insert(novoMovimento).subscribe((dados: Movimento) => 
+      this.toast.showToast('Movimento clonado com sucesso')
+    )
   }
 }

@@ -13,6 +13,7 @@ export class ListaComponent implements OnInit {
   @Output() detalhesEventEmitter = new EventEmitter<Movimento>()
   @Output() editarEventEmitter = new EventEmitter<Movimento>()
   @Output() removerEventEmitter = new EventEmitter<Movimento>()
+  @Output() clonarEventEmitter = new EventEmitter<Movimento>()
 
   constructor(private actionSheet: ActionSheetController, private alertController: AlertController) { }
 
@@ -55,7 +56,17 @@ export class ListaComponent implements OnInit {
               ]
             }).then(alert => alert.present())
           }
-        }
+        },
+        { text: 'Clonar', icon: 'copy', handler: () => {
+          this.alertController.create({
+            header: 'Confirmar',
+            message: 'Deseja realmente clonar este movimento? Um movimento idêntico será gerado com a data de hoje',
+            buttons: [
+              { text: 'Não' },
+              { text: 'Sim', handler: () => this.clonarEventEmitter.emit(movto) }
+            ]
+          }).then(alert => alert.present())
+        }},
       ]
     }).then((actionSheet) => actionSheet.present())
   }
