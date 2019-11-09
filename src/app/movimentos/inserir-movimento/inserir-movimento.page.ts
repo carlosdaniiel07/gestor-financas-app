@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { STATUS, Movimento } from './../../models/movimento.model'
+import { STATUS } from './../../models/movimento.model'
 import { DateUtils } from 'src/app/utils/date.utils';
 import { Conta } from 'src/app/models/conta.model';
 import { Categoria } from 'src/app/models/categoria.model';
@@ -9,11 +9,9 @@ import { Projeto } from 'src/app/models/projeto.model';
 import { MovimentoService } from 'src/app/services/movimento.service';
 import { ContaService } from 'src/app/services/conta.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
-import { SubcategoriaService } from 'src/app/services/subcategoria.service';
 import { ProjetoService } from 'src/app/services/projeto.service';
 import { ToastUtils } from 'src/app/utils/toast.utils';
 import { CartaoService } from 'src/app/services/cartao.service';
-import { FaturaService } from 'src/app/services/fatura.service';
 import { Cartao } from 'src/app/models/cartao.model';
 import { Fatura } from 'src/app/models/fatura.model';
 import { MovimentoDTO } from 'src/app/models/movimento.dto';
@@ -38,10 +36,8 @@ export class InserirMovimentoPage implements OnInit {
     private movimentoService: MovimentoService,
     private contaService: ContaService,
     private categoriaService: CategoriaService,
-    private subcategoriaService: SubcategoriaService,
     private projetoService: ProjetoService,
     private cartaoCreditoService: CartaoService,
-    private faturaService: FaturaService,
     private toast: ToastUtils) {
     this.initForm()
   }
@@ -73,7 +69,7 @@ export class InserirMovimentoPage implements OnInit {
       fatura: this.hasCartaoCredito() ? this.faturas.find((f: Fatura) => f.id === this.fatura.value) : null
     }
 
-    this.movimentoService.insert(movimento).subscribe((dados: Movimento) => {
+    this.movimentoService.insert(movimento).subscribe(() => {
       this.toast.showToast('Movimento inserido')
       this.resetForm()
     })
@@ -90,7 +86,7 @@ export class InserirMovimentoPage implements OnInit {
    * Evento disparado quando o tipo de movimento (campo Crédito) é alterado
    * @param event 
    */
-  onCreditoChange(event: any): void {
+  onCreditoChange(): void {
     let tipo: string = this.isCreditoMovimento() ? 'C' : 'D'
 
     this.categoria.setValue('')
@@ -110,7 +106,7 @@ export class InserirMovimentoPage implements OnInit {
    * Evento disparado quando o valor do campo Categoria é alterado
    * @param event 
    */
-  onCategoriaChange(event: any): void {
+  onCategoriaChange(): void {
     if(this.categoria.value !== null && this.categoria.value !== ''){
       let categoriaId: number = this.categoria.value
 
@@ -130,7 +126,7 @@ export class InserirMovimentoPage implements OnInit {
   /**
    * Evento disparado quando o valor do campo 'Cartão de crédito' é alterado
    */
-  onCartaoChange(event: any): void {
+  onCartaoChange(): void {
     if(this.hasCartaoCredito()){
       let cartaoId: number = this.cartao.value
       this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => this.faturas = dados)
@@ -151,7 +147,9 @@ export class InserirMovimentoPage implements OnInit {
    * Reseta o formulário
    */
   resetForm(): void {
-    this.movimentoForm.reset()
+    this.movimentoForm.reset({
+      credito: false
+    })
   }
 
   /**
