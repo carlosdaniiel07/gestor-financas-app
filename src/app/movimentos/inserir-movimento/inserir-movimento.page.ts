@@ -15,6 +15,7 @@ import { CartaoService } from 'src/app/services/cartao.service';
 import { Cartao } from 'src/app/models/cartao.model';
 import { Fatura } from 'src/app/models/fatura.model';
 import { MovimentoDTO } from 'src/app/models/movimento.dto';
+import { LoadingUtils } from 'src/app/utils/loading.utils';
 
 @Component({
   selector: 'app-inserir-movimento',
@@ -38,7 +39,9 @@ export class InserirMovimentoPage implements OnInit {
     private categoriaService: CategoriaService,
     private projetoService: ProjetoService,
     private cartaoCreditoService: CartaoService,
-    private toast: ToastUtils) {
+    private toast: ToastUtils,
+    private loading: LoadingUtils
+  ) {
     this.initForm()
   }
 
@@ -69,7 +72,10 @@ export class InserirMovimentoPage implements OnInit {
       fatura: this.hasCartaoCredito() ? this.faturas.find((f: Fatura) => f.id === this.fatura.value) : null
     }
 
+    this.loading.showLoading('inserirMovimentoLoading', 'Processando..')
+
     this.movimentoService.insert(movimento).subscribe(() => {
+      this.loading.dismissLoading('inserirMovimentoLoading')
       this.toast.showToast('Movimento inserido')
       this.resetForm()
     })

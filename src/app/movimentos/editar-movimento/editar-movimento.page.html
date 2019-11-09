@@ -25,7 +25,7 @@
 
       <ion-item>
         <ion-label position="stacked">Data contabilização</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" [max]="getMaxDate()"
+        <ion-datetime (ionChange)="onDataContabilizacaoChanges()" displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" [max]="getMaxDate()"
           formControlName="dataContabilizacao"></ion-datetime>
       </ion-item>
 
