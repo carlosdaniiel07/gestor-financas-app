@@ -78,10 +78,10 @@ export class EditarMovimentoPage implements OnInit {
     this.movimento.projeto = this.projetos.find((p: Projeto) => p.id === this.projeto.value),
     this.movimento.fatura =  this.hasCartaoCredito() ? this.faturas.find((f: Fatura) => f.id === this.fatura.value) : null
   
-    this.loading.showLoading('editarMovimentoLoading', 'Processando..')
+    this.loading.showLoading('Processando..')
 
     this.movimentoService.update(this.movimento).subscribe(() => {
-      this.loading.dismissLoading('editarMovimentoLoading')
+      this.loading.dismissLoading()
       this.toast.showToast('Movimento atualizado')
     })
   }

@@ -72,10 +72,10 @@ export class InserirMovimentoPage implements OnInit {
       fatura: this.hasCartaoCredito() ? this.faturas.find((f: Fatura) => f.id === this.fatura.value) : null
     }
 
-    this.loading.showLoading('inserirMovimentoLoading', 'Processando..')
+    this.loading.showLoading('Processando..')
 
     this.movimentoService.insert(movimento).subscribe(() => {
-      this.loading.dismissLoading('inserirMovimentoLoading')
+      this.loading.dismissLoading()
       this.toast.showToast('Movimento inserido')
       this.resetForm()
     })
