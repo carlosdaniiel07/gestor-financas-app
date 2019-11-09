@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { STATUS } from './../../models/movimento.model'
+import { STATUS, Movimento } from './../../models/movimento.model'
 import { DateUtils } from 'src/app/utils/date.utils';
 import { Conta } from 'src/app/models/conta.model';
 import { Categoria } from 'src/app/models/categoria.model';
@@ -83,6 +83,24 @@ export class InserirMovimentoPage implements OnInit {
   }
 
   /**
+   * Evento disparado quando a data de contabilização é alterada
+   */
+  onDataContabilizacaoChanges(): void {
+    let dataContabilizacao: string = this.dataContabilizacao.value
+    let novoStatus: string = ''
+
+    if(DateUtils.isFuturo(dataContabilizacao)){
+      novoStatus = Movimento.getStatusValueByLabel('Agendado')
+    } else if (DateUtils.isPassado(dataContabilizacao)){
+      novoStatus = Movimento.getStatusValueByLabel('Efetivado')
+    } else {
+      novoStatus = Movimento.getStatusValueByLabel('Pendente')
+    }
+
+    this.status.setValue(novoStatus)
+  }
+
+  /**
    * Evento disparado quando o tipo de movimento (campo Crédito) é alterado
    * @param event 
    */
@@ -131,8 +149,16 @@ export class InserirMovimentoPage implements OnInit {
       let cartaoId: number = this.cartao.value
       this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => this.faturas = dados)
 
-      // Limpa o campo 'Conta'
+      // Limpa e desabilita o campo 'Conta'
       this.conta.setValue('')
+      this.conta.disable()
+
+      // Altera o status p/ 'Efetivado'
+      this.status.setValue(Movimento.getStatusValueByLabel('Efetivado'))
+      this.status.disable()
+    } else {
+      this.conta.enable()
+      this.status.enable()
     }
   }
 
@@ -149,7 +175,8 @@ export class InserirMovimentoPage implements OnInit {
   resetForm(): void {
     this.movimentoForm.reset({
       credito: false,
-      dataContabilizacao: DateUtils.getNowAsJson()
+      dataContabilizacao: DateUtils.getNowAsJson(),
+      status: Movimento.getStatusValueByLabel('Pendente')
     })
   }
 
@@ -187,12 +214,14 @@ export class InserirMovimentoPage implements OnInit {
   }
 
   private initForm(): void {
+    let defaultStatus = Movimento.getStatusValueByLabel('Pendente')
+
     this.movimentoForm = this.fb.group({
       descricao: ['', Validators.required],
       credito: [false, Validators.required],
       dataContabilizacao: [DateUtils.getNowAsJson(), Validators.required],
       valor: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [defaultStatus, Validators.required],
       conta: [''],
       categoria: [''],
       subcategoria: [{value: '', disabled: true}],

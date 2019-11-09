@@ -58,6 +58,18 @@ export class Movimento {
         }
     }
 
+    public static getStatusValueByLabel(label: string): string {
+        let value: string = ''
+        
+        STATUS.forEach((item: {label: string, value: any}) => {
+            if (item.label === label){
+                value = item.value
+            }
+        })
+        
+        return value
+    }
+
     /**
      * Compara dois objetos do tipo 'Movimento' e retorna o mais recente (se baseia na data de contabilização)
      * @param a 
