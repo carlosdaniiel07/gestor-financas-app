@@ -6,4 +6,4 @@ before_script:
   - npm install -g ionic cordova
 
 script:
-  - ionic cordova build android --release --prod
+  - ionic build --prod --platform=android
