@@ -1,0 +1,21 @@
+<app-page-header headerName="Transferências"></app-page-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-lista-transferencia
+    [transferencias]="transferencias"
+    (editarEvent)="editar($event)"
+    (efetivarEvent)="efetivar($event)"
+    (estornarEvent)="estornar($event)"
+  >
+  </app-lista-transferencia>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="inserirTransferenciaModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

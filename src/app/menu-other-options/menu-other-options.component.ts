@@ -18,7 +18,7 @@ export class MenuOtherOptionsComponent implements OnInit {
 
   appPagesOutros: any[] = [
     {title: 'Cobranças', icon: 'clipboard', link: '/cobrancas'},
-    //{title: 'Transferências', icon: 'repeat', link: '/transferencias'}
+    {title: 'Transferências', icon: 'repeat', link: '/transferencias'}
   ]
 
   constructor(private popoverController: PopoverController) { }
