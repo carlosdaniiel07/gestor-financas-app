@@ -208,9 +208,13 @@ export class EditarMovimentoPage implements OnInit {
   private loadData(event: any = null): void {
     let movimentoId: number = this.activatedRoute.snapshot.params['id']
 
+    this.loading.showLoading('Recuperando dados..')
+
     this.movimentoService.getById(movimentoId).subscribe((dados: Movimento) => {
       this.movimento = dados
       this.loadForm(dados)
+
+      this.loading.dismissLoading()
     })
 
     this.contaService.getAll().subscribe((dados: Conta[]) => this.contas = dados)

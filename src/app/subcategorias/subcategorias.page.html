@@ -6,6 +6,7 @@
   </ion-refresher>
 
   <app-lista-subcategorias
+    *ngIf="hasSubcategorias()"
     header="Crédito"
     [subcategorias]="getSubcategoriasCredito()" 
     (detalhesEventEmitter)="detalhes($event)"
@@ -15,6 +16,7 @@
   ></app-lista-subcategorias>
 
   <app-lista-subcategorias
+    *ngIf="hasSubcategorias()"
     header="Débito"
     [subcategorias]="getSubcategoriasDebito()" 
     (detalhesEventEmitter)="detalhes($event)"

@@ -4,6 +4,7 @@ import { Movimento } from 'src/app/models/movimento.model';
 import { ActivatedRoute } from '@angular/router';
 import { MovimentoService } from 'src/app/services/movimento.service';
 import { NavController, AlertController } from '@ionic/angular';
+import { LoadingUtils } from 'src/app/utils/loading.utils';
 
 @Component({
   selector: 'app-detalhes-movimento',
@@ -19,7 +20,8 @@ export class DetalhesMovimentoPage implements OnInit {
       private activatedRoute: ActivatedRoute, 
       private movimentoService: MovimentoService,
       private navController: NavController,
-      private alertController: AlertController) {
+      private alertController: AlertController,
+      private loading: LoadingUtils) {
     this.initForm()
   }
 
@@ -33,9 +35,13 @@ export class DetalhesMovimentoPage implements OnInit {
   loadData(event: any = null): void {
     let movimentoId: number = this.activatedRoute.snapshot.params['id']
 
+    this.loading.showLoading('Recuperando dados..')
+
     this.movimentoService.getById(movimentoId).subscribe((dados: Movimento) => {
       this.movimento = dados
       this.loadForm(dados)
+      
+      this.loading.dismissLoading()
     })
   }
 
