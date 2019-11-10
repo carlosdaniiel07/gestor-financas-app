@@ -45,10 +45,10 @@ export class ContasPage implements OnInit {
   }
 
   showMovimentosModal(conta: Conta): void {
-    this.loading.showLoading('loadingMovimentosConta', 'Carregando..')
+    this.loading.showLoading('Carregando..')
 
     this.contaService.getMovimentos(conta.id).subscribe((dados: Movimento[]) => {
-      this.loading.dismissLoading('loadingMovimentosConta')
+      this.loading.dismissLoading()
 
       this.modalController.create({
         component: ListaMovimentosComponent,

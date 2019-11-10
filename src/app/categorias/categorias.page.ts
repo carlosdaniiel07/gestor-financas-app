@@ -7,6 +7,7 @@ import { ToastUtils } from '../utils/toast.utils';
 import { NavController, ModalController } from '@ionic/angular';
 import { Movimento } from '../models/movimento.model';
 import { ListaMovimentosComponent } from '../shared/lista-movimentos/lista-movimentos.component';
+import { LoadingUtils } from '../utils/loading.utils';
 
 @Component({
   selector: 'app-categorias',
@@ -16,7 +17,7 @@ export class CategoriasPage implements OnInit {
 
   categorias: Categoria[] = []
 
-  constructor(private navController: NavController, private categoriaService: CategoriaService, private toast: ToastUtils, private modalController: ModalController) { }
+  constructor(private navController: NavController, private categoriaService: CategoriaService, private toast: ToastUtils, private modalController: ModalController, private loading: LoadingUtils) { }
 
   ngOnInit() {
     
@@ -27,12 +28,16 @@ export class CategoriasPage implements OnInit {
   }
 
   private loadData(event: any = null): void {
+    this.loading.showLoading('Carregando..')
+
     this.categoriaService.getAll().subscribe((dados: Categoria[]) => {
       this.categorias = dados
 
       if(event !== null){
         event.target.complete()
       }
+
+      this.loading.dismissLoading()
     })
   }
 
@@ -74,5 +79,9 @@ export class CategoriasPage implements OnInit {
 
   doRefresh(event: any): void {
     this.loadData(event)
+  }
+
+  hasCategorias(): boolean {
+    return this.categorias.length > 0
   }
 }

@@ -4,11 +4,12 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators'
 import { ToastUtils } from './utils/toast.utils';
 import { AuthService } from './services/auth.service';
+import { LoadingUtils } from './utils/loading.utils';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(private toast: ToastUtils, private authService: AuthService) {
+    constructor(private toast: ToastUtils, private loading: LoadingUtils, private authService: AuthService) {
                 
     }
 
@@ -26,16 +27,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                 // Tratamento de erro baseado no status do mesmo
                 switch(errorStatus) {
                     case 400 || 404: // Bad request ou Not Found
-                        this.toast.showToast(errorMessage, toastDuration)
+                        this.toast.showErrorToast(errorMessage, toastDuration)
                         break
                     case 403: // Forbidden
-                        this.toast.showToast('Sua sessão expirou. Faça o login novamente', toastDuration)
+                        this.toast.showErrorToast('Sua sessão expirou. Faça o login novamente', toastDuration)
                         
                         // Efetua o logout, porém, sem remover as credenciais do local storage
                         this.authService.logout(false) 
                         break
                     default:
-                        this.toast.showToast(errorMessage, toastDuration)
+                        this.toast.showErrorToast(errorMessage, toastDuration)
                 }
 
                 return throwError(err)

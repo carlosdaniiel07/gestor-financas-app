@@ -54,4 +54,37 @@ export class DateUtils {
             'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez' 
         ]
     }
+
+    /**
+     * Retorna a data atual no formato JSON
+     */
+    public static getNowAsJson(): string {
+        return new Date().toJSON()
+    }
+
+    /**
+     * Retorna a data no formato yyyy-mm-dd a partir de uma data composta (ex: 2019-11-09T16:14:16.620-03:00)
+     * @param data
+     */
+    public static getDate(data: string): string {
+        return (data !== null && data.length >= 10) ? data.substr(0, 10) : ''
+    }
+    
+    /**
+     * Verifica se uma data é passada (inferior a data atual)
+     * @param data 
+     */
+    public static isPassado(data: string): boolean {
+        let dataObj = momentjs(this.getDate(data))
+        return momentjs().isAfter(dataObj)
+    }
+
+    /**
+     * Verifica se uma data é futura (superior a data atual)
+     * @param data 
+     */
+    public static isFuturo(data: string): boolean {
+        let dataObj = momentjs(this.getDate(data))
+        return momentjs().isBefore(dataObj)
+    }
 }

@@ -9,14 +9,13 @@ import { Projeto } from 'src/app/models/projeto.model';
 import { MovimentoService } from 'src/app/services/movimento.service';
 import { ContaService } from 'src/app/services/conta.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
-import { SubcategoriaService } from 'src/app/services/subcategoria.service';
 import { ProjetoService } from 'src/app/services/projeto.service';
 import { ToastUtils } from 'src/app/utils/toast.utils';
 import { CartaoService } from 'src/app/services/cartao.service';
-import { FaturaService } from 'src/app/services/fatura.service';
 import { Cartao } from 'src/app/models/cartao.model';
 import { Fatura } from 'src/app/models/fatura.model';
 import { MovimentoDTO } from 'src/app/models/movimento.dto';
+import { LoadingUtils } from 'src/app/utils/loading.utils';
 
 @Component({
   selector: 'app-inserir-movimento',
@@ -38,11 +37,11 @@ export class InserirMovimentoPage implements OnInit {
     private movimentoService: MovimentoService,
     private contaService: ContaService,
     private categoriaService: CategoriaService,
-    private subcategoriaService: SubcategoriaService,
     private projetoService: ProjetoService,
     private cartaoCreditoService: CartaoService,
-    private faturaService: FaturaService,
-    private toast: ToastUtils) {
+    private toast: ToastUtils,
+    private loading: LoadingUtils
+  ) {
     this.initForm()
   }
 
@@ -73,7 +72,10 @@ export class InserirMovimentoPage implements OnInit {
       fatura: this.hasCartaoCredito() ? this.faturas.find((f: Fatura) => f.id === this.fatura.value) : null
     }
 
-    this.movimentoService.insert(movimento).subscribe((dados: Movimento) => {
+    this.loading.showLoading('Processando..')
+
+    this.movimentoService.insert(movimento).subscribe(() => {
+      this.loading.dismissLoading()
       this.toast.showToast('Movimento inserido')
       this.resetForm()
     })
@@ -87,10 +89,28 @@ export class InserirMovimentoPage implements OnInit {
   }
 
   /**
+   * Evento disparado quando a data de contabilização é alterada
+   */
+  onDataContabilizacaoChanges(): void {
+    let dataContabilizacao: string = this.dataContabilizacao.value
+    let novoStatus: string = ''
+
+    if (DateUtils.isFuturo(dataContabilizacao)) {
+      novoStatus = Movimento.getStatusValueByLabel('Agendado')
+    } else if (DateUtils.isPassado(dataContabilizacao)) {
+      novoStatus = Movimento.getStatusValueByLabel('Efetivado')
+    } else {
+      novoStatus = Movimento.getStatusValueByLabel('Pendente')
+    }
+
+    this.status.setValue(novoStatus)
+  }
+
+  /**
    * Evento disparado quando o tipo de movimento (campo Crédito) é alterado
    * @param event 
    */
-  onCreditoChange(event: any): void {
+  onCreditoChange(): void {
     let tipo: string = this.isCreditoMovimento() ? 'C' : 'D'
 
     this.categoria.setValue('')
@@ -100,7 +120,7 @@ export class InserirMovimentoPage implements OnInit {
     this.categoriaService.getAllByTipo(tipo).subscribe((dados: Categoria[]) => {
       this.categorias = dados
 
-      if(dados.length === 0){
+      if (dados.length === 0) {
         this.toast.showToast('Nenhuma categoria cadastrada para este tipo de movimento')
       }
     })
@@ -110,14 +130,14 @@ export class InserirMovimentoPage implements OnInit {
    * Evento disparado quando o valor do campo Categoria é alterado
    * @param event 
    */
-  onCategoriaChange(event: any): void {
-    if(this.categoria.value !== null && this.categoria.value !== ''){
+  onCategoriaChange(): void {
+    if (this.categoria.value !== null && this.categoria.value !== '') {
       let categoriaId: number = this.categoria.value
 
       this.categoriaService.getSubcategorias(categoriaId).subscribe((dados: Subcategoria[]) => {
         this.subcategorias = dados
-        
-        if(dados.length === 0){
+
+        if (dados.length === 0) {
           this.toast.showToast('Não há nenhuma subcategoria para esta categoria')
           this.subcategoria.disable()
         } else {
@@ -130,13 +150,28 @@ export class InserirMovimentoPage implements OnInit {
   /**
    * Evento disparado quando o valor do campo 'Cartão de crédito' é alterado
    */
-  onCartaoChange(event: any): void {
-    if(this.hasCartaoCredito()){
+  onCartaoChange(): void {
+    if (this.hasCartaoCredito()) {
       let cartaoId: number = this.cartao.value
-      this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => this.faturas = dados)
+      this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => {
+        this.faturas = dados.filter((fatura: Fatura) => fatura.status === 'NAO_FECHADA')
 
-      // Limpa o campo 'Conta'
+        // Pre-seleção de fatura
+        if (this.faturas.length > 0) {
+          this.fatura.setValue(this.faturas[0].id)
+        }
+      })
+
+      // Limpa e desabilita o campo 'Conta'
       this.conta.setValue('')
+      this.conta.disable()
+
+      // Altera o status p/ 'Efetivado'
+      this.status.setValue(Movimento.getStatusValueByLabel('Efetivado'))
+      this.status.disable()
+    } else {
+      this.conta.enable()
+      this.status.enable()
     }
   }
 
@@ -151,7 +186,11 @@ export class InserirMovimentoPage implements OnInit {
    * Reseta o formulário
    */
   resetForm(): void {
-    this.movimentoForm.reset()
+    this.movimentoForm.reset({
+      credito: false,
+      dataContabilizacao: DateUtils.getNowAsJson(),
+      status: Movimento.getStatusValueByLabel('Pendente')
+    })
   }
 
   /**
@@ -188,15 +227,17 @@ export class InserirMovimentoPage implements OnInit {
   }
 
   private initForm(): void {
+    let defaultStatus = Movimento.getStatusValueByLabel('Pendente')
+
     this.movimentoForm = this.fb.group({
       descricao: ['', Validators.required],
       credito: [false, Validators.required],
-      dataContabilizacao: ['', Validators.required],
+      dataContabilizacao: [DateUtils.getNowAsJson(), Validators.required],
       valor: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [defaultStatus, Validators.required],
       conta: [''],
       categoria: [''],
-      subcategoria: [{value: '', disabled: true}],
+      subcategoria: [{ value: '', disabled: true }],
       cartao: [''],
       fatura: [''],
       projeto: [''],

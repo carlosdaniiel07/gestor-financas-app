@@ -8,6 +8,7 @@ import { ToastUtils } from '../utils/toast.utils';
 import { Categoria } from '../models/categoria.model';
 import { Movimento } from '../models/movimento.model';
 import { ListaMovimentosComponent } from '../shared/lista-movimentos/lista-movimentos.component';
+import { LoadingUtils } from '../utils/loading.utils';
 
 @Component({
   selector: 'app-subcategorias',
@@ -17,7 +18,7 @@ export class SubcategoriasPage implements OnInit {
   
   subcategorias: Subcategoria[] = []
 
-  constructor(private subcategoriaService: SubcategoriaService, private navController: NavController, private toast: ToastUtils, private modalController: ModalController) { }
+  constructor(private subcategoriaService: SubcategoriaService, private navController: NavController, private toast: ToastUtils, private modalController: ModalController, private loading: LoadingUtils) { }
 
   ngOnInit() {
   }
@@ -63,16 +64,24 @@ export class SubcategoriasPage implements OnInit {
   }
 
   private loadData(event: any = null): void {
+    this.loading.showLoading('Carregando..')
+
     this.subcategoriaService.getAll().subscribe((dados: Subcategoria[]) => {
       this.subcategorias = dados
       
       if(event !== null){
         event.target.complete()
       }
+
+      this.loading.dismissLoading()
     })
   }
 
   doRefresh(event: any): void {
     this.loadData(event)
+  }
+
+  hasSubcategorias(): boolean {
+    return this.subcategorias.length > 0
   }
 }

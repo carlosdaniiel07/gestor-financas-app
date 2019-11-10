@@ -14,9 +14,9 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 import { SubcategoriaService } from 'src/app/services/subcategoria.service';
 import { ProjetoService } from 'src/app/services/projeto.service';
 import { CartaoService } from 'src/app/services/cartao.service';
-import { FaturaService } from 'src/app/services/fatura.service';
 import { ToastUtils } from 'src/app/utils/toast.utils';
 import { DateUtils } from 'src/app/utils/date.utils';
+import { LoadingUtils } from 'src/app/utils/loading.utils';
 
 @Component({
   selector: 'app-editar-movimento',
@@ -42,10 +42,10 @@ export class EditarMovimentoPage implements OnInit {
     private subcategoriaService: SubcategoriaService,
     private projetoService: ProjetoService,
     private cartaoCreditoService: CartaoService,
-    private faturaService: FaturaService,
     private activatedRoute: ActivatedRoute,
-    private toast: ToastUtils) {
-
+    private toast: ToastUtils,
+    private loading: LoadingUtils
+  ) {
     this.initForm()
   }
 
@@ -78,7 +78,12 @@ export class EditarMovimentoPage implements OnInit {
     this.movimento.projeto = this.projetos.find((p: Projeto) => p.id === this.projeto.value),
     this.movimento.fatura =  this.hasCartaoCredito() ? this.faturas.find((f: Fatura) => f.id === this.fatura.value) : null
   
-    this.movimentoService.update(this.movimento).subscribe(() => this.toast.showToast('Movimento atualizado'))
+    this.loading.showLoading('Processando..')
+
+    this.movimentoService.update(this.movimento).subscribe(() => {
+      this.loading.dismissLoading()
+      this.toast.showToast('Movimento atualizado')
+    })
   }
 
   /**
@@ -89,10 +94,28 @@ export class EditarMovimentoPage implements OnInit {
   }
 
   /**
+   * Evento disparado quando a data de contabilização é alterada
+   */
+  onDataContabilizacaoChanges(): void {
+    let dataContabilizacao: string = this.dataContabilizacao.value
+    let novoStatus: string = ''
+
+    if(DateUtils.isFuturo(dataContabilizacao)){
+      novoStatus = Movimento.getStatusValueByLabel('Agendado')
+    } else if (DateUtils.isPassado(dataContabilizacao)){
+      novoStatus = Movimento.getStatusValueByLabel('Efetivado')
+    } else {
+      novoStatus = Movimento.getStatusValueByLabel('Pendente')
+    }
+
+    this.status.setValue(novoStatus)
+  }
+
+  /**
    * Evento disparado quando o tipo de movimento (campo Crédito) é alterado
    * @param event 
    */
-  onCreditoChange(event: any): void {
+  onCreditoChange(): void {
     let tipo: string = this.isCreditoMovimento() ? 'C' : 'D'
 
     this.categoria.setValue('')
@@ -112,7 +135,7 @@ export class EditarMovimentoPage implements OnInit {
    * Evento disparado quando o valor do campo Categoria é alterado
    * @param event 
    */
-  onCategoriaChange(event: any): void {
+  onCategoriaChange(): void {
     if(this.categoria.value !== ''){
       let categoriaId: number = this.categoria.value
 
@@ -132,13 +155,28 @@ export class EditarMovimentoPage implements OnInit {
   /**
    * Evento disparado quando o valor do campo 'Cartão de crédito' é alterado
    */
-  onCartaoChange(event: any): void {
-    if (this.hasCartaoCredito()) {
+  onCartaoChange(): void {
+    if(this.hasCartaoCredito()){
       let cartaoId: number = this.cartao.value
-      this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => this.faturas = dados)
+      this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => {
+        this.faturas = dados.filter((fatura: Fatura) => fatura.status === 'NAO_FECHADA')
 
-      // Limpa o campo 'Conta'
+        // Pre-seleção de fatura
+        if (this.faturas.length > 0) {
+          this.fatura.setValue(this.faturas[0].id)
+        }
+      })
+
+      // Limpa e desabilita o campo 'Conta'
       this.conta.setValue('')
+      this.conta.disable()
+
+      // Altera o status p/ 'Efetivado'
+      this.status.setValue(Movimento.getStatusValueByLabel('Efetivado'))
+      this.status.disable()
+    } else {
+      this.conta.enable()
+      this.status.enable()
     }
   }
 
@@ -170,9 +208,13 @@ export class EditarMovimentoPage implements OnInit {
   private loadData(event: any = null): void {
     let movimentoId: number = this.activatedRoute.snapshot.params['id']
 
+    this.loading.showLoading('Recuperando dados..')
+
     this.movimentoService.getById(movimentoId).subscribe((dados: Movimento) => {
       this.movimento = dados
       this.loadForm(dados)
+
+      this.loading.dismissLoading()
     })
 
     this.contaService.getAll().subscribe((dados: Conta[]) => this.contas = dados)
