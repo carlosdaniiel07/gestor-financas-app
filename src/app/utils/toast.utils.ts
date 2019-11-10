@@ -14,4 +14,13 @@ export class ToastUtils {
             showCloseButton: showCloseButton
         }).then((toast) => toast.present())
     }
+
+    public showErrorToast(message: string, duration: number = 2000, showCloseButton: boolean = true): void {
+        this.toastController.create({
+            color: 'danger',
+            message: message,
+            duration: duration,
+            showCloseButton: showCloseButton
+        }).then((toast) => toast.present())
+    }
 }
