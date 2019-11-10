@@ -158,7 +158,14 @@ export class EditarMovimentoPage implements OnInit {
   onCartaoChange(): void {
     if(this.hasCartaoCredito()){
       let cartaoId: number = this.cartao.value
-      this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => this.faturas = dados)
+      this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => {
+        this.faturas = dados.filter((fatura: Fatura) => fatura.status === 'NAO_FECHADA')
+
+        // Pre-seleção de fatura
+        if (this.faturas.length > 0) {
+          this.fatura.setValue(this.faturas[0].id)
+        }
+      })
 
       // Limpa e desabilita o campo 'Conta'
       this.conta.setValue('')

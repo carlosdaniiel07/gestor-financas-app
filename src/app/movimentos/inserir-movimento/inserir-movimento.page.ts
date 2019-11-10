@@ -95,9 +95,9 @@ export class InserirMovimentoPage implements OnInit {
     let dataContabilizacao: string = this.dataContabilizacao.value
     let novoStatus: string = ''
 
-    if(DateUtils.isFuturo(dataContabilizacao)){
+    if (DateUtils.isFuturo(dataContabilizacao)) {
       novoStatus = Movimento.getStatusValueByLabel('Agendado')
-    } else if (DateUtils.isPassado(dataContabilizacao)){
+    } else if (DateUtils.isPassado(dataContabilizacao)) {
       novoStatus = Movimento.getStatusValueByLabel('Efetivado')
     } else {
       novoStatus = Movimento.getStatusValueByLabel('Pendente')
@@ -120,7 +120,7 @@ export class InserirMovimentoPage implements OnInit {
     this.categoriaService.getAllByTipo(tipo).subscribe((dados: Categoria[]) => {
       this.categorias = dados
 
-      if(dados.length === 0){
+      if (dados.length === 0) {
         this.toast.showToast('Nenhuma categoria cadastrada para este tipo de movimento')
       }
     })
@@ -131,13 +131,13 @@ export class InserirMovimentoPage implements OnInit {
    * @param event 
    */
   onCategoriaChange(): void {
-    if(this.categoria.value !== null && this.categoria.value !== ''){
+    if (this.categoria.value !== null && this.categoria.value !== '') {
       let categoriaId: number = this.categoria.value
 
       this.categoriaService.getSubcategorias(categoriaId).subscribe((dados: Subcategoria[]) => {
         this.subcategorias = dados
-        
-        if(dados.length === 0){
+
+        if (dados.length === 0) {
           this.toast.showToast('Não há nenhuma subcategoria para esta categoria')
           this.subcategoria.disable()
         } else {
@@ -151,9 +151,16 @@ export class InserirMovimentoPage implements OnInit {
    * Evento disparado quando o valor do campo 'Cartão de crédito' é alterado
    */
   onCartaoChange(): void {
-    if(this.hasCartaoCredito()){
+    if (this.hasCartaoCredito()) {
       let cartaoId: number = this.cartao.value
-      this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => this.faturas = dados)
+      this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => {
+        this.faturas = dados.filter((fatura: Fatura) => fatura.status === 'NAO_FECHADA')
+
+        // Pre-seleção de fatura
+        if (this.faturas.length > 0) {
+          this.fatura.setValue(this.faturas[0].id)
+        }
+      })
 
       // Limpa e desabilita o campo 'Conta'
       this.conta.setValue('')
@@ -230,7 +237,7 @@ export class InserirMovimentoPage implements OnInit {
       status: [defaultStatus, Validators.required],
       conta: [''],
       categoria: [''],
-      subcategoria: [{value: '', disabled: true}],
+      subcategoria: [{ value: '', disabled: true }],
       cartao: [''],
       fatura: [''],
       projeto: [''],
