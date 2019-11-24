@@ -99,13 +99,13 @@ export class MovimentosPage implements OnInit {
 
     if (acao === 'mesPassado') {
       range = DateUtils.getMonthRange(DateUtils.getMomentMonth() - 1, year)
-      this.toast.showToast('Exibindo os movimentos bancários do mês passado..')
+      this.toast.showToast('Exibindo os movimentos bancários do mês passado')
     } else if (acao === 'esteMes') {
       range = DateUtils.getMonthRange(DateUtils.getMomentMonth(), year)
-      this.toast.showToast('Exibindo os movimentos bancários deste mês..')
+      this.toast.showToast('Exibindo os movimentos bancários deste mês')
     } else {
       range = DateUtils.getMonthRange(DateUtils.getMomentMonth() + 1, year)
-      this.toast.showToast('Exibindo os movimentos bancários do mês seguinte..')
+      this.toast.showToast('Exibindo os movimentos bancários do mês seguinte')
     }
 
     this.isLoading = true
