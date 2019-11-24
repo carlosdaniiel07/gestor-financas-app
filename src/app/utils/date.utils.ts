@@ -87,4 +87,46 @@ export class DateUtils {
         let dataObj = momentjs(this.getDate(data))
         return momentjs().isBefore(dataObj)
     }
+
+    /**
+     * Retorna o mês atual no 'formato moment'. O mês de janeiro equivale ao número 0 e dezembro ao número 11
+     */
+    public static getMomentMonth(): number {
+        return momentjs().month()
+    }
+
+    /**
+     * Retorna o ano atual
+     */
+    public static getYear(): number {
+        return momentjs().year()
+    }
+
+    /**
+     * Retorna um objeto contendo o 'range' de um mês (primeiro e último dia do mês)
+     */
+    public static getMonthRange(month: number, year: number):
+        {month: number, minDate: string, maxDate: string} {
+        if (month === -1){
+            month = 0
+            year -= 1
+        }
+
+        if (month === 12) {
+            month = 0
+            year += 1
+        }
+
+        // Incrementa o mês, já que no MomentJS o mesmo começa com 0
+        month += 1
+
+        const minDate = momentjs(`01/${month}/${year}`, 'DD/MM/YYYY')
+        const maxDate = momentjs(minDate).endOf('month')
+
+        return {
+            month: month,
+            minDate: minDate.format('YYYY-MM-DD'),
+            maxDate: maxDate.format('YYYY-MM-DD')
+        }
+    }
 }

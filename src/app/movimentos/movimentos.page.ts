@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MovimentoService } from '../services/movimento.service';
 import { Movimento } from '../models/movimento.model';
+import { DateUtils } from '../utils/date.utils';
 
 @Component({
   selector: 'app-movimentos',
@@ -10,9 +11,11 @@ export class MovimentosPage implements OnInit {
 
   movimentos: Movimento[] = []
   movimentosFiltrados: Movimento[] = []
- 
-  private paginaAtual: number = 0
+  
   isLoading: boolean = true
+  isFiltroRapidoAtivo: boolean = false
+
+  private paginaAtual: number = 0
 
   constructor(private movimentoService: MovimentoService) {}
 
@@ -41,6 +44,7 @@ export class MovimentosPage implements OnInit {
       }
 
       this.isLoading = false
+      this.isFiltroRapidoAtivo = false
 
       if(event !== null){
         event.target.complete()
@@ -82,5 +86,36 @@ export class MovimentosPage implements OnInit {
   carregarMais(): void {
     this.paginaAtual += 1
     this.loadData(true)
+  }
+
+  /**
+   * Filtra os movimentos bancários por período (mês passado, mês atual e próximo mês)
+   * @param acao mesPassado, esteMes, proximoMes 
+   */
+  filtraPorPeriodo(acao: string): void {
+    let range: {month: number, minDate: string, maxDate: string}
+    let year = DateUtils.getYear()
+
+    if (acao === 'mesPassado') {
+      range = DateUtils.getMonthRange(DateUtils.getMomentMonth() - 1, year)
+    } else if (acao === 'esteMes') {
+      range = DateUtils.getMonthRange(DateUtils.getMomentMonth(), year)
+    } else {
+      range = DateUtils.getMonthRange(DateUtils.getMomentMonth() + 1, year)
+    }
+
+    this.isLoading = true
+    
+    this.movimentoService.getAllByPeriodo(range.minDate, range.maxDate).subscribe((dados: Movimento[]) => {
+      this.movimentos = dados
+      this.movimentosFiltrados = this.movimentos
+      this.isLoading = false
+      this.isFiltroRapidoAtivo = true
+    })
+  }
+
+  limpaFiltroRapido(): void {
+    this.isFiltroRapidoAtivo = false
+    this.loadData(false)
   }
 }
