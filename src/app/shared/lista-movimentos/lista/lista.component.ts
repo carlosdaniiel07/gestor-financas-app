@@ -14,6 +14,7 @@ export class ListaComponent implements OnInit {
   @Output() editarEventEmitter = new EventEmitter<Movimento>()
   @Output() removerEventEmitter = new EventEmitter<Movimento>()
   @Output() clonarEventEmitter = new EventEmitter<Movimento>()
+  @Output() alterarValorEventEmitter = new EventEmitter<{ old: Movimento, new: Movimento }>()
 
   constructor(private actionSheet: ActionSheetController, private alertController: AlertController) { }
 
@@ -69,5 +70,34 @@ export class ListaComponent implements OnInit {
         }},
       ]
     }).then((actionSheet) => actionSheet.present())
+  }
+
+  alterarValor(movto: Movimento): void {
+    this.alertController.create({
+      header: 'Atualizar valor',
+      inputs: [
+        {
+          name: 'novoValor',
+          id: 'novo-valor-id',
+          type: 'number',
+          value: movto.valor,
+          placeholder: 'Novo valor',
+        }
+      ],
+      buttons: [
+        { 
+          text: 'Cancelar' 
+        },
+        { 
+          text: 'Confirmar', 
+          handler: (inputData) => {
+            let novoMovto = Object.assign({}, movto)
+            novoMovto.valor = inputData.novoValor
+            
+            this.alterarValorEventEmitter.emit({ old: movto, new: novoMovto })
+          }
+        }
+      ]
+    }).then((alert) => alert.present())
   }
 }
