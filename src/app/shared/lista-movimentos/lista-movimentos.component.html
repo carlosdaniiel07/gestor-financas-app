@@ -12,13 +12,13 @@
 <!-- only-in-modal -->
 <ion-content *ngIf="modal; else noModalCase">
   <app-lista [movimentos]="movimentos" (detalhesEventEmitter)="detalhes($event)" (editarEventEmitter)="editar($event)"
-    (removerEventEmitter)="remover($event)" (clonarEventEmitter)="clonar($event)">
+    (removerEventEmitter)="remover($event)" (clonarEventEmitter)="clonar($event)" (alterarValorEventEmitter)="alterarValor($event)">
   </app-lista>
 </ion-content>
 <!-- /.only-in-modal -->
 
 <ng-template #noModalCase>
   <app-lista [movimentos]="movimentos" (detalhesEventEmitter)="detalhes($event)" (editarEventEmitter)="editar($event)"
-    (removerEventEmitter)="remover($event)" (clonarEventEmitter)="clonar($event)">
+    (removerEventEmitter)="remover($event)" (clonarEventEmitter)="clonar($event)" (alterarValorEventEmitter)="alterarValor($event)">
   </app-lista>
 </ng-template>

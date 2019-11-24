@@ -62,4 +62,17 @@ export class ListaMovimentosComponent implements OnInit {
       this.toast.showToast('Movimento clonado com sucesso')
     )
   }
+
+  alterarValor(obj: { old: Movimento, new: Movimento }): void {    
+    if (obj.old.valor !== obj.new.valor){
+      this.movimentoService.update(obj.new).subscribe(() => {
+        this.toast.showToast(`Valor atualizado`)
+        
+        obj.old.valor = obj.new.valor
+        obj.old.valorTotal = Movimento.getValorTotal(obj.new)
+      })
+    } else {
+      this.toast.showErrorToast('Não é necessário alterar pois os valores são iguais')
+    }
+  }
 }
