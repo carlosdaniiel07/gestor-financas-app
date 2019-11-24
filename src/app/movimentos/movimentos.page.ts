@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovimentoService } from '../services/movimento.service';
 import { Movimento } from '../models/movimento.model';
 import { DateUtils } from '../utils/date.utils';
+import { ToastUtils } from '../utils/toast.utils';
 
 @Component({
   selector: 'app-movimentos',
@@ -17,7 +18,7 @@ export class MovimentosPage implements OnInit {
 
   private paginaAtual: number = 0
 
-  constructor(private movimentoService: MovimentoService) {}
+  constructor(private movimentoService: MovimentoService, private toast: ToastUtils) {}
 
   ngOnInit() {
   }
@@ -98,10 +99,13 @@ export class MovimentosPage implements OnInit {
 
     if (acao === 'mesPassado') {
       range = DateUtils.getMonthRange(DateUtils.getMomentMonth() - 1, year)
+      this.toast.showToast('Exibindo os movimentos bancários do mês passado..')
     } else if (acao === 'esteMes') {
       range = DateUtils.getMonthRange(DateUtils.getMomentMonth(), year)
+      this.toast.showToast('Exibindo os movimentos bancários deste mês..')
     } else {
       range = DateUtils.getMonthRange(DateUtils.getMomentMonth() + 1, year)
+      this.toast.showToast('Exibindo os movimentos bancários do mês seguinte..')
     }
 
     this.isLoading = true
