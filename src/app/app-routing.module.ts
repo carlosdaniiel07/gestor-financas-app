@@ -20,6 +20,8 @@ const routes: Routes = [
   { path: 'beneficiarios', loadChildren: './beneficiarios/beneficiarios.module#BeneficiariosPageModule', canLoad: [ RouteGuard ] },
   { path: 'cobrancas', loadChildren: './cobrancas/cobrancas.module#CobrancasPageModule', canLoad: [ RouteGuard ] },
   { path: 'transferencias', loadChildren: './transferencias/transferencias.module#TransferenciasPageModule', canLoad: [ RouteGuard ] },
+  { path: 'investimentos', loadChildren: './investimentos/investimentos.module#InvestimentosPageModule', canLoad: [ RouteGuard ] },
+
 ];
 
 @NgModule({

@@ -1,0 +1,54 @@
+<ion-card *ngFor="let investimento of investimentos" (click)="openOptionsDialog(investimento)">
+  <ion-card-header color="primary">
+    <ion-card-title>{{investimento.descricao}}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <br/>
+
+    <ion-label>
+      <p>
+        <ion-icon name="pricetag"></ion-icon> Tipo: <strong>{{investimento.tipo}}</strong>
+      </p>
+      <p>
+        <ion-icon name="pricetag"></ion-icon> Modalidade: <strong>{{investimento.modalidade.nome}}</strong>
+      </p>
+      <p>
+        <ion-icon name="calendar"></ion-icon> Data aplicação: <strong>{{investimento.dataAplicacao}}</strong>
+      </p>
+      <p>
+        <ion-icon name="home"></ion-icon> Corretora: <strong>{{investimento.corretora.nome}}</strong>
+      </p>
+      <p>
+        <ion-icon name="cash"></ion-icon> Valor aplicado: <strong>{{investimento.valorAplicado | number: '1.2-2'}}</strong>
+      </p>
+      <p>
+        <ion-icon name="cash"></ion-icon> Valor atual: <strong>{{investimento.valorAtual | number: '1.2-2'}}</strong>
+        (rendimento atual: <strong>{{getRendimentoAtual(investimento) | number: '1.2-2' }}</strong>)
+      </p>
+      <p *ngIf="hasResgate(investimento)">
+        <ion-icon name="calendar"></ion-icon> Data resgate: <strong>{{investimento.dataResgate}}</strong>
+      </p>
+    </ion-label>
+
+    <br/>
+
+    <ion-button size="small" (click)="showItens(investimento)">
+      Histórico
+      <ion-icon slot="end" name="time"></ion-icon>
+    </ion-button>
+
+    <!--itens do investimento -->
+    <ion-list *ngIf="hasItensVisible(investimento)">
+      <ion-item *ngFor="let item of investimento.itens" lines="none">
+        <ion-label>
+          <p><strong>{{item.tipo}}</strong></p>
+          <p>{{item.data}}</p>
+        </ion-label>
+      
+        <ion-chip>{{item.valor}}</ion-chip>
+      </ion-item>
+    </ion-list>
+    <!--/.itens do investimento -->
+  </ion-card-content>
+</ion-card>

@@ -15,6 +15,7 @@ import { LoadingUtils } from './utils/loading.utils';
 import { BeneficiarioService } from './services/beneficiario.service';
 import { CobrancaService } from './services/cobranca.service';
 import { TransferenciaService } from './services/transferencia.service';
+import { InvestimentoService } from './services/investimento.service';
 
 @NgModule({
   declarations: [],
@@ -34,6 +35,7 @@ import { TransferenciaService } from './services/transferencia.service';
     BeneficiarioService,
     CobrancaService,
     TransferenciaService,
+    InvestimentoService,
     ToastUtils,
     LoadingUtils,
     RouteGuard
