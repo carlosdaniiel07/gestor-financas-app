@@ -17,6 +17,7 @@ import { CobrancaService } from './services/cobranca.service';
 import { TransferenciaService } from './services/transferencia.service';
 import { InvestimentoService } from './services/investimento.service';
 import { CorretoraService } from './services/corretora.service';
+import { ModalidadeInvestimentoService } from './services/modalidade-investimento.service';
 
 @NgModule({
   declarations: [],
@@ -38,6 +39,7 @@ import { CorretoraService } from './services/corretora.service';
     TransferenciaService,
     InvestimentoService,
     CorretoraService,
+    ModalidadeInvestimentoService,
     ToastUtils,
     LoadingUtils,
     RouteGuard
