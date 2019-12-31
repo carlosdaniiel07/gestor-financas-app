@@ -43,7 +43,11 @@
           <p>{{item.data}}</p>
         </ion-label>
       
-        <ion-chip>{{item.valor}}</ion-chip>
+        <ion-chip *ngIf="isAplicacao(item); else resgateTemplate" color="success">{{item.valor}}</ion-chip>
+        <ng-template #resgateTemplate>
+          <ion-chip  color="danger">{{item.valor}}</ion-chip>
+        </ng-template>
+
       </ion-item>
     </ion-list>
     <!--/.itens do investimento -->

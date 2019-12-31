@@ -38,4 +38,8 @@ export class ListaInvestimentosComponent implements OnInit {
   hasItensVisible(investimento: Investimento): boolean {
     return this.investimentosComItensVisiveis.indexOf(investimento) !== -1
   }
+
+  isAplicacao(item: ItemInvestimento): boolean {
+    return ItemInvestimento.isAplicacao(item)
+  }
 }
