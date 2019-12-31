@@ -43,9 +43,9 @@
           <p>{{item.data}}</p>
         </ion-label>
       
-        <ion-chip *ngIf="isAplicacao(item); else resgateTemplate" color="success">{{item.valor}}</ion-chip>
+        <ion-chip *ngIf="isAplicacao(item); else resgateTemplate" color="success" (click)="showDetalhesValor(item)">{{item.valor}}</ion-chip>
         <ng-template #resgateTemplate>
-          <ion-chip  color="danger">{{item.valor}}</ion-chip>
+          <ion-chip  color="danger" (click)="showDetalhesValor(item)">{{item.valor}}</ion-chip>
         </ng-template>
 
       </ion-item>

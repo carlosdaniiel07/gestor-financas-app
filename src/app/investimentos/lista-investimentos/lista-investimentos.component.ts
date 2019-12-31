@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Investimento } from 'src/app/models/investimento.model';
 import { ItemInvestimento } from 'src/app/models/item-investimento.model';
+import { ToastUtils } from 'src/app/utils/toast.utils';
 
 @Component({
   selector: 'app-lista-investimentos',
@@ -11,7 +12,7 @@ export class ListaInvestimentosComponent implements OnInit {
   @Input() investimentos: Investimento[] = []
   investimentosComItensVisiveis: Investimento[] = []
 
-  constructor() { }
+  constructor(private toast: ToastUtils) { }
 
   ngOnInit() {}
 
@@ -41,5 +42,12 @@ export class ListaInvestimentosComponent implements OnInit {
 
   isAplicacao(item: ItemInvestimento): boolean {
     return ItemInvestimento.isAplicacao(item)
+  }
+
+  showDetalhesValor(item: ItemInvestimento): void {
+    let rendimentos = item.rendimento
+    let impostos = ItemInvestimento.getImpostos(item)
+
+    this.toast.showToast(`Rendimento: ${rendimentos.toFixed(2)} - Impostos: ${impostos.toFixed(2)}`)
   }
 }

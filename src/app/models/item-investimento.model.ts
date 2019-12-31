@@ -17,4 +17,8 @@ export class ItemInvestimento {
     public static isAplicacao(item: ItemInvestimento): boolean {
         return item.tipo === 'APLICACAO' || item.tipo === 'REINVESTIMENTO'
     }
+
+    public static getImpostos(item: ItemInvestimento): number {
+        return item.ir + item.iof
+    }
 }
