@@ -27,4 +27,19 @@ export class Investimento {
     public static hasResgate(investimento: Investimento): boolean {
         return investimento.dataResgate !== null && investimento.valorResgatado !== 0
     }
+
+    public static transformStatus(value: string): string {
+        if(value === 'RENDA_FIXA') {
+            return 'Renda fixa'
+        } else if (value === 'RENDA_VARIAVEL') {
+            return 'Renda variável'
+        } else {
+            return ''
+        }
+    }
 }
+
+export const TIPO_INVESTIMENTO: {label: string, value: any}[] = [
+    { label: Investimento.transformStatus('RENDA_FIXA'), value: 'RENDA_FIXA' },
+    { label: Investimento.transformStatus('RENDA_VARIAVEL'), value: 'RENDA_VARIAVEL' }
+]
