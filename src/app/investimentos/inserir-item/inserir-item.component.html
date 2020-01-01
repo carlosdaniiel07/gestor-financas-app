@@ -1,0 +1,58 @@
+<app-page-header 
+  (closeEventEmitter)="closeModal()" 
+  headerName="Nova operação"
+  showCloseButton="true"
+>
+</app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="itemForm">
+      <ion-item>
+        <ion-label position="stacked">Investimento</ion-label>
+        <ion-input type="text" formControlName="investimento"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-input type="text" formControlName="descricao"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" [max]="getMaxDate()"
+          formControlName="data"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Valor</ion-label>
+        <ion-input type="number" formControlName="valor"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">IOF</ion-label>
+        <ion-input type="number" formControlName="iof"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">IR</ion-label>
+        <ion-input type="number" formControlName="ir"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Outras taxas</ion-label>
+        <ion-input type="number" formControlName="outrasTaxas"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Rendimento</ion-label>
+        <ion-input type="number" formControlName="rendimento"></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button [disabled]="!itemForm.valid" (click)="inserir()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>

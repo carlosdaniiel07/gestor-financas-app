@@ -1,0 +1,65 @@
+<app-page-header 
+  (closeEventEmitter)="closeModal()" 
+  headerName="Novo investimento"
+  showCloseButton="true"
+>
+</app-page-header>
+
+<ion-content padding>
+  <ion-list>
+    <form [formGroup]="investimentoForm">
+      <ion-item>
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-input formControlName="descricao"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="tipo">
+          <ion-select-option *ngFor="let tipo of tiposInvestimento" [value]="tipo.value">{{tipo.label}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data de aplicação</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" [max]="getMaxDate()"
+          formControlName="dataAplicacao"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data de vencimento</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" [max]="getMaxDate()"
+          formControlName="dataVencimento"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Modalidade</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="modalidade">
+          <ion-select-option *ngFor="let modalidade of modalidadesInvestimento" [value]="modalidade.id">{{modalidade.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Corretora</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="corretora">
+          <ion-select-option *ngFor="let corretora of corretoras" [value]="corretora.id">{{corretora.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Valor</ion-label>
+        <ion-input type="number" formControlName="valor"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Observação</ion-label>
+        <ion-textarea formControlName="obs"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button (click)="inserir()" class="ion-float-right">
+    Salvar
+    <ion-icon slot="end" name="checkmark"></ion-icon>
+  </ion-button>
+</ion-content>
