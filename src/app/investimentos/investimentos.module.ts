@@ -10,6 +10,7 @@ import { RouteGuard } from '../route.guard';
 import { SharedModule } from '../shared/shared.module';
 import { ListaInvestimentosComponent } from './lista-investimentos/lista-investimentos.component';
 import { InserirInvestimentoComponent } from './inserir-investimento/inserir-investimento.component';
+import { InserirItemComponent } from './inserir-item/inserir-item.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
 
 @NgModule({
   entryComponents: [
-    InserirInvestimentoComponent
+    InserirInvestimentoComponent,
+    InserirItemComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ const routes: Routes = [
   declarations: [
     InvestimentosPage,
     ListaInvestimentosComponent,
-    InserirInvestimentoComponent
+    InserirInvestimentoComponent,
+    InserirItemComponent
   ]
 })
 export class InvestimentosPageModule {}

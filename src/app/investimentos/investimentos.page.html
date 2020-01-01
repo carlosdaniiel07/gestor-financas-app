@@ -5,7 +5,11 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <app-lista-investimentos [investimentos]="investimentos"></app-lista-investimentos>
+  <app-lista-investimentos 
+    [investimentos]="investimentos" 
+    (aplicacaoEvent)="showAplicacaoModal($event)"
+    (resgateEvent)="showResgateModal($event)"
+    ></app-lista-investimentos>
 
    <!-- add-fab-button -->
    <ion-fab vertical="bottom" horizontal="end" slot="fixed">

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Investimento } from 'src/app/models/investimento.model';
 import { ItemInvestimento } from 'src/app/models/item-investimento.model';
 import { ToastUtils } from 'src/app/utils/toast.utils';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-lista-investimentos',
@@ -12,12 +13,21 @@ export class ListaInvestimentosComponent implements OnInit {
   @Input() investimentos: Investimento[] = []
   investimentosComItensVisiveis: Investimento[] = []
 
-  constructor(private toast: ToastUtils) { }
+  @Output() aplicacaoEvent = new EventEmitter<Investimento>()
+  @Output() resgateEvent = new EventEmitter<Investimento>()
+
+  constructor(private toast: ToastUtils, private actionSheet: ActionSheetController) { }
 
   ngOnInit() {}
 
   openOptionsDialog(investimento: Investimento): void {
-
+    this.actionSheet.create({
+      header: 'Escolha uma opção',
+      buttons: [
+        {text: 'Aplicação', icon: 'arrow-round-up', handler: () => this.aplicacaoEvent.emit(investimento)},
+        {text: 'Resgate', icon: 'arrow-round-down', handler: () => this.resgateEvent.emit(investimento)},
+      ]
+    }).then((action) => action.present())
   }
 
   getRendimentoAtual(investimento: Investimento): number {

@@ -8,6 +8,7 @@ import { CorretoraService } from '../services/corretora.service';
 import { InserirInvestimentoComponent } from './inserir-investimento/inserir-investimento.component';
 import { LoadingUtils } from '../utils/loading.utils';
 import { ModalidadeInvestimentoService } from '../services/modalidade-investimento.service';
+import { InserirItemComponent } from './inserir-item/inserir-item.component';
 
 @Component({
   selector: 'app-investimentos',
@@ -51,6 +52,26 @@ export class InvestimentosPage implements OnInit {
       componentProps: {
         'modalidadesInvestimento': this.modalidadesInvestimento,
         'corretoras': this.corretoras
+      }
+    }).then((modal) => modal.present())
+  }
+
+  showAplicacaoModal(investimento: Investimento): void {
+    this.modalController.create({
+      component: InserirItemComponent,
+      componentProps: {
+        'investimento': investimento,
+        'isAplicacao': true
+      }
+    }).then((modal) => modal.present())
+  }
+
+  showResgateModal(investimento: Investimento): void {
+    this.modalController.create({
+      component: InserirItemComponent,
+      componentProps: {
+        'investimento': investimento,
+        'isAplicacao': false
       }
     }).then((modal) => modal.present())
   }

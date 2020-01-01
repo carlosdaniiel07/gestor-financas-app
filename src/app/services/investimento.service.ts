@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Investimento } from '../models/investimento.model';
 import { APP_CONFIG } from '../app.config';
 import { InvestimentoDTO } from '../models/investimento.dto';
+import { ItemInvestimento } from '../models/item-investimento.model';
 
 @Injectable()
 export class InvestimentoService {
@@ -23,5 +24,12 @@ export class InvestimentoService {
         let body = JSON.stringify(investimento)
 
         return this.http.post<Investimento>(`${APP_CONFIG.apiUrl}/${this.endpoint}`, body, { headers: httpHeaders })
+    }
+
+    public addItem(investimento: Investimento, item: ItemInvestimento): Observable<Investimento> {
+        let httpHeaders = new HttpHeaders().append('Content-Type', 'application/json')
+        let body = JSON.stringify({ investimento: investimento, item: item })
+
+        return this.http.post<Investimento>(`${APP_CONFIG.apiUrl}/${this.endpoint}/add-item`, body, { headers: httpHeaders })
     }
 }
