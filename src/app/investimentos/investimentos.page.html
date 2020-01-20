@@ -1,12 +1,21 @@
 <app-page-header headerName="Investimentos"></app-page-header>
 
+<ion-toolbar *ngIf="showFiltros">
+  <ion-list>
+    <ion-item >
+      <ion-label>Somente posição atual</ion-label>
+      <ion-toggle color="primary" (ionChange)="onFiltroChanges($event)" [checked]="showSomentePosicaoAtual"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-toolbar>
+
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <app-lista-investimentos 
-    [investimentos]="investimentos" 
+    [investimentos]="investimentosVisiveis" 
     (aplicacaoEvent)="showAplicacaoModal($event)"
     (resgateEvent)="showResgateModal($event)"
     (atualizarValorAtualEvent)="atualizarValorAtual($event)"

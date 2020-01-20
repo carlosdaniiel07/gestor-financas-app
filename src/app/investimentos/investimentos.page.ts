@@ -18,6 +18,10 @@ import { ToastUtils } from '../utils/toast.utils';
 export class InvestimentosPage implements OnInit {
 
   investimentos: Investimento[] = []
+  investimentosVisiveis: Investimento[] = []
+
+  showFiltros: boolean = false
+  showSomentePosicaoAtual: boolean = false
 
   private modalidadesInvestimento: ModalidadeInvestimento[]
   private corretoras: Corretora[]
@@ -36,8 +40,14 @@ export class InvestimentosPage implements OnInit {
   }
 
   loadData(event: any = null): void {
-    this.investimentoService.getAll().subscribe((dados: Investimento[]) => this.investimentos = dados)
+    this.investimentoService.getAll().subscribe((dados: Investimento[]) => {
+      this.investimentos = dados
+      this.investimentosVisiveis = dados
+      this.showFiltros = dados.length > 0
+    })
+
     this.corretoraService.getAll().subscribe((dados: Corretora[]) => this.corretoras = dados)
+    
     this.modalidadeService.getAll().subscribe((dados: ModalidadeInvestimento[]) => {
       this.modalidadesInvestimento = dados
     
@@ -101,6 +111,16 @@ export class InvestimentosPage implements OnInit {
       })
     } else {
       this.toast.showErrorToast('O novo valor precisa ser preenchido')
+    }
+  }
+
+  onFiltroChanges(event: any): void {
+    this.showSomentePosicaoAtual = event.detail.checked
+    
+    if (this.showSomentePosicaoAtual) {
+      this.investimentosVisiveis = this.investimentosVisiveis.filter((i: Investimento) => i.valorAtual > 0)
+    } else {
+      this.investimentosVisiveis = this.investimentos
     }
   }
 }
