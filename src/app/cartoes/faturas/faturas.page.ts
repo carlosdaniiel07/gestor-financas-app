@@ -10,6 +10,7 @@ import { FaturaService } from 'src/app/services/fatura.service';
 import { ListaMovimentosComponent } from 'src/app/shared/lista-movimentos/lista-movimentos.component';
 import { Movimento } from 'src/app/models/movimento.model';
 import { PagarFaturaComponent } from './pagar-fatura/pagar-fatura.component';
+import { LoadingUtils } from 'src/app/utils/loading.utils';
 
 @Component({
   selector: 'app-faturas',
@@ -25,7 +26,7 @@ export class FaturasPage implements OnInit {
   saldoRestante: number = 0.0
   firstLoading: boolean = true
 
-  constructor(private activatedRoute: ActivatedRoute, private cartaoService: CartaoService, private faturaService: FaturaService, private toast: ToastUtils, private modalController: ModalController) { }
+  constructor(private activatedRoute: ActivatedRoute, private cartaoService: CartaoService, private faturaService: FaturaService, private toast: ToastUtils, private modalController: ModalController, private loading: LoadingUtils) { }
 
   ngOnInit() {
   }
@@ -117,7 +118,11 @@ export class FaturasPage implements OnInit {
   }
 
   showMovimentosModal(fatura: Fatura): void {
+    this.loading.showLoading()
+
     this.faturaService.getMovimentos(fatura.id).subscribe((dados: Movimento[]) => {
+      this.loading.dismissLoading()
+
       this.modalController.create({
         component: ListaMovimentosComponent,
         componentProps: {

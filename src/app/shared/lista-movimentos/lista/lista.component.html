@@ -21,12 +21,12 @@
       </p>
     </ion-label>
 
-    <ion-chip *ngIf="isCredito(movto); else movtoDebito" [outline]="!isEfetivado(movto)" color="success">
+    <ion-chip *ngIf="isCredito(movto); else movtoDebito" (click)="alterarValor(movto)" [outline]="!isEfetivado(movto)" color="success">
       <ion-label>{{movto.valorTotal | number: '1.2-2'}}</ion-label>
     </ion-chip>
 
     <ng-template #movtoDebito>
-      <ion-chip color="danger" [outline]="!isEfetivado(movto)">
+      <ion-chip color="danger" (click)="alterarValor(movto)" [outline]="!isEfetivado(movto)">
         <ion-label>{{movto.valorTotal | number: '1.2-2'}}</ion-label>
       </ion-chip>
     </ng-template>

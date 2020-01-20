@@ -14,6 +14,7 @@ export class Movimento {
         public dataInclusao: string,
         public dataContabilizacao: string,
         public valor: number,
+        public valorTotal: number,
         public acrescimo: number,
         public decrescimo: number,
         public status: string,
@@ -68,6 +69,10 @@ export class Movimento {
         })
         
         return value
+    }
+
+    public static getValorTotal(movto: Movimento): number {
+        return movto.valor + movto.acrescimo - movto.decrescimo
     }
 
     /**

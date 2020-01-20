@@ -1,0 +1,20 @@
+<app-page-header headerName="Investimentos"></app-page-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-lista-investimentos 
+    [investimentos]="investimentos" 
+    (aplicacaoEvent)="showAplicacaoModal($event)"
+    (resgateEvent)="showResgateModal($event)"
+    ></app-lista-investimentos>
+
+   <!-- add-fab-button -->
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showInserirInvestimentoModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
