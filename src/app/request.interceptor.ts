@@ -10,6 +10,11 @@ export class RequestInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if(this.authService.isLogado()) {
+            // Verifica tempo restante do token
+            if (this.authService.getSessionRemainingSeconds() <= 60 && !req.url.includes(this.authService.getrefreshTokenEndpoint())) {
+                this.authService.refreshToken()
+            }
+
             const newReq = req.clone({
                 headers: req.headers.append('Authorization', `Bearer ${this.authService.getToken()}`)
             })

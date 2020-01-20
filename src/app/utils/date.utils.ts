@@ -129,4 +129,11 @@ export class DateUtils {
             maxDate: maxDate.format('YYYY-MM-DD')
         }
     }
+
+    /**
+     * Retorna a data atual no formato de milissegundos
+     */
+    public static getNow(): number {
+        return new Date().getTime()
+    }
 }
