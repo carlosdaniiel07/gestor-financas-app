@@ -32,6 +32,9 @@ export class InvestimentosPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.showFiltros = false
+    this.showSomentePosicaoAtual = false
+
     this.loadData()
   }
 
