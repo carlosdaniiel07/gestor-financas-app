@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InvestimentoService } from '../services/investimento.service';
 import { Investimento } from '../models/investimento.model';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { Corretora } from '../models/corretora.model';
 import { ModalidadeInvestimento } from '../models/modalidade-investimento.model';
 import { CorretoraService } from '../services/corretora.service';
@@ -9,6 +9,7 @@ import { InserirInvestimentoComponent } from './inserir-investimento/inserir-inv
 import { LoadingUtils } from '../utils/loading.utils';
 import { ModalidadeInvestimentoService } from '../services/modalidade-investimento.service';
 import { InserirItemComponent } from './inserir-item/inserir-item.component';
+import { ToastUtils } from '../utils/toast.utils';
 
 @Component({
   selector: 'app-investimentos',
@@ -21,7 +22,7 @@ export class InvestimentosPage implements OnInit {
   private modalidadesInvestimento: ModalidadeInvestimento[]
   private corretoras: Corretora[]
 
-  constructor(private investimentoService: InvestimentoService, private modalController: ModalController, private corretoraService: CorretoraService, private modalidadeService: ModalidadeInvestimentoService, private loading: LoadingUtils) { }
+  constructor(private investimentoService: InvestimentoService, private modalController: ModalController, private corretoraService: CorretoraService, private modalidadeService: ModalidadeInvestimentoService, private loading: LoadingUtils, private alertController: AlertController, private toast: ToastUtils) { }
 
   ngOnInit() {
   }
@@ -74,5 +75,32 @@ export class InvestimentosPage implements OnInit {
         'isAplicacao': false
       }
     }).then((modal) => modal.present())
+  }
+
+  atualizarValorAtual(investimento: Investimento): void {
+    this.alertController.create({
+      header: 'Atualizar valor atual',
+      inputs: [
+        { name: 'novoValor', id: 'novo-valor', type: 'number', value: investimento.valorAtual, placeholder: 'Novo valor' }
+      ],
+      buttons: [
+        { text: 'Cancelar' },
+        { text: 'Confirmar', handler: (inputData) =>  this.atualizaValor(investimento, inputData.novoValor)}
+      ]
+    }).then((alert) => alert.present())
+  }
+
+  private atualizaValor(investimento: Investimento, novoValor: number): void {
+    if(novoValor.toString() !== "") {
+      let newObj = Object.assign({}, investimento)
+      newObj.valorAtual = novoValor
+
+      this.investimentoService.atualiza(newObj).subscribe(() => {
+        this.toast.showToast('Investimento atualizado')
+        investimento.valorAtual = novoValor
+      })
+    } else {
+      this.toast.showErrorToast('O novo valor precisa ser preenchido')
+    }
   }
 }

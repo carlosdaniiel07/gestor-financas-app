@@ -26,6 +26,13 @@ export class InvestimentoService {
         return this.http.post<Investimento>(`${APP_CONFIG.apiUrl}/${this.endpoint}`, body, { headers: httpHeaders })
     }
 
+    public atualiza(investimento: Investimento): Observable<any> {
+        let httpHeaders = new HttpHeaders().append('Content-Type', 'application/json')
+        let body = JSON.stringify(investimento)
+
+        return this.http.put<Investimento>(`${APP_CONFIG.apiUrl}/${this.endpoint}`, body, { headers: httpHeaders })
+    }
+
     public addItem(investimento: Investimento, item: ItemInvestimento): Observable<Investimento> {
         let httpHeaders = new HttpHeaders().append('Content-Type', 'application/json')
         let body = JSON.stringify({ investimento: investimento, item: item })

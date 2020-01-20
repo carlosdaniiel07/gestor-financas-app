@@ -15,6 +15,7 @@ export class ListaInvestimentosComponent implements OnInit {
 
   @Output() aplicacaoEvent = new EventEmitter<Investimento>()
   @Output() resgateEvent = new EventEmitter<Investimento>()
+  @Output() atualizarValorAtualEvent = new EventEmitter<Investimento>()
 
   constructor(private toast: ToastUtils, private actionSheet: ActionSheetController) { }
 
@@ -26,6 +27,7 @@ export class ListaInvestimentosComponent implements OnInit {
       buttons: [
         {text: 'Aplicação', icon: 'arrow-round-up', handler: () => this.aplicacaoEvent.emit(investimento)},
         {text: 'Resgate', icon: 'arrow-round-down', handler: () => this.resgateEvent.emit(investimento)},
+        {text: 'Atualizar valor atual', icon: 'refresh', handler: () => this.atualizarValorAtualEvent.emit(investimento)},
       ]
     }).then((action) => action.present())
   }
