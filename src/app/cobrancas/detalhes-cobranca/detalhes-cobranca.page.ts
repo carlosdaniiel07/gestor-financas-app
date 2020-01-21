@@ -51,7 +51,7 @@ export class DetalhesCobrancaPage implements OnInit {
     this.saldo.setValue(cobranca.saldo)
     this.juros.setValue(cobranca.juros)
     this.desconto.setValue(cobranca.desconto)
-    this.beneficiario.setValue(cobranca.beneficiario.id)
+    this.beneficiario.setValue(cobranca.beneficiario.nome)
     this.status.setValue(Cobranca.transformStatus(cobranca.status))
     this.obs.setValue(cobranca.observacao)
   }
