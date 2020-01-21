@@ -108,7 +108,7 @@ export class DateUtils {
     public static getMonthRange(month: number, year: number):
         {month: number, minDate: string, maxDate: string} {
         if (month === -1){
-            month = 0
+            month = 11
             year -= 1
         }
 
