@@ -7,6 +7,8 @@ import { APP_CONFIG } from 'src/app/app.config';
   templateUrl: './config-page.component.html'
 })
 export class ConfigPageComponent implements OnInit {
+  
+  modal: boolean = true
 
   constructor(private modalController: ModalController, private alertController: AlertController) { }
 
