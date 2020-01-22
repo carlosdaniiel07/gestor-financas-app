@@ -10,6 +10,7 @@ import { LoadingUtils } from '../utils/loading.utils';
 import { ModalidadeInvestimentoService } from '../services/modalidade-investimento.service';
 import { InserirItemComponent } from './inserir-item/inserir-item.component';
 import { ToastUtils } from '../utils/toast.utils';
+import { DateUtils } from '../utils/date.utils'
 
 @Component({
   selector: 'app-investimentos',
@@ -125,5 +126,37 @@ export class InvestimentosPage implements OnInit {
     } else {
       this.investimentosVisiveis = this.investimentos
     }
+  }
+
+  showIndicadoresEconomicos(): void {
+    let message: string = ''
+
+    this.loading.showLoading('Recuperando dados API externa..')
+
+    this.investimentoService.getIndicadoresEconomicos().subscribe((data: any) => {
+      let results = data.results
+
+      this.loading.dismissLoading()
+
+      let usd = results.currencies.USD
+      let btc = results.currencies.BTC
+      let ibov = results.stocks.IBOVESPA
+      let nasdaq = results.stocks.NASDAQ
+      let taxes = results.taxes[0]
+
+      message += `<strong>USD</strong>: ${usd.buy.toFixed(3)} (${usd.variation.toFixed(3)}%) <br/><br/>`
+      message += `<strong>BTC</strong>: ${btc.buy.toFixed(3)} (${usd.variation.toFixed(3)}%) <br/><br/>`
+      message += `<strong>IBOV</strong>: ${ibov.points.toFixed(2)} (${ibov.variation.toFixed(3)}%) <br/><br/>`
+      message += `<strong>NASDAQ</strong>: ${nasdaq.points.toFixed(2)} (${nasdaq.variation.toFixed(3)}%) <br/><br/>`
+      message += `<strong>SELIC</strong>: ${taxes.selic.toFixed(2)}`
+
+      this.alertController.create({
+        header: 'Indicadores',
+        message: message,
+        buttons: [
+          'Ok'
+        ]
+      }).then((alert) => alert.present())
+    })
   }
 }

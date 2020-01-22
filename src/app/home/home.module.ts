@@ -7,10 +7,12 @@ import { RouterModule } from '@angular/router';
 import { HomePage } from './home.page';
 import { SharedModule } from '../shared/shared.module';
 import { MeuPerfilComponent } from './meu-perfil/meu-perfil.component';
+import { ConfigPageComponent } from './config-page/config-page.component';
 
 @NgModule({
   entryComponents: [
-    MeuPerfilComponent
+    MeuPerfilComponent,
+    ConfigPageComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { MeuPerfilComponent } from './meu-perfil/meu-perfil.component';
   ],
   declarations: [
     HomePage,
-    MeuPerfilComponent
+    MeuPerfilComponent,
+    ConfigPageComponent
   ]
 })
 export class HomePageModule {}

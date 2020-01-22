@@ -1,0 +1,9 @@
+<app-page-header *ngIf="modal" (closeEventEmitter)="closeModal()" headerName="Configurações" showCloseButton="true">
+</app-page-header>
+
+<ion-content padding>
+  <ion-item button="true" (click)="setNovaChaveHgBrasil()">
+    <ion-label>Chave de acesso API HG Brasil</ion-label>
+    <ion-icon name="key"></ion-icon>
+  </ion-item>
+</ion-content>
