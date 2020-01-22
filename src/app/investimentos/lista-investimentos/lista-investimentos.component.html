@@ -21,7 +21,7 @@
       </p>
       <p>
         <ion-icon name="cash"></ion-icon> Valor atual: <strong>{{investimento.valorAtual | number: '1.2-2'}}</strong>
-        (rendimento atual: <strong>{{getRendimentoAtual(investimento) | number: '1.2-2' }}</strong>)
+        (rendimento obtido: <strong>{{getRendimentoAtual(investimento) | number: '1.2-2' }}</strong>)
       </p>
       <p *ngIf="hasResgate(investimento)">
         <ion-icon name="calendar"></ion-icon> Data resgate: <strong>{{investimento.dataResgate}}</strong>

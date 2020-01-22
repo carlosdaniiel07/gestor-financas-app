@@ -108,7 +108,7 @@ export class DateUtils {
     public static getMonthRange(month: number, year: number):
         {month: number, minDate: string, maxDate: string} {
         if (month === -1){
-            month = 0
+            month = 11
             year -= 1
         }
 
@@ -128,5 +128,12 @@ export class DateUtils {
             minDate: minDate.format('YYYY-MM-DD'),
             maxDate: maxDate.format('YYYY-MM-DD')
         }
+    }
+
+    /**
+     * Retorna a data atual no formato de milissegundos
+     */
+    public static getNow(): number {
+        return new Date().getTime()
     }
 }

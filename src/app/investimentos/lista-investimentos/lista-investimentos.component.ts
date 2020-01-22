@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Investimento } from 'src/app/models/investimento.model';
 import { ItemInvestimento } from 'src/app/models/item-investimento.model';
 import { ToastUtils } from 'src/app/utils/toast.utils';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-lista-investimentos',
@@ -15,8 +15,9 @@ export class ListaInvestimentosComponent implements OnInit {
 
   @Output() aplicacaoEvent = new EventEmitter<Investimento>()
   @Output() resgateEvent = new EventEmitter<Investimento>()
+  @Output() atualizarValorAtualEvent = new EventEmitter<Investimento>()
 
-  constructor(private toast: ToastUtils, private actionSheet: ActionSheetController) { }
+  constructor(private toast: ToastUtils, private actionSheet: ActionSheetController, private alertController: AlertController) { }
 
   ngOnInit() {}
 
@@ -26,6 +27,7 @@ export class ListaInvestimentosComponent implements OnInit {
       buttons: [
         {text: 'Aplicação', icon: 'arrow-round-up', handler: () => this.aplicacaoEvent.emit(investimento)},
         {text: 'Resgate', icon: 'arrow-round-down', handler: () => this.resgateEvent.emit(investimento)},
+        {text: 'Atualizar valor atual', icon: 'refresh', handler: () => this.atualizarValorAtualEvent.emit(investimento)},
       ]
     }).then((action) => action.present())
   }
@@ -55,9 +57,22 @@ export class ListaInvestimentosComponent implements OnInit {
   }
 
   showDetalhesValor(item: ItemInvestimento): void {
-    let rendimentos = item.rendimento
-    let impostos = ItemInvestimento.getImpostos(item)
+    let rendimentoLiquido = item.rendimento - ItemInvestimento.getImpostos(item) - item.outrasTaxas
+    let message = ''
 
-    this.toast.showToast(`Rendimento: ${rendimentos.toFixed(2)} - Impostos: ${impostos.toFixed(2)}`)
+    message += `<strong>Valor:</strong> ${item.valor.toFixed(2)} <br/>`
+    message += `<strong>IR:</strong> ${item.ir.toFixed(2)} <br/>`
+    message += `<strong>IOF:</strong> ${item.iof.toFixed(2)} <br/>`
+    message += `<strong>Outras taxas:</strong> ${item.outrasTaxas.toFixed(2)} <br/>`
+    message += `<strong>Rendimento:</strong> ${item.rendimento.toFixed(2)} <br/>`
+    message += `<strong>Rendimento líquido:</strong> ${rendimentoLiquido.toFixed(2)}`
+
+    this.alertController.create({
+      header: 'Detalhes',
+      message: message,
+      buttons: [
+        { text: 'Ok' }
+      ]
+    }).then((alert) => alert.present())
   }
 }
