@@ -38,7 +38,7 @@ export class AuthService {
      * Solicita um novo token a API
      */
     refreshToken(): void {
-        this.http.post(`${APP_CONFIG.apiUrl}/${this.refreshTokenEndpoint}`, null).subscribe((response: HttpResponse<any>) => {
+        this.http.post(`${APP_CONFIG.apiUrl}/${this.refreshTokenEndpoint}`, null, { observe: 'response' }).subscribe((response: HttpResponse<any>) => {
             this.token = response.headers.get('Authorization').substr(7)
             this.loggedAt = DateUtils.getNow()
         })
