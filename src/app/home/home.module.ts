@@ -8,11 +8,13 @@ import { HomePage } from './home.page';
 import { SharedModule } from '../shared/shared.module';
 import { MeuPerfilComponent } from './meu-perfil/meu-perfil.component';
 import { ConfigPageComponent } from './config-page/config-page.component';
+import { HistoricoJobsComponent } from './config-page/historico-jobs/historico-jobs.component';
 
 @NgModule({
   entryComponents: [
     MeuPerfilComponent,
-    ConfigPageComponent
+    ConfigPageComponent,
+    HistoricoJobsComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { ConfigPageComponent } from './config-page/config-page.component';
   declarations: [
     HomePage,
     MeuPerfilComponent,
-    ConfigPageComponent
+    ConfigPageComponent,
+    HistoricoJobsComponent
   ]
 })
 export class HomePageModule {}
