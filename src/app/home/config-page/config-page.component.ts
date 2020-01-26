@@ -37,7 +37,7 @@ export class ConfigPageComponent implements OnInit {
       ]
     }).then((alert) => alert.present())
   }
-
+  
   showHistoricoJobs(): void {
     this.loading.showLoading('Recuperando dados..')
 
