@@ -158,12 +158,19 @@ export class EditarMovimentoPage implements OnInit {
   onCartaoChange(): void {
     if(this.hasCartaoCredito()){
       let cartaoId: number = this.cartao.value
+
+      this.fatura.enable()
+
       this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => {
         this.faturas = dados.filter((fatura: Fatura) => fatura.status === 'NAO_FECHADA')
 
         // Pre-seleção de fatura
         if (this.faturas.length > 0) {
           this.fatura.setValue(this.faturas[0].id)
+        } else {
+          // Caso não exista faturas relacionadas ao cartão: limpa e bloqueia o campo
+          this.fatura.setValue('')
+          this.fatura.disable()
         }
       })
 
@@ -177,6 +184,7 @@ export class EditarMovimentoPage implements OnInit {
     } else {
       this.conta.enable()
       this.status.enable()
+      this.fatura.disable()
     }
   }
 
@@ -241,7 +249,7 @@ export class EditarMovimentoPage implements OnInit {
     this.descricao.setValue(movimento.descricao)
     this.credito.setValue(Movimento.isCredito(movimento))
     this.dataInclusao.setValue(movimento.dataInclusao)
-    this.dataContabilizacao.setValue(movimento.dataContabilizacao)
+    this.dataContabilizacao.setValue(DateUtils.convertApiPatternToJson(movimento.dataContabilizacao))
     this.valor.setValue(movimento.valor)
     this.status.setValue(movimento.status)
     this.conta.setValue(conta)

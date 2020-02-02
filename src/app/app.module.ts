@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from "@angular/common";
+import localePt from "@angular/common/locales/pt";
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -15,6 +17,8 @@ import { RequestInterceptor } from './request.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { MenuOtherOptionsComponent } from './menu-other-options/menu-other-options.component';
 import { ErrorInterceptor } from './error.interceptor';
+
+registerLocaleData(localePt)
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { ErrorInterceptor } from './error.interceptor';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ],
   bootstrap: [AppComponent]
 })

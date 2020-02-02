@@ -17,6 +17,11 @@ export class DateUtils {
         }
     }
 
+    // Realiza a instância de uma data a partir de uma data no formato dd/MM/yyyy
+    public static convertApiPatternToJson(apiPatternDate: string): string {
+        return momentjs(apiPatternDate, 'DD/MM/YYYY').toJSON()
+    }
+
     // Converte uma data JSON para o formato de referência do cartão de crédito (MMM/yyyy)
     public static getReference(jsonDate: string): string {
         if (jsonDate !== null && jsonDate.length >= 10){

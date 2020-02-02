@@ -1,13 +1,22 @@
 <app-page-header *ngIf="modal" (closeEventEmitter)="closeModal()" headerName="Histórico de jobs" showCloseButton="true">
 </app-page-header>
 
+<ion-toolbar>
+  <ion-list>
+    <ion-item >
+      <ion-label>Executados na data de hoje</ion-label>
+      <ion-toggle color="primary" (ionChange)="onFiltroChanges($event)" [checked]="showSomenteHoje"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-toolbar>
+
 <ion-content padding>
   <ion-list>
-    <ion-item-sliding *ngFor="let task of tasks">
+    <ion-item-sliding *ngFor="let task of tasksVisiveis">
       <ion-item>
         <ion-label>
           <h2>{{task.nome}}</h2>
-          <p>Data: <strong>{{task.dataExecucao | date: 'dd/MM/yyyy'}}</strong></p>
+          <p>Data: <strong>{{task.dataExecucao | date: 'dd/MM/yyyy HH:mm'}}</strong></p>
           <p>Origem: <strong>{{task.origem}}</strong></p>
         </ion-label>
 

@@ -39,6 +39,24 @@
       </ion-item>
 
       <ion-item>
+        <ion-label position="stacked">Cartão de crédito</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="cartao" (ionChange)="onCartaoChange()">
+          <ion-select-option *ngFor="let cartao of cartoes" [value]="cartao.id">
+            {{cartao.nome}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Fatura</ion-label>
+        <ion-select placeholder="(Selecione)" formControlName="fatura">
+          <ion-select-option *ngFor="let fatura of faturas" [value]="fatura.id">
+            {{fatura.referencia}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
         <ion-label position="stacked">Conta</ion-label>
         <ion-select placeholder="(Selecione)" formControlName="conta">
           <ion-select-option *ngFor="let conta of contas" [value]="conta.id">
@@ -61,24 +79,6 @@
         <ion-select placeholder="(Selecione)" formControlName="subcategoria">
           <ion-select-option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">
             {{subcategoria.nome}}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Cartão de crédito</ion-label>
-        <ion-select placeholder="(Selecione)" formControlName="cartao" (ionChange)="onCartaoChange()">
-          <ion-select-option *ngFor="let cartao of cartoes" [value]="cartao.id">
-            {{cartao.nome}}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Fatura</ion-label>
-        <ion-select placeholder="(Selecione)" formControlName="fatura">
-          <ion-select-option *ngFor="let fatura of faturas" [value]="fatura.id">
-            {{fatura.referencia}}
           </ion-select-option>
         </ion-select>
       </ion-item>
