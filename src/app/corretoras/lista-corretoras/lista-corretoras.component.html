@@ -1,0 +1,13 @@
+<ion-list>
+  <ion-item *ngFor="let corretora of corretoras">
+    <ion-label (click)="openOptionsDialog(corretora)">
+      <h2>{{corretora.nome}}</h2>
+      <p>Agência: <strong>{{corretora.agencia}}</strong> &bull; Conta: <strong>{{corretora.conta}}</strong></p>
+      <p>Rendimento total: <strong>{{corretora.rendimentoTotal | number: '1.2-2'}}</strong></p>
+    </ion-label>
+
+    <ion-chip color="success">
+      <ion-label>{{corretora.valorAplicado | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+  </ion-item>
+</ion-list>
