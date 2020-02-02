@@ -218,7 +218,7 @@ export class InserirMovimentoPage implements OnInit {
     //this.subcategoriaService.getAll().subscribe((dados: Subcategoria[]) => this.subcategorias = dados)
     this.cartaoCreditoService.getAll().subscribe((dados: Cartao[]) => this.cartoes = dados)
     this.projetoService.getAll().subscribe((dados: Projeto[]) => {
-      this.projetos = dados
+      this.projetos = dados.filter((p: Projeto) => Projeto.isEmAndamento(p))
 
       if (event !== null) {
         event.target.complete()

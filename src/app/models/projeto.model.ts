@@ -28,6 +28,10 @@ export class Projeto {
     public static hasDataFinal(projeto: Projeto): boolean {
         return projeto.dataFinal !== null
     }
+
+    public static isEmAndamento(projeto: Projeto): boolean {
+        return projeto.status === 'EM_ANDAMENTO'
+    }
 }
 
 export const STATUS = [
