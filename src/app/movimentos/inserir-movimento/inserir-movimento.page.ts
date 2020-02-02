@@ -153,12 +153,19 @@ export class InserirMovimentoPage implements OnInit {
   onCartaoChange(): void {
     if (this.hasCartaoCredito()) {
       let cartaoId: number = this.cartao.value
+      
+      this.fatura.enable()
+
       this.cartaoCreditoService.getFaturas(cartaoId).subscribe((dados: Fatura[]) => {
         this.faturas = dados.filter((fatura: Fatura) => fatura.status === 'NAO_FECHADA')
 
         // Pre-seleção de fatura
         if (this.faturas.length > 0) {
           this.fatura.setValue(this.faturas[0].id)
+        } else {
+          // Caso não exista faturas relacionadas ao cartão: limpa e bloqueia o campo
+          this.fatura.setValue('')
+          this.fatura.disable()
         }
       })
 
@@ -172,6 +179,7 @@ export class InserirMovimentoPage implements OnInit {
     } else {
       this.conta.enable()
       this.status.enable()
+      this.fatura.disable()
     }
   }
 
@@ -239,7 +247,7 @@ export class InserirMovimentoPage implements OnInit {
       categoria: [''],
       subcategoria: [{ value: '', disabled: true }],
       cartao: [''],
-      fatura: [''],
+      fatura: [{ value: '', disabled: true }],
       projeto: [''],
       obs: ['']
     })
