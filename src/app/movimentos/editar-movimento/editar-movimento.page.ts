@@ -249,7 +249,7 @@ export class EditarMovimentoPage implements OnInit {
     this.descricao.setValue(movimento.descricao)
     this.credito.setValue(Movimento.isCredito(movimento))
     this.dataInclusao.setValue(movimento.dataInclusao)
-    this.dataContabilizacao.setValue(movimento.dataContabilizacao)
+    this.dataContabilizacao.setValue(DateUtils.convertApiPatternToJson(movimento.dataContabilizacao))
     this.valor.setValue(movimento.valor)
     this.status.setValue(movimento.status)
     this.conta.setValue(conta)
