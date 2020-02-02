@@ -23,8 +23,8 @@ export class CobrancasPage implements OnInit {
 
   private loadData(event: any = null): void {
     this.cobrancaService.getAll().subscribe((dados: Cobranca[]) => {
-      this.cobrancas = dados
-      this.cobrancasFiltradas = dados
+      this.cobrancas = dados.sort(Cobranca.sortByDataVencimento)
+      this.cobrancasFiltradas = this.cobrancas
 
       if(event !== null){
         event.target.complete()

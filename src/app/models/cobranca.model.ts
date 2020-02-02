@@ -1,5 +1,7 @@
 import { Beneficiario } from './beneficiario.model';
 
+import * as moment from 'moment'
+
 export class Cobranca {
     constructor(
         public id: number,
@@ -43,6 +45,13 @@ export class Cobranca {
             default:
                 return ''
         }
+    }
+
+    public static sortByDataVencimento(a: Cobranca, b: Cobranca): number {
+        let aVcto = moment(a.dataVencimento, 'DD/MM/YYYY')
+        let bVcto = moment(b.dataVencimento, 'DD/MM/YYYY')
+
+        return aVcto.isBefore(bVcto) ? -1 : 1
     }
 }
 
