@@ -240,7 +240,7 @@ export class EditarMovimentoPage implements OnInit {
 
   private loadForm(movimento: Movimento): void {
     let conta = (movimento.conta !== null) ? movimento.conta.id : ''
-    let categoria = (movimento.subcategoria !== null) ? movimento.subcategoria.categoria.id : ''
+    let categoria = (movimento.categoria !== null) ? movimento.categoria.id : ''
     let subcategoria = (movimento.subcategoria !== null) ? movimento.subcategoria.id : ''
     let cartao = (movimento.fatura !== null) ? movimento.fatura.cartao.id : ''
     let fatura = (movimento.fatura !== null) ? movimento.fatura.id : ''
