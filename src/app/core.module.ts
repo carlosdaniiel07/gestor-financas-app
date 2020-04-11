@@ -20,6 +20,8 @@ import { CorretoraService } from './services/corretora.service';
 import { ModalidadeInvestimentoService } from './services/modalidade-investimento.service';
 import { TaskService } from './services/task.service';
 
+import { FCM } from '@ionic-native/fcm/ngx'
+
 @NgModule({
   declarations: [],
   imports: [
@@ -44,7 +46,8 @@ import { TaskService } from './services/task.service';
     TaskService,
     ToastUtils,
     LoadingUtils,
-    RouteGuard
+    RouteGuard,
+    FCM
   ]
 })
 export class CoreModule { }
