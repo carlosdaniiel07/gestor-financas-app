@@ -39,7 +39,7 @@ export class Movimento {
     }
 
     public static hasCategoria(movto: Movimento): boolean {
-        return movto.subcategoria !== null
+        return movto.categoria !== null
     }
 
     public static hasConta(movto: Movimento): boolean {

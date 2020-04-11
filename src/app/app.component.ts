@@ -6,6 +6,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
 import { MenuOtherOptionsComponent } from './menu-other-options/menu-other-options.component';
 
+import { FCM, NotificationData } from '@ionic-native/fcm/ngx'
+import { ToastUtils } from './utils/toast.utils';
+import { NotificationService } from './services/notification.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -22,7 +26,10 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthService,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private toast: ToastUtils,
+    private notificationService: NotificationService,
+    private fcm: FCM
   ) {
     this.initializeApp();
   }
@@ -31,6 +38,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.initFirebaseMessaging();
     });
   }
 
@@ -43,5 +51,18 @@ export class AppComponent {
       component: MenuOtherOptionsComponent,
       event: ev
     }).then((popover) => popover.present())
+  }
+
+  private initFirebaseMessaging(): void {
+    this.fcm.onNotification().subscribe((notification: NotificationData) => {
+      const isBackground: boolean = notification.wasTapped
+
+      if (!isBackground) {
+        this.toast.showInfoToast(notification.body, 0, true)
+      }
+
+      // Marca notificação como recebida..
+      this.notificationService.markAsReceived(Number.parseInt(notification.id)).subscribe()
+    })
   }
 }

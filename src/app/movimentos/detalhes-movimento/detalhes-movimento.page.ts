@@ -90,7 +90,7 @@ export class DetalhesMovimentoPage implements OnInit {
 
   private loadForm(movimento: Movimento): void {
     let conta = (movimento.conta !== null) ? movimento.conta.nome : ''
-    let categoria = (movimento.subcategoria !== null) ? movimento.subcategoria.categoria.nome : ''
+    let categoria = (movimento.categoria !== null) ? movimento.categoria.nome : ''
     let subcategoria = (movimento.subcategoria !== null) ? movimento.subcategoria.nome : ''
     let cartao = (movimento.fatura !== null) ? movimento.fatura.cartao.nome : ''
     let fatura = (movimento.fatura !== null) ? movimento.fatura.referencia : ''
