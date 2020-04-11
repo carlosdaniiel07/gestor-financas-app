@@ -7,6 +7,8 @@ import { AuthService } from './services/auth.service';
 import { MenuOtherOptionsComponent } from './menu-other-options/menu-other-options.component';
 
 import { FCM, NotificationData } from '@ionic-native/fcm/ngx'
+import { ToastUtils } from './utils/toast.utils';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +27,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private authService: AuthService,
     private popoverController: PopoverController,
+    private toast: ToastUtils,
+    private notificationService: NotificationService,
     private fcm: FCM
   ) {
     this.initializeApp();
@@ -51,7 +55,14 @@ export class AppComponent {
 
   private initFirebaseMessaging(): void {
     this.fcm.onNotification().subscribe((notification: NotificationData) => {
-      // Some code here..
+      const isBackground: boolean = notification.wasTapped
+
+      if (!isBackground) {
+        this.toast.showInfoToast(notification.body, 0, true)
+      }
+
+      // Marca notificação como recebida..
+      this.notificationService.markAsReceived(Number.parseInt(notification.id)).subscribe()
     })
   }
 }

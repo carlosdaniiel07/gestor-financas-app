@@ -21,6 +21,7 @@ import { ModalidadeInvestimentoService } from './services/modalidade-investiment
 import { TaskService } from './services/task.service';
 
 import { FCM } from '@ionic-native/fcm/ngx'
+import { NotificationService } from './services/notification.service';
 
 @NgModule({
   declarations: [],
@@ -44,6 +45,7 @@ import { FCM } from '@ionic-native/fcm/ngx'
     CorretoraService,
     ModalidadeInvestimentoService,
     TaskService,
+    NotificationService,
     ToastUtils,
     LoadingUtils,
     RouteGuard,
