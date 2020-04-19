@@ -7,7 +7,7 @@ import { SaldoItemDTO } from 'src/app/models/saldo-item.dto';
 })
 export class DetalhesSaldoItemComponent implements OnInit {
 
-  @Input() item: SaldoItemDTO[]
+  @Input() item: SaldoItemDTO
 
   constructor() { }
 
