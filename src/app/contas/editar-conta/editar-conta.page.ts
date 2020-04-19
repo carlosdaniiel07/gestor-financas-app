@@ -81,7 +81,7 @@ export class EditarContaPage implements OnInit {
     this.banco.setValue(conta.banco)
     this.agencia.setValue(conta.agencia)
     this.conta.setValue(conta.conta)
-    this.saldo.setValue(conta.saldo)
+    this.saldo.setValue(conta.saldo.toFixed(2))
     this.saldoInicial.setValue(conta.saldoInicial)
     this.compoemSaldo.setValue(conta.compoemSaldo)
   }
