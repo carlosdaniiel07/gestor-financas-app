@@ -55,7 +55,11 @@ export class DetalhesSaldoComponent implements OnInit {
         return this.movimentoService.getAllByPeriodo(minDate, maxDate).toPromise()
       })
       .then((movimentos: Movimento[]) => {
-        this.dados.movimentos = movimentos.filter(m => !Movimento.hasCartaoCredito(m)).map(m => {
+        this.dados.movimentos = movimentos.filter(m => {
+          return !Movimento.hasCartaoCredito(m) && !Movimento.isCobranca(m) 
+            && (!Movimento.hasConta(m) || (Movimento.hasConta(m) && m.conta.compoemSaldo))
+        })
+        .map(m => {
           return {
             descricao: m.descricao,
             data: m.dataContabilizacao,

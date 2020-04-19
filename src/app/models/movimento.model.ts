@@ -5,6 +5,7 @@ import { Fatura } from './fatura.model';
 import { Categoria } from './categoria.model';
 
 import * as moment from 'moment'
+import { Cobranca } from './cobranca.model';
 
 export class Movimento {
     constructor(
@@ -23,7 +24,8 @@ export class Movimento {
         public categoria: Categoria,
         public subcategoria: Subcategoria,
         public projeto: Projeto,
-        public fatura: Fatura
+        public fatura: Fatura,
+        public origem: string = null
     ) {}
 
     public static isCredito(movto: Movimento): boolean {
@@ -32,6 +34,14 @@ export class Movimento {
 
     public static isEfetivado(movto: Movimento): boolean {
         return movto.status === 'EFETIVADO'
+    }
+
+    /**
+     * Verifica se o movimento foi originado de uma cobrança
+     * @param movto 
+     */
+    public static isCobranca(movto: Movimento): boolean {
+        return movto.origem === Cobranca.ORIGEM
     }
 
     public static hasCartaoCredito(movto: Movimento): boolean {
