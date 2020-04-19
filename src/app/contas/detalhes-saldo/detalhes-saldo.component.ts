@@ -46,7 +46,7 @@ export class DetalhesSaldoComponent implements OnInit {
             descricao: c.descricao,
             data: Cobranca.isPago(c) ? c.dataPagamento : c.dataVencimento,
             valor: Cobranca.getValorTotal(c),
-            obs: `Beneficiário: ${c.beneficiario.nome}`,
+            obs: c.beneficiario.nome,
             isCredito: false,
             isEfetivado: Cobranca.isPago(c)
           }
@@ -64,7 +64,7 @@ export class DetalhesSaldoComponent implements OnInit {
             descricao: m.descricao,
             data: m.dataContabilizacao,
             valor: m.valorTotal,
-            obs: Movimento.hasConta(m) ? `Conta: ${m.conta.nome}` : '',
+            obs: Movimento.hasConta(m) ? m.conta.nome : '',
             isCredito: Movimento.isCredito(m),
             isEfetivado: Movimento.isEfetivado(m)
           }
@@ -78,7 +78,7 @@ export class DetalhesSaldoComponent implements OnInit {
             descricao: f.referencia,
             data: f.vencimento,
             valor: f.valor,
-            obs: `Cartão: ${f.cartao.nome}`,
+            obs: f.cartao.nome,
             isCredito: false,
             isEfetivado: Fatura.isPago(f)
           }
