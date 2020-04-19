@@ -26,4 +26,8 @@ export class Fatura {
                 return ''
         }
     }
+
+    public static isPago(fatura: Fatura): boolean {
+        return fatura.status === 'PAGO' || fatura.status === 'PAGO_PARCIAL'
+    }
 }

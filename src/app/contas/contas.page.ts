@@ -5,6 +5,7 @@ import { NavController, ModalController } from '@ionic/angular';
 import { ListaMovimentosComponent } from '../shared/lista-movimentos/lista-movimentos.component';
 import { Movimento } from '../models/movimento.model';
 import { LoadingUtils } from '../utils/loading.utils';
+import { DetalhesSaldoComponent } from './detalhes-saldo/detalhes-saldo.component';
 
 @Component({
   selector: 'app-contas',
@@ -59,5 +60,11 @@ export class ContasPage implements OnInit {
         }
       }).then((modal) => modal.present())
     })
+  }
+
+  showDetalhesSaldo(): void {
+    this.modalController.create({
+      component: DetalhesSaldoComponent
+    }).then((modal) => modal.present())
   }
 }

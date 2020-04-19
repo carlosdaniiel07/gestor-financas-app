@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Fatura } from '../models/fatura.model';
 import { APP_CONFIG } from '../app.config';
@@ -11,6 +11,14 @@ import { PagamentoFaturaDTO } from '../models/pagamento-fatura.dto';
 export class FaturaService {
 
     constructor(private http: HttpClient) {
+    }
+
+    getAllByPeriodo(minDate: string, maxDate: string): Observable<Fatura[]> {
+        const params = new HttpParams()
+            .append('minDate', minDate)
+            .append('maxDate', maxDate)
+
+        return this.http.get<Fatura[]>(`${APP_CONFIG.apiUrl}/faturas/periodo`, { params })
     }
 
     getById(faturaId: number): Observable<Fatura> {

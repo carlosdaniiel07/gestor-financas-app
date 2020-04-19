@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Cobranca } from '../models/cobranca.model';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from '../app.config';
@@ -15,6 +15,14 @@ export class CobrancaService {
 
     getAll(): Observable<Cobranca[]> {
         return this.http.get<Cobranca[]>(`${APP_CONFIG.apiUrl}/cobrancas`)
+    }
+
+    getAllByPeriodo(minDate: string, maxDate: string): Observable<Cobranca[]> {
+        const httpParams = new HttpParams()
+            .append('minDate', minDate)
+            .append('maxDate', maxDate)
+
+        return this.http.get<Cobranca[]>(`${APP_CONFIG.apiUrl}/cobrancas/periodo`, { params: httpParams })
     }
 
     getById(cobrancaId: number): Observable<Cobranca> {
