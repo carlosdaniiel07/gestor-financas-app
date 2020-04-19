@@ -36,6 +36,7 @@ export class EditarContaPage implements OnInit {
     this.contaObj.conta = this.conta.value
     this.contaObj.tipo = this.tiposConta.find((t: TipoConta) => t.id === this.tipo.value)
     this.contaObj.saldoInicial = this.saldoInicial.value
+    this.contaObj.compoemSaldo = this.compoemSaldo.value
 
     this.contaService.update(this.contaObj).subscribe(() => this.toast.showToast('Conta atualizada'))
   }
@@ -69,6 +70,7 @@ export class EditarContaPage implements OnInit {
       agencia: ['', Validators.required],
       conta: ['', Validators.required],
       saldo: [{value: '', disabled: true}],
+      compoemSaldo: [true, Validators.required],
       saldoInicial: ['']
     })
   }
@@ -81,6 +83,7 @@ export class EditarContaPage implements OnInit {
     this.conta.setValue(conta.conta)
     this.saldo.setValue(conta.saldo)
     this.saldoInicial.setValue(conta.saldoInicial)
+    this.compoemSaldo.setValue(conta.compoemSaldo)
   }
 
   get nome() { return this.contaForm.get('nome') }
@@ -90,4 +93,5 @@ export class EditarContaPage implements OnInit {
   get conta() { return this.contaForm.get('conta') }
   get saldo() { return this.contaForm.get('saldo') }
   get saldoInicial() { return this.contaForm.get('saldoInicial') }
+  get compoemSaldo() { return this.contaForm.get('compoemSaldo') }
 }

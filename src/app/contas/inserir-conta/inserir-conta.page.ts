@@ -44,6 +44,7 @@ export class InserirContaPage implements OnInit {
       agencia: this.agencia.value,
       conta: this.conta.value,
       saldoInicial: this.saldoInicial.value,
+      compoemSaldo: this.compoemSaldo.value,
       tipo: this.tiposConta.find((t: TipoConta) => t.id === this.tipo.value) 
     }
 
@@ -64,6 +65,7 @@ export class InserirContaPage implements OnInit {
       banco: ['', Validators.required],
       agencia: ['', Validators.required],
       conta: ['', Validators.required],
+      compoemSaldo: [true, Validators.required],
       saldoInicial: ['']
     })
   }
@@ -74,4 +76,5 @@ export class InserirContaPage implements OnInit {
   get agencia() { return this.contaForm.get('agencia') }
   get conta() { return this.contaForm.get('conta') }
   get saldoInicial() { return this.contaForm.get('saldoInicial') }
+  get compoemSaldo() { return this.contaForm.get('compoemSaldo') }
 }

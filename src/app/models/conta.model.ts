@@ -8,7 +8,7 @@ export interface Conta {
     conta: string,
     saldoInicial: number,
     saldo: number,
+    compoemSaldo: boolean,
     ativo: boolean,
-
     tipo: TipoConta
 }
