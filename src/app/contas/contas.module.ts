@@ -10,6 +10,8 @@ import { RouteGuard } from '../route.guard';
 import { SharedModule } from '../shared/shared.module';
 import { ListaContasComponent } from './lista-contas/lista-contas.component';
 import { ListaMovimentosComponent } from '../shared/lista-movimentos/lista-movimentos.component';
+import { DetalhesSaldoComponent } from './detalhes-saldo/detalhes-saldo.component';
+import { DetalhesSaldoItemComponent } from './detalhes-saldo/detalhes-saldo-item/detalhes-saldo-item.component';
 
 const routes: Routes = [
   {path: '', component: ContasPage, canActivate: [ RouteGuard ]},
@@ -19,7 +21,8 @@ const routes: Routes = [
 
 @NgModule({
   entryComponents: [
-    ListaMovimentosComponent
+    ListaMovimentosComponent,
+    DetalhesSaldoComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,9 @@ const routes: Routes = [
   ],
   declarations: [
     ContasPage,
-    ListaContasComponent
+    ListaContasComponent,
+    DetalhesSaldoComponent,
+    DetalhesSaldoItemComponent
   ]
 })
 export class ContasPageModule {}

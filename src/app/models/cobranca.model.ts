@@ -3,6 +3,9 @@ import { Beneficiario } from './beneficiario.model';
 import * as moment from 'moment'
 
 export class Cobranca {
+
+    public static readonly ORIGEM: string = 'COBRC'
+
     constructor(
         public id: number,
         public descricao: string,

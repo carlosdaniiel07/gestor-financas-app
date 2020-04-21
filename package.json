@@ -1,8 +1,8 @@
 {
     "name": "gestor-financas-app",
-    "version": "0.0.6.2",
+    "version": "0.0.6.4",
     "author": "Carlos Almeida",
-    "homepage": "http://github.com/carlosdaniiel07/",
+    "homepage": "https://github.com/carlosdaniiel07/gestor-financas-app",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",

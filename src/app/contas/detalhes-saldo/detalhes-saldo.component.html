@@ -1,0 +1,70 @@
+<app-page-header (closeEventEmitter)="closeModal()" headerName="Detalhes do saldo" showCloseButton="true">
+</app-page-header>
+
+<ion-toolbar *ngIf="hasData">
+  <div class="ion-text-center">
+    <h5>Saldo futuro <strong>{{saldoFuturo | currency: 'BRL'}}</strong></h5>
+  </div>
+</ion-toolbar>
+
+<ion-content padding>  
+  <div *ngIf="hasData">
+    <!--cobranças -->
+    <ion-list>
+      <ion-list-header *ngIf="dados.cobrancas"><strong>Cobranças</strong></ion-list-header>
+
+      <app-detalhes-saldo-item
+        *ngFor="let cobranca of dados.cobrancas"
+        [item]="cobranca"
+      ></app-detalhes-saldo-item>
+    </ion-list>
+
+    <!-- movimentos  -->
+    <ion-list>
+      <ion-list-header *ngIf="dados.movimentos"><strong>Movimentos</strong></ion-list-header>
+
+      <app-detalhes-saldo-item
+        *ngFor="let movimento of dados.movimentos"
+        [item]="movimento"
+    ></app-detalhes-saldo-item>
+    </ion-list>
+
+    <!-- faturas -->
+    <ion-list>
+      <ion-list-header *ngIf="dados.faturas"><strong>Faturas</strong></ion-list-header>
+
+      <app-detalhes-saldo-item
+        *ngFor="let fatura of dados.faturas"
+        [item]="fatura"
+      ></app-detalhes-saldo-item>
+    </ion-list>
+  </div>
+
+  <!-- skeleton -->
+  <div *ngIf="!hasData">
+    <div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </div>
+
+    <ion-list lines="none">
+      <ion-list-header>
+        <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+      </ion-list-header>
+
+      <ion-item *ngFor="let i of [0, 1, 2, 3, 4]">
+        <ion-label>
+          <h2>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h2>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

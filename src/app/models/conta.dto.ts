@@ -6,5 +6,6 @@ export interface ContaDTO {
     agencia: string,
     conta: string,
     saldoInicial: number,
+    compoemSaldo: boolean,
     tipo: TipoConta
 }

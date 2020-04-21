@@ -1,0 +1,20 @@
+<ion-item>
+    <ion-label>
+        <h2>{{item.descricao}}</h2>
+        <p>
+            <ion-icon name="calendar"></ion-icon>&nbsp;
+            {{item.data}}
+        </p>
+        <p>
+            <ion-icon name="information-circle-outline"></ion-icon>
+            {{item.obs}}
+        </p>
+    </ion-label>
+
+    <ion-chip *ngIf="item.isCredito" color="success" [outline]="!item.isEfetivado">
+        <ion-label>{{item.valor | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+    <ion-chip *ngIf="!item.isCredito" color="danger" [outline]="!item.isEfetivado">
+        <ion-label>{{item.valor | number: '1.2-2'}}</ion-label>
+    </ion-chip>
+</ion-item>
